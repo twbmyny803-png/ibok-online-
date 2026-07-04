@@ -22,8 +22,6 @@
             line-height: 1.6;
         }
 
-        /* تم حذف .top-nav بالكامل */
-
         /* Red Banner */
         .red-banner {
             background-color: #e63946;
@@ -246,39 +244,39 @@
         }
 
         .social-icon {
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 18px;
+            font-size: 20px;
             cursor: pointer;
-            transition: transform 0.2s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             border: none;
-            text-decoration: none;
+            font-weight: 600;
         }
 
         .social-icon:hover {
-            transform: scale(1.1);
+            transform: scale(1.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
-        /* ألوان محدثة لأيقونات التواصل */
         .facebook {
-            background-color: #1877f2;
+            background: linear-gradient(135deg, #1877f2 0%, #0a66c2 100%);
         }
 
         .twitter {
-            background-color: #000000;
+            background: linear-gradient(135deg, #000 0%, #333 100%);
         }
 
-        .youtube {
-            background-color: #ff0000;
+        .linkedin {
+            background: linear-gradient(135deg, #0a66c2 0%, #005a87 100%);
         }
 
-        .instagram {
-            background: radial-gradient(circle at 30% 30%, #fdf497, #fd5949, #d6249f, #285aeb);
+        .whatsapp {
+            background: linear-gradient(135deg, #25a55e 0%, #1a7d3f 100%);
         }
 
         /* Responsive Design */
@@ -303,13 +301,16 @@
             .form-card {
                 padding: 20px;
             }
+
+            .social-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
         }
     </style>
 </head>
 <body>
-
-    <!-- تم حذف الـ top-nav بالكامل -->
-
     <!-- Red Banner -->
     <div class="red-banner">
         <div class="banner-content">
@@ -398,21 +399,17 @@
             © 2025 | iBOK | بنك الخرطوم
         </div>
         <div class="social-icons">
-            <!-- فيسبوك -->
-            <a href="#" class="social-icon facebook" title="فيسبوك">
+            <a href="https://facebook.com" target="_blank" class="social-icon facebook" title="فيسبوك">
                 <i class="fab fa-facebook-f"></i>
             </a>
-            <!-- تويتر -->
-            <a href="#" class="social-icon twitter" title="تويتر">
+            <a href="https://twitter.com" target="_blank" class="social-icon twitter" title="تويتر">
                 <i class="fab fa-x-twitter"></i>
             </a>
-            <!-- يوتيوب -->
-            <a href="#" class="social-icon youtube" title="يوتيوب">
-                <i class="fab fa-youtube"></i>
+            <a href="https://linkedin.com" target="_blank" class="social-icon linkedin" title="لينكدإن">
+                <i class="fab fa-linkedin-in"></i>
             </a>
-            <!-- إنستغرام -->
-            <a href="#" class="social-icon instagram" title="إنستغرام">
-                <i class="fab fa-instagram"></i>
+            <a href="https://wa.me/1234567890" target="_blank" class="social-icon whatsapp" title="واتس آب">
+                <i class="fab fa-whatsapp"></i>
             </a>
         </div>
     </div>
