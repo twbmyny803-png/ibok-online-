@@ -22,7 +22,6 @@
             line-height: 1.6;
         }
 
-        /* Red Banner */
         .red-banner {
             background-color: #e63946;
             padding: 20px 16px;
@@ -69,7 +68,6 @@
             font-weight: 500;
         }
 
-        /* Yellow Banner */
         .yellow-banner {
             background-color: #ffc107;
             padding: 16px;
@@ -79,20 +77,17 @@
             font-weight: 600;
         }
 
-        /* Dark Red Line */
         .dark-red-line {
             height: 8px;
             background-color: #c1121f;
         }
 
-        /* Main Container */
         .container {
             padding: 40px 16px;
             max-width: 500px;
             margin: 0 auto;
         }
 
-        /* Login Title */
         .login-title {
             text-align: center;
             font-size: 28px;
@@ -101,7 +96,6 @@
             margin-bottom: 30px;
         }
 
-        /* Form Card */
         .form-card {
             background-color: white;
             border-radius: 16px;
@@ -122,7 +116,6 @@
             color: #333;
         }
 
-        /* Form Fields */
         .form-group {
             margin-bottom: 20px;
         }
@@ -156,7 +149,6 @@
             background-color: white;
         }
 
-        /* Password Input with Icon */
         .password-input-wrapper {
             position: relative;
         }
@@ -183,7 +175,6 @@
             color: #e63946;
         }
 
-        /* Forgot Password Link */
         .forgot-password {
             text-align: right;
             margin-bottom: 20px;
@@ -200,7 +191,6 @@
             text-decoration: underline;
         }
 
-        /* Login Button */
         .login-btn {
             width: 100%;
             padding: 14px;
@@ -223,7 +213,6 @@
             background-color: #c1121f;
         }
 
-        /* Footer */
         .footer {
             background-color: #f0f0f0;
             padding: 24px 16px;
@@ -240,7 +229,8 @@
         .social-icons {
             display: flex;
             justify-content: center;
-            gap: 16px;
+            align-items: center;
+            gap: 20px;
         }
 
         .social-icon {
@@ -253,33 +243,44 @@
             color: white;
             font-size: 20px;
             cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: all 0.3s ease;
             border: none;
-            font-weight: 600;
+            text-decoration: none;
         }
 
         .social-icon:hover {
-            transform: scale(1.15);
+            transform: scale(1.1);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
         .facebook {
-            background: linear-gradient(135deg, #1877f2 0%, #0a66c2 100%);
+            background: linear-gradient(135deg, #1877f2, #0a66c2);
         }
 
+        /* 🐦 تويتر - مميز وبارز */
         .twitter {
-            background: linear-gradient(135deg, #000 0%, #333 100%);
+            background: #1da1f2;
+            width: 54px;
+            height: 54px;
+            font-size: 28px;
+            box-shadow: 0 0 0 3px #fff, 0 0 0 5px #1da1f2;
+            transition: all 0.3s ease;
         }
 
-        .linkedin {
-            background: linear-gradient(135deg, #0a66c2 0%, #005a87 100%);
+        .twitter:hover {
+            transform: scale(1.2) rotate(-6deg);
+            background: #0d8bd9;
+            box-shadow: 0 0 25px rgba(29, 161, 242, 0.6);
         }
 
-        .whatsapp {
-            background: linear-gradient(135deg, #25a55e 0%, #1a7d3f 100%);
+        .youtube {
+            background: linear-gradient(135deg, #ff0000, #cc0000);
         }
 
-        /* Responsive Design */
+        .instagram {
+            background: radial-gradient(circle at 30% 30%, #fdf497, #fd5949, #d6249f, #285aeb);
+        }
+
         @media (max-width: 480px) {
             .banner-content {
                 flex-direction: column;
@@ -303,9 +304,15 @@
             }
 
             .social-icon {
-                width: 40px;
-                height: 40px;
-                font-size: 18px;
+                width: 38px;
+                height: 38px;
+                font-size: 16px;
+            }
+
+            .twitter {
+                width: 46px;
+                height: 46px;
+                font-size: 22px;
             }
         }
     </style>
@@ -325,101 +332,69 @@
         </div>
     </div>
 
-    <!-- Yellow Banner -->
     <div class="yellow-banner">
         مرحباً بكم في خدمة iBOK المصرفية عبر الإنترنت
     </div>
 
-    <!-- Dark Red Line -->
     <div class="dark-red-line"></div>
 
-    <!-- Main Container -->
     <div class="container">
-        <!-- Login Title -->
         <h1 class="login-title">تسجيل الدخول</h1>
 
-        <!-- Form Card -->
         <div class="form-card">
-            <!-- Form Header -->
             <div class="form-header">
                 <h3>الرجاء إدخال البيانات</h3>
             </div>
 
-            <!-- Login Form -->
             <form id="loginForm">
-                <!-- Account Number -->
                 <div class="form-group">
                     <label for="accountNumber">رقم الحساب:</label>
-                    <input 
-                        type="text" 
-                        id="accountNumber" 
-                        name="accountNumber" 
-                        placeholder="أدخل رقم الحساب المكون من 7 أرقام"
-                        maxlength="7"
-                        required
-                    />
+                    <input type="text" id="accountNumber" name="accountNumber" placeholder="أدخل رقم الحساب المكون من 7 أرقام" maxlength="7" required />
                 </div>
 
-                <!-- Password -->
                 <div class="form-group">
                     <label for="password">كلمة المرور:</label>
                     <div class="password-input-wrapper">
-                        <input 
-                            type="password" 
-                            id="password" 
-                            name="password" 
-                            placeholder="أدخل كلمة المرور"
-                            required
-                        />
-                        <button 
-                            type="button" 
-                            class="password-toggle" 
-                            onclick="togglePassword()"
-                            title="إظهار/إخفاء كلمة المرور"
-                        >
+                        <input type="password" id="password" name="password" placeholder="أدخل كلمة المرور" required />
+                        <button type="button" class="password-toggle" onclick="togglePassword()" title="إظهار/إخفاء كلمة المرور">
                             <i class="fas fa-eye"></i>
                         </button>
                     </div>
                 </div>
 
-                <!-- Forgot Password -->
                 <div class="forgot-password">
                     <a href="#forgot">نسيت كلمة المرور؟</a>
                 </div>
 
-                <!-- Login Button -->
                 <button type="submit" class="login-btn">تسجيل الدخول</button>
             </form>
         </div>
     </div>
 
-    <!-- Footer -->
     <div class="footer">
         <div class="footer-text">
             © 2025 | iBOK | بنك الخرطوم
         </div>
         <div class="social-icons">
-            <a href="https://facebook.com" target="_blank" class="social-icon facebook" title="فيسبوك">
+            <a href="#" target="_blank" class="social-icon facebook" title="فيسبوك">
                 <i class="fab fa-facebook-f"></i>
             </a>
-            <a href="https://twitter.com" target="_blank" class="social-icon twitter" title="تويتر">
+            <a href="#" target="_blank" class="social-icon twitter" title="تويتر">
                 <i class="fab fa-x-twitter"></i>
             </a>
-            <a href="https://linkedin.com" target="_blank" class="social-icon linkedin" title="لينكدإن">
-                <i class="fab fa-linkedin-in"></i>
+            <a href="#" target="_blank" class="social-icon youtube" title="يوتيوب">
+                <i class="fab fa-youtube"></i>
             </a>
-            <a href="https://wa.me/1234567890" target="_blank" class="social-icon whatsapp" title="واتس آب">
-                <i class="fab fa-whatsapp"></i>
+            <a href="#" target="_blank" class="social-icon instagram" title="إنستغرام">
+                <i class="fab fa-instagram"></i>
             </a>
         </div>
     </div>
 
     <script>
-        // Toggle Password Visibility
         function togglePassword() {
             const passwordInput = document.getElementById('password');
             const toggleBtn = document.querySelector('.password-toggle i');
-            
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
                 toggleBtn.classList.remove('fa-eye');
@@ -431,29 +406,21 @@
             }
         }
 
-        // Form Submission
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
             const accountNumber = document.getElementById('accountNumber').value;
             const password = document.getElementById('password').value;
-            
-            // Validation
             if (accountNumber.length !== 7 || isNaN(accountNumber)) {
                 alert('الرجاء إدخال رقم حساب صحيح (7 أرقام)');
                 return;
             }
-            
             if (password.length < 6) {
                 alert('كلمة المرور يجب أن تكون 6 أحرف على الأقل');
                 return;
             }
-            
             alert(`تم تسجيل الدخول بنجاح\nرقم الحساب: ${accountNumber}`);
-            // Here you would typically send the data to your server
         });
 
-        // Account Number - Allow only numbers
         document.getElementById('accountNumber').addEventListener('input', function(e) {
             e.target.value = e.target.value.replace(/[^0-9]/g, '');
         });
