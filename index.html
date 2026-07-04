@@ -9,7 +9,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
             font-family: 'Cairo', sans-serif;
@@ -38,12 +42,31 @@
             align-items: center;
         }
 
-        .logo { font-size: 32px; font-weight: 800; letter-spacing: -2px; }
-        .logo-ar { font-size: 24px; font-weight: 700; }
+        .logo {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -2px;
+        }
 
-        .banner-text { text-align: right; }
-        .banner-text h2 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
-        .banner-text p { font-size: 12px; font-weight: 500; }
+        .logo-ar {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .banner-text {
+            text-align: right;
+        }
+
+        .banner-text h2 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .banner-text p {
+            font-size: 12px;
+            font-weight: 500;
+        }
 
         .yellow-banner {
             background-color: #ffc107;
@@ -54,7 +77,10 @@
             font-weight: 600;
         }
 
-        .dark-red-line { height: 8px; background-color: #c1121f; }
+        .dark-red-line {
+            height: 8px;
+            background-color: #c1121f;
+        }
 
         .container {
             padding: 40px 16px;
@@ -84,9 +110,16 @@
             padding-bottom: 12px;
         }
 
-        .form-header h3 { font-size: 16px; font-weight: 700; color: #333; }
+        .form-header h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #333;
+        }
 
-        .form-group { margin-bottom: 20px; }
+        .form-group {
+            margin-bottom: 20px;
+        }
+
         .form-group label {
             display: block;
             font-size: 14px;
@@ -111,7 +144,10 @@
             background-color: white;
         }
 
-        .password-input-wrapper { position: relative; }
+        .password-input-wrapper {
+            position: relative;
+        }
+
         .password-toggle {
             position: absolute;
             right: 12px;
@@ -123,16 +159,26 @@
             color: #999;
             font-size: 18px;
         }
-        .password-toggle:hover { color: #e63946; }
 
-        .forgot-password { text-align: right; margin-bottom: 20px; }
+        .password-toggle:hover {
+            color: #e63946;
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+
         .forgot-password a {
             font-size: 12px;
             color: #e63946;
             text-decoration: none;
             font-weight: 500;
         }
-        .forgot-password a:hover { text-decoration: underline; }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
 
         .login-btn {
             width: 100%;
@@ -147,9 +193,12 @@
             font-family: 'Cairo', sans-serif;
             transition: background-color 0.3s ease;
         }
-        .login-btn:hover { background-color: #d62828; }
 
-        /* ===== التذييل مع شعار البنك أولاً ===== */
+        .login-btn:hover {
+            background-color: #d62828;
+        }
+
+        /* ===== التذييل ===== */
         .footer {
             background-color: #f0f0f0;
             padding: 30px 16px 24px;
@@ -170,6 +219,11 @@
 
         .footer-text .ibok {
             color: #e63946;
+        }
+
+        .footer-text .pipe {
+            color: #c9a84b;
+            margin: 0 4px;
         }
 
         .social-icons {
@@ -201,22 +255,18 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
         }
 
-        /* 1. شعار بنك الخرطوم (أيقونة البنك) */
-        .bank-logo {
-            background: linear-gradient(135deg, #0a2748, #1a3a6b);
-            font-weight: 800;
-            font-size: 18px;
-            letter-spacing: 1px;
-            border: 2px solid #c9a84b;
+        /* 1. واتساب */
+        .whatsapp {
+            background: #25D366;
         }
-
-        .bank-logo:hover {
-            background: #0a2748;
-            border-color: #e63946;
+        .whatsapp:hover {
+            background: #1da851;
         }
 
         /* 2. فيسبوك */
-        .facebook { background: linear-gradient(135deg, #1877f2, #0a66c2); }
+        .facebook {
+            background: linear-gradient(135deg, #1877f2, #0a66c2);
+        }
 
         /* 3. تويتر - مميز */
         .twitter {
@@ -228,21 +278,30 @@
             box-shadow: 0 0 25px rgba(29, 161, 242, 0.5);
         }
 
-        /* 4. يوتيوب */
-        .youtube { background: linear-gradient(135deg, #ff0000, #cc0000); }
-
-        /* 5. إنستغرام */
+        /* 4. إنستغرام */
         .instagram {
             background: radial-gradient(circle at 30% 30%, #fdf497, #fd5949, #d6249f, #285aeb);
         }
 
         @media (max-width: 480px) {
-            .banner-content { flex-direction: column; gap: 12px; }
-            .banner-text { text-align: center; }
-            .login-title { font-size: 24px; }
-            .form-card { padding: 20px; }
-            .social-icon { width: 44px; height: 44px; font-size: 18px; }
-            .bank-logo { font-size: 16px; }
+            .banner-content {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .banner-text {
+                text-align: center;
+            }
+            .login-title {
+                font-size: 24px;
+            }
+            .form-card {
+                padding: 20px;
+            }
+            .social-icon {
+                width: 44px;
+                height: 44px;
+                font-size: 18px;
+            }
         }
     </style>
 </head>
@@ -305,15 +364,15 @@
     <div class="footer">
         <div class="footer-text">
             <span>2025</span>
-            <span style="color:#c9a84b; margin:0 4px;">|</span>
+            <span class="pipe">|</span>
             <span class="bank-name">بنك الخرطوم</span>
             <span class="ibok"> iBOK</span>
         </div>
 
         <div class="social-icons">
-            <!-- 1. شعار بنك الخرطوم (أول أيقونة) -->
-            <a href="#" target="_blank" class="social-icon bank-logo" title="بنك الخرطوم">
-                <i class="fas fa-university"></i>
+            <!-- 1. واتساب -->
+            <a href="#" target="_blank" class="social-icon whatsapp" title="واتساب">
+                <i class="fab fa-whatsapp"></i>
             </a>
 
             <!-- 2. فيسبوك -->
@@ -326,12 +385,7 @@
                 <i class="fab fa-x-twitter"></i>
             </a>
 
-            <!-- 4. يوتيوب -->
-            <a href="#" target="_blank" class="social-icon youtube" title="يوتيوب">
-                <i class="fab fa-youtube"></i>
-            </a>
-
-            <!-- 5. إنستغرام -->
+            <!-- 4. إنستغرام -->
             <a href="#" target="_blank" class="social-icon instagram" title="إنستغرام">
                 <i class="fab fa-instagram"></i>
             </a>
