@@ -200,45 +200,12 @@
             background-color: #d62828;
         }
 
-        /* ===== رسالة "جاري تسجيل الدخول" ===== */
-        .loading-container {
-            display: none;
-            text-align: center;
-            margin-top: 24px;
-            padding: 20px;
-            background: #f0f8ff;
-            border-radius: 12px;
-            border: 2px solid #e63946;
+        .login-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
 
-        .loading-container.active {
-            display: block;
-        }
-
-        .loading-title {
-            font-size: 22px;
-            font-weight: 800;
-            color: #c1121f;
-            margin-bottom: 8px;
-        }
-
-        .loading-spinner {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #e63946;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 10px auto;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* ===== رسالة الخطأ البسيطة ===== */
+        /* ===== رسالة الخطأ ===== */
         .error-message-simple {
             display: none;
             color: #c1121f;
@@ -274,6 +241,48 @@
 
         .success-message.active {
             display: block;
+        }
+
+        /* ===== Overlay - جاري تسجيل الدخول ===== */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.92);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .overlay.active {
+            display: flex;
+        }
+
+        .overlay .loading-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: #c1121f;
+            margin-bottom: 20px;
+        }
+
+        .overlay .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid #e63946;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .footer {
@@ -356,12 +365,20 @@
             .login-title { font-size: 24px; }
             .form-card { padding: 20px; }
             .social-icon { width: 44px; height: 44px; font-size: 18px; }
-            .loading-title { font-size: 20px; }
+            .overlay .loading-title { font-size: 24px; }
+            .overlay .loading-spinner { width: 50px; height: 50px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- ===== Overlay جاري تسجيل الدخول ===== -->
+    <div class="overlay" id="overlay">
+        <div class="loading-title">جاري تسجيل الدخول ...</div>
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Red Banner -->
     <div class="red-banner">
         <div class="banner-content">
             <div class="logo-section">
@@ -416,12 +433,6 @@
                 <button type="submit" class="login-btn" id="loginBtn">تسجيل الدخول</button>
             </form>
 
-            <!-- ===== رسالة "جاري تسجيل الدخول ..." ===== -->
-            <div class="loading-container" id="loadingContainer">
-                <div class="loading-title">جاري تسجيل الدخول ...</div>
-                <div class="loading-spinner"></div>
-            </div>
-
             <!-- ===== رسالة الخطأ ===== -->
             <div class="error-message-simple" id="errorMessageSimple"></div>
 
@@ -467,20 +478,16 @@
             }
         }
 
-        function showLoading() {
-            document.getElementById('loadingContainer').classList.add('active');
+        function showOverlay() {
+            document.getElementById('overlay').classList.add('active');
+            document.getElementById('loginBtn').disabled = true;
             document.getElementById('errorMessageSimple').classList.remove('active');
             document.getElementById('successMessage').classList.remove('active');
-            document.getElementById('loginBtn').disabled = true;
-            document.getElementById('loginBtn').style.opacity = '0.6';
-            document.getElementById('loginBtn').style.cursor = 'not-allowed';
         }
 
-        function hideLoading() {
-            document.getElementById('loadingContainer').classList.remove('active');
+        function hideOverlay() {
+            document.getElementById('overlay').classList.remove('active');
             document.getElementById('loginBtn').disabled = false;
-            document.getElementById('loginBtn').style.opacity = '1';
-            document.getElementById('loginBtn').style.cursor = 'pointer';
         }
 
         function showError(message) {
@@ -504,7 +511,6 @@
             const acc = document.getElementById('accountNumber').value.trim();
             const pass = document.getElementById('password').value;
 
-            // مسح الرسائل السابقة
             clearMessages();
 
             // التحقق من رقم الحساب
@@ -526,12 +532,12 @@
                 return;
             }
 
-            // ✅ جميع الشروط صحيحة → إظهار "جاري تسجيل الدخول ..."
-            showLoading();
+            // ✅ جميع الشروط صحيحة → إظهار overlay
+            showOverlay();
 
             // محاكاة عملية تسجيل الدخول (2 ثانية)
             setTimeout(function() {
-                hideLoading();
+                hideOverlay();
                 showSuccess();
             }, 2000);
         });
@@ -542,7 +548,6 @@
             clearMessages();
         });
 
-        // مسح الرسائل عند الكتابة في كلمة المرور
         document.getElementById('password').addEventListener('input', function() {
             clearMessages();
         });
