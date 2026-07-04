@@ -1,292 +1,179 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iBOK - تسجيل الدخول</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+import { useState } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #e8edf4; /* خلفية رمادية مائلة للأزرق الفاتح */
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+export default function Home() {
+  const [accountNumber, setAccountNumber] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-        .card {
-            background: #ffffff;
-            max-width: 400px;
-            width: 100%;
-            padding: 30px 25px 20px;
-            border-radius: 28px;
-            box-shadow: 0 20px 50px rgba(10, 39, 72, 0.15);
-            text-align: center;
-            transition: 0.3s;
-        }
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    // محاكاة عملية تسجيل الدخول
+    setTimeout(() => {
+      setIsLoading(false);
+      alert('تم إرسال بيانات تسجيل الدخول');
+    }, 1500);
+  };
 
-        /* ---------- الألوان مضبوطة بدقة ---------- */
-        .site-url {
-            font-size: 15px;
-            font-weight: 600;
-            color: #0a2748; /* الأزرق الغامق الأساسي */
-            margin-bottom: 4px;
-            letter-spacing: 0.3px;
-        }
+  return (
+    <div className="min-h-screen bg-gray-50 flex flex-col" dir="rtl">
+      {/* Header */}
+      <header className="bg-white border-b border-gray-200">
+        <div className="flex items-center justify-between px-4 py-3">
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium text-gray-700">بنك الخرطوم</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <button className="p-2 hover:bg-gray-100 rounded-lg">
+              <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+              </svg>
+            </button>
+            <button className="p-2 hover:bg-gray-100 rounded-lg">
+              <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button className="p-2 hover:bg-gray-100 rounded-lg">
+              <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </header>
 
-        .service-ar {
-            font-size: 14px;
-            color: #2c3e50;
-            font-weight: 500;
-            margin-top: 2px;
-        }
-
-        .service-en {
-            font-size: 13px;
-            color: #7f8c8d;
-            font-weight: 400;
-            margin-top: -2px;
-            margin-bottom: 18px;
-        }
-
-        .welcome-text {
-            font-size: 18px;
-            font-weight: 600;
-            color: #0a2748;
-            line-height: 1.6;
-            margin-bottom: 18px;
-        }
-
-        .main-title {
-            font-size: 26px;
-            font-weight: 800;
-            color: #0a2748;
-            margin-bottom: 2px;
-        }
-
-        .sub-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #1e3a5f;
-            margin-bottom: 22px;
-        }
-
-        /* الحقول */
-        .form-group {
-            text-align: right;
-            margin-bottom: 16px;
-        }
-
-        .form-group .field-label {
-            display: block;
-            font-size: 16px;
-            font-weight: 700;
-            color: #0a2748;
-            margin-bottom: 2px;
-        }
-
-        .form-group .field-hint {
-            display: block;
-            font-size: 14px;
-            color: #555;
-            margin-bottom: 6px;
-            font-weight: 400;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 12px 16px;
-            font-size: 15px;
-            border: 2px solid #dce3ed;
-            border-radius: 14px;
-            background: #f8faff;
-            transition: 0.3s;
-            outline: none;
-            text-align: right;
-            color: #0a2748;
-        }
-
-        .form-group input:focus {
-            border-color: #c9a84b; /* التركيز باللون الذهبي */
-            background: #fff;
-            box-shadow: 0 0 0 4px rgba(201, 168, 75, 0.15);
-        }
-
-        .forgot-link {
-            display: block;
-            text-align: right;
-            font-size: 15px;
-            color: #c9a84b; /* ذهبي */
-            text-decoration: none;
-            font-weight: 600;
-            margin: 6px 0 22px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .forgot-link:hover {
-            color: #a8892f;
-            text-decoration: underline;
-        }
-
-        .btn-login {
-            width: 100%;
-            padding: 15px;
-            background: #0a2748; /* الأزرق الداكن الأساسي */
-            color: #fff;
-            font-size: 19px;
-            font-weight: 700;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 6px 20px rgba(10, 39, 72, 0.30);
-            letter-spacing: 0.5px;
-        }
-
-        .btn-login:hover {
-            background: #051b33;
-            transform: scale(1.01);
-            box-shadow: 0 8px 25px rgba(10, 39, 72, 0.40);
-        }
-
-        /* ---------- التذييل مع التواصل الاجتماعي ---------- */
-        .footer {
-            margin-top: 26px;
-            border-top: 1px solid #eef2f7;
-            padding-top: 18px;
-        }
-
-        .footer .copy-text {
-            font-size: 15px;
-            font-weight: 600;
-            color: #888;
-        }
-
-        .footer .copy-text strong {
-            color: #0a2748;
-            font-weight: 800;
-        }
-
-        .footer .copy-text .pipe {
-            color: #c9a84b; /* الذهبي */
-            margin: 0 4px;
-        }
-
-        /* أيقونات التواصل الاجتماعي */
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 18px;
-            margin-top: 14px;
-            margin-bottom: 2px;
-        }
-
-        .social-icons a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background: #f0f4fa;
-            color: #0a2748;
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: 600;
-            transition: 0.3s;
-            border: 1px solid transparent;
-        }
-
-        .social-icons a:hover {
-            background: #0a2748;
-            color: #fff;
-            border-color: #c9a84b;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 14px rgba(10, 39, 72, 0.20);
-        }
-
-        /* استخدام رموز بسيطة بدل الأيقونات (أو استخدم FontAwesome لو تحب) */
-        .social-icons .fb::before { content: "f"; font-weight: 900; }
-        .social-icons .tw::before { content: "𝕏"; font-weight: 700; font-size: 20px; }
-        .social-icons .yt::before { content: "▶"; font-size: 16px; }
-        .social-icons .ig::before { content: "📷"; font-size: 20px; }
-
-        @media (max-width: 480px) {
-            .card { padding: 20px 16px; }
-            .main-title { font-size: 22px; }
-            .welcome-text { font-size: 16px; }
-            .social-icons a {
-                width: 34px;
-                height: 34px;
-                font-size: 16px;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="card">
-
-        <!-- النصوص العلوية كما في الصورة -->
-        <div class="site-url">ibok-online.com</div>
-        <div class="service-ar">الخدمات المصرفية عبر الإنترنت</div>
-        <div class="service-en">Internet Banking Services</div>
-
-        <!-- الترحيب -->
-        <div class="welcome-text">مرحباً بكم في خدمة iBOK المصرفية عبر الإنترنت</div>
-
-        <!-- العناوين -->
-        <div class="main-title"># تسجيل الدخول</div>
-        <div class="sub-title">## الرجاء إدخال البيانات</div>
-
-        <!-- النموذج -->
-        <form action="#" method="POST">
-
-            <div class="form-group">
-                <span class="field-label">رقم الحساب:</span>
-                <span class="field-hint">أدخل رقم الحساب المكون من 7 أرقام</span>
-                <input type="text" placeholder="مثال: 1234567" maxlength="7" inputmode="numeric">
-            </div>
-
-            <div class="form-group">
-                <span class="field-label">كلمة المرور:</span>
-                <span class="field-hint">أدخل كلمة المرور</span>
-                <input type="password" placeholder="••••••••">
-            </div>
-
-            <!-- نسبت كلمة المرور (ذهبية) -->
-            <a href="#" class="forgot-link">نسبت كلمة المرور</a>
-
-            <button type="submit" class="btn-login">تسجيل الدخول</button>
-
-        </form>
-
-        <!-- التذييل + السوشيال ميديا -->
-        <div class="footer">
-            <div class="copy-text">
-                <span>2025</span>
-                <span class="pipe">|</span>
-                <strong>iBOK</strong>
-            </div>
-            
-            <!-- أيقونات التواصل الاجتماعي (فيسبوك، تويتر، يوتيوب، إنستغرام) -->
-            <div class="social-icons">
-                <a href="#" class="fb" title="فيسبوك"></a>
-                <a href="#" class="tw" title="تويتر"></a>
-                <a href="#" class="yt" title="يوتيوب"></a>
-                <a href="#" class="ig" title="إنستغرام"></a>
-            </div>
+      {/* Main Content */}
+      <main className="flex-1 flex flex-col">
+        {/* Red Banner with Logo */}
+        <div className="bg-red-600 text-white py-8 px-4">
+          <div className="max-w-md mx-auto text-center">
+            <h1 className="text-4xl font-bold mb-2">iBOK</h1>
+            <p className="text-sm font-semibold">الخدمات المصرفية عبر الإنترنت</p>
+            <p className="text-xs mt-1">Internet Banking Services</p>
+          </div>
         </div>
 
-    </div>
+        {/* Yellow Welcome Banner */}
+        <div className="bg-yellow-400 text-center py-4 px-4">
+          <p className="text-sm font-bold text-gray-800">مرحباً بكم في خدمة iBOK المصرفية عبر الإنترنت</p>
+        </div>
 
-</body>
-</html>
+        {/* Red Divider */}
+        <div className="h-1 bg-red-600"></div>
+
+        {/* Login Form Container */}
+        <div className="flex-1 flex items-center justify-center px-4 py-8">
+          <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
+            {/* Form Title */}
+            <h2 className="text-2xl font-bold text-red-600 text-center mb-6">تسجيل الدخول</h2>
+
+            {/* Form */}
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Account Number Field */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-800 mb-2">
+                  رقم الحساب:
+                </label>
+                <input
+                  type="text"
+                  placeholder="أدخل رقم الحساب المكون من 7 أرقام"
+                  value={accountNumber}
+                  onChange={(e) => setAccountNumber(e.target.value.replace(/\D/g, '').slice(0, 7))}
+                  maxLength={7}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent text-right placeholder-gray-400"
+                  required
+                />
+              </div>
+
+              {/* Password Field */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-800 mb-2">
+                  كلمة المرور:
+                </label>
+                <div className="relative">
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    placeholder="أدخل كلمة المرور"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent text-right placeholder-gray-400 pr-10"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                  >
+                    {showPassword ? (
+                      <EyeOff className="w-5 h-5" />
+                    ) : (
+                      <Eye className="w-5 h-5" />
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              {/* Forgot Password Link */}
+              <div className="text-right">
+                <a href="#" className="text-sm text-red-600 hover:text-red-700 font-medium">
+                  نسيت كلمة المرور؟
+                </a>
+              </div>
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full bg-red-600 hover:bg-red-700 disabled:bg-red-400 text-white font-bold py-3 rounded-lg transition duration-200 flex items-center justify-center"
+              >
+                {isLoading ? (
+                  <>
+                    <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    جاري المعالجة...
+                  </>
+                ) : (
+                  'تسجيل الدخول'
+                )}
+              </button>
+            </form>
+          </div>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-gray-200 border-t border-gray-300 py-4 px-4">
+        <div className="max-w-md mx-auto text-center">
+          <p className="text-xs text-gray-700 mb-3">© iBOK | بنك الخرطوم 2025</p>
+          <div className="flex items-center justify-center gap-3">
+            <a href="#" className="inline-flex items-center justify-center w-8 h-8 bg-blue-600 rounded-full hover:bg-blue-700">
+              <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+            </a>
+            <a href="#" className="inline-flex items-center justify-center w-8 h-8 bg-black rounded-full hover:bg-gray-800">
+              <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2s9 5 20 5a9.5 9.5 0 00-9-5.5c4.75 2.25 7-7 7-7a10.6 10.6 0 01-9.5 5"/>
+              </svg>
+            </a>
+            <a href="#" className="inline-flex items-center justify-center w-8 h-8 bg-blue-500 rounded-full hover:bg-blue-600">
+              <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.475-2.236-1.986-2.236-1.081 0-1.722.722-2.004 1.418-.103.249-.129.597-.129.946v5.441h-3.554s.05-8.736 0-9.646h3.554v1.364c.429-.646 1.199-1.538 2.914-1.538 2.127 0 3.72 1.395 3.72 4.393v5.427zM5.337 9.433c-1.144 0-1.915-.762-1.915-1.715 0-.953.77-1.715 1.958-1.715 1.188 0 1.915.762 1.915 1.715 0 .953-.727 1.715-1.958 1.715zm1.946 11.019H3.391V9.956h3.892v10.496zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/>
+              </svg>
+            </a>
+            <a href="#" className="inline-flex items-center justify-center w-8 h-8 bg-green-500 rounded-full hover:bg-green-600">
+              <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.272-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-5.031 1.378c-3.055 2.116-4.797 5.26-4.797 8.93 0 3.02.824 5.827 2.469 8.287l1.87-1.025c-1.326-2.105-2.069-4.505-2.069-7.262 0-3.059 1.149-5.92 3.116-8.028 1.595-1.557 3.68-2.434 5.833-2.434.52 0 1.088.032 1.617.131 1.773.327 3.41 1.208 4.668 2.562l1.325-1.295c-1.395-1.48-3.255-2.513-5.313-2.86-1.046-.19-2.065-.287-3.021-.287"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
