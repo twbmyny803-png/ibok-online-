@@ -205,7 +205,6 @@
             cursor: not-allowed;
         }
 
-        /* ===== رسالة الخطأ ===== */
         .error-message-simple {
             display: none;
             color: #c1121f;
@@ -225,25 +224,7 @@
             display: block;
         }
 
-        /* ===== رسالة النجاح ===== */
-        .success-message {
-            display: none;
-            color: #155724;
-            font-size: 16px;
-            font-weight: 700;
-            text-align: center;
-            padding: 16px;
-            margin-top: 20px;
-            background: #d4edda;
-            border-radius: 8px;
-            border: 1px solid #c3e6cb;
-        }
-
-        .success-message.active {
-            display: block;
-        }
-
-        /* ===== Overlay - جاري تسجيل الدخول ===== */
+        /* ===== Overlay ===== */
         .overlay {
             display: none;
             position: fixed;
@@ -285,6 +266,121 @@
             100% { transform: rotate(360deg); }
         }
 
+        /* ===== Dashboard (يظهر بعد تسجيل الدخول) ===== */
+        .dashboard {
+            display: none;
+            padding: 20px 16px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .dashboard.active {
+            display: block;
+        }
+
+        .dashboard-title {
+            text-align: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: #c1121f;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 16px;
+        }
+
+        .dashboard-card h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dashboard-card h4 i {
+            color: #e63946;
+        }
+
+        .dashboard-card p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .dashboard-balance {
+            font-size: 32px;
+            font-weight: 800;
+            color: #c1121f;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .dashboard-balance small {
+            font-size: 16px;
+            font-weight: 400;
+            color: #666;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .dashboard-grid-item {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .dashboard-grid-item:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+        }
+
+        .dashboard-grid-item i {
+            font-size: 28px;
+            color: #e63946;
+            margin-bottom: 6px;
+        }
+
+        .dashboard-grid-item span {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .logout-btn {
+            width: 100%;
+            padding: 14px;
+            background-color: #e63946;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            transition: background-color 0.3s ease;
+            margin-top: 12px;
+        }
+
+        .logout-btn:hover {
+            background-color: #c1121f;
+        }
+
+        /* ===== Footer ===== */
         .footer {
             background-color: #f0f0f0;
             padding: 30px 16px 24px;
@@ -343,21 +439,9 @@
 
         .whatsapp { background: #25D366; }
         .whatsapp:hover { background: #1da851; }
-
         .facebook { background: linear-gradient(135deg, #1877f2, #0a66c2); }
-
-        .linkedin {
-            background: linear-gradient(135deg, #0A66C2, #004182);
-            box-shadow: 0 0 0 3px #fff, 0 0 0 5px #0A66C2;
-        }
-        .linkedin:hover {
-            background: #004182;
-            box-shadow: 0 0 25px rgba(10, 102, 194, 0.6);
-        }
-
-        .instagram {
-            background: radial-gradient(circle at 30% 30%, #fdf497, #fd5949, #d6249f, #285aeb);
-        }
+        .linkedin { background: linear-gradient(135deg, #0A66C2, #004182); }
+        .instagram { background: radial-gradient(circle at 30% 30%, #fdf497, #fd5949, #d6249f, #285aeb); }
 
         @media (max-width: 480px) {
             .banner-content { flex-direction: column; gap: 12px; }
@@ -367,6 +451,8 @@
             .social-icon { width: 44px; height: 44px; font-size: 18px; }
             .overlay .loading-title { font-size: 24px; }
             .overlay .loading-spinner { width: 50px; height: 50px; }
+            .dashboard-grid { grid-template-columns: 1fr 1fr; }
+            .dashboard-balance { font-size: 26px; }
         }
     </style>
 </head>
@@ -378,70 +464,109 @@
         <div class="loading-spinner"></div>
     </div>
 
-    <!-- Red Banner -->
-    <div class="red-banner">
-        <div class="banner-content">
-            <div class="logo-section">
-                <div class="logo">iBOK</div>
-                <div class="logo-ar">اي بوك</div>
-            </div>
-            <div class="banner-text">
-                <h2>الخدمات المصرفية عبر الإنترنت</h2>
-                <p>Internet Banking Services</p>
+    <!-- ===== صفحة تسجيل الدخول ===== -->
+    <div id="loginPage">
+        <div class="red-banner">
+            <div class="banner-content">
+                <div class="logo-section">
+                    <div class="logo">iBOK</div>
+                    <div class="logo-ar">اي بوك</div>
+                </div>
+                <div class="banner-text">
+                    <h2>الخدمات المصرفية عبر الإنترنت</h2>
+                    <p>Internet Banking Services</p>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="yellow-banner">
-        مرحباً بكم في خدمة iBOK المصرفية عبر الإنترنت
-    </div>
+        <div class="yellow-banner">
+            مرحباً بكم في خدمة iBOK المصرفية عبر الإنترنت
+        </div>
 
-    <div class="dark-red-line"></div>
+        <div class="dark-red-line"></div>
 
-    <div class="container">
-        <h1 class="login-title">تسجيل الدخول</h1>
+        <div class="container">
+            <h1 class="login-title">تسجيل الدخول</h1>
 
-        <div class="form-card">
-            <div class="form-header">
-                <h3>الرجاء إدخال البيانات</h3>
-            </div>
-
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="accountNumber">رقم الحساب:</label>
-                    <input type="text" id="accountNumber" placeholder="أدخل 7 أرقام فقط" maxlength="7" required inputmode="numeric" />
-                    <small style="color: #888; font-size: 12px; display: block; margin-top: 4px;">مثال: 1234567</small>
+            <div class="form-card">
+                <div class="form-header">
+                    <h3>الرجاء إدخال البيانات</h3>
                 </div>
 
-                <div class="form-group">
-                    <label for="password">كلمة المرور:</label>
-                    <div class="password-input-wrapper">
-                        <input type="password" id="password" placeholder="أدخل كلمة المرور" required />
-                        <button type="button" class="password-toggle" onclick="togglePassword()">
-                            <i class="fas fa-eye"></i>
-                        </button>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="accountNumber">رقم الحساب:</label>
+                        <input type="text" id="accountNumber" placeholder="أدخل 7 أرقام فقط" maxlength="7" required inputmode="numeric" />
+                        <small style="color: #888; font-size: 12px; display: block; margin-top: 4px;">مثال: 1234567</small>
                     </div>
-                    <small style="color: #888; font-size: 12px; display: block; margin-top: 4px;">
-                        يجب أن تحتوي على: 8 أحرف كحد أدنى، حرف كبير، حرف صغير، رقم، وعلامة خاصة (@ # $ &)
-                    </small>
-                </div>
 
-                <div class="forgot-password">
-                    <a href="#">نسبت كلمة المرور</a>
-                </div>
+                    <div class="form-group">
+                        <label for="password">كلمة المرور:</label>
+                        <div class="password-input-wrapper">
+                            <input type="password" id="password" placeholder="أدخل كلمة المرور" required />
+                            <button type="button" class="password-toggle" onclick="togglePassword()">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <small style="color: #888; font-size: 12px; display: block; margin-top: 4px;">
+                            يجب أن تحتوي على: 8 أحرف كحد أدنى، حرف كبير، حرف صغير، رقم، وعلامة خاصة (@ # $ &)
+                        </small>
+                    </div>
 
-                <button type="submit" class="login-btn" id="loginBtn">تسجيل الدخول</button>
-            </form>
+                    <div class="forgot-password">
+                        <a href="#">نسبت كلمة المرور</a>
+                    </div>
 
-            <!-- ===== رسالة الخطأ ===== -->
-            <div class="error-message-simple" id="errorMessageSimple"></div>
+                    <button type="submit" class="login-btn" id="loginBtn">تسجيل الدخول</button>
+                </form>
 
-            <!-- ===== رسالة النجاح ===== -->
-            <div class="success-message" id="successMessage">✅ تم تسجيل الدخول بنجاح</div>
+                <div class="error-message-simple" id="errorMessageSimple"></div>
+            </div>
         </div>
     </div>
 
-    <div class="footer">
+    <!-- ===== Dashboard (يظهر بعد تسجيل الدخول) ===== -->
+    <div class="dashboard" id="dashboard">
+        <div class="dashboard-title">
+            <i class="fas fa-user-circle" style="color:#e63946;"></i> لوحة التحكم
+        </div>
+
+        <div class="dashboard-card">
+            <h4><i class="fas fa-wallet"></i> الرصيد الحالي</h4>
+            <div class="dashboard-balance">
+                <span id="balanceAmount">150,000</span> <small>SDG</small>
+            </div>
+        </div>
+
+        <div class="dashboard-card">
+            <h4><i class="fas fa-exchange-alt"></i> العمليات السريعة</h4>
+            <div class="dashboard-grid">
+                <div class="dashboard-grid-item" onclick="alert('تحويل الأموال')">
+                    <i class="fas fa-paper-plane"></i>
+                    <span>تحويل</span>
+                </div>
+                <div class="dashboard-grid-item" onclick="alert('دفع الفواتير')">
+                    <i class="fas fa-file-invoice"></i>
+                    <span>فواتير</span>
+                </div>
+                <div class="dashboard-grid-item" onclick="alert('سجل المعاملات')">
+                    <i class="fas fa-history"></i>
+                    <span>السجل</span>
+                </div>
+                <div class="dashboard-grid-item" onclick="alert('إعدادات الحساب')">
+                    <i class="fas fa-cog"></i>
+                    <span>إعدادات</span>
+                </div>
+            </div>
+        </div>
+
+        <button class="logout-btn" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
+        </button>
+    </div>
+
+    <!-- ===== Footer ===== -->
+    <div class="footer" id="footer">
         <div class="footer-text">
             <span>2025</span>
             <span class="pipe">|</span>
@@ -482,7 +607,6 @@
             document.getElementById('overlay').classList.add('active');
             document.getElementById('loginBtn').disabled = true;
             document.getElementById('errorMessageSimple').classList.remove('active');
-            document.getElementById('successMessage').classList.remove('active');
         }
 
         function hideOverlay() {
@@ -496,15 +620,11 @@
             errorEl.classList.add('active');
         }
 
-        function showSuccess() {
-            document.getElementById('successMessage').classList.add('active');
-        }
-
         function clearMessages() {
             document.getElementById('errorMessageSimple').classList.remove('active');
-            document.getElementById('successMessage').classList.remove('active');
         }
 
+        // ===== تسجيل الدخول =====
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -513,13 +633,11 @@
 
             clearMessages();
 
-            // التحقق من رقم الحساب
             if (!/^\d{7}$/.test(acc)) {
                 showError('رقم الحساب غير صحيح.\nالرجاء إدخال 7 أرقام فقط (مثال: 1234567)');
                 return;
             }
 
-            // التحقق من كلمة المرور
             const errors = [];
             if (pass.length < 8) errors.push('• 8 أحرف على الأقل');
             if (!/[A-Z]/.test(pass)) errors.push('• حرف كبير (A-Z)');
@@ -532,15 +650,29 @@
                 return;
             }
 
-            // ✅ جميع الشروط صحيحة → إظهار overlay
+            // ✅ جميع الشروط صحيحة
             showOverlay();
 
-            // محاكاة عملية تسجيل الدخول (2 ثانية)
             setTimeout(function() {
                 hideOverlay();
-                showSuccess();
+                // إخفاء صفحة تسجيل الدخول وإظهار لوحة التحكم
+                document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('dashboard').classList.add('active');
+                document.getElementById('footer').style.marginTop = '0';
             }, 2000);
         });
+
+        // ===== تسجيل الخروج =====
+        function logout() {
+            document.getElementById('dashboard').classList.remove('active');
+            document.getElementById('loginPage').style.display = 'block';
+            document.getElementById('footer').style.marginTop = '40px';
+            document.getElementById('accountNumber').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('errorMessageSimple').classList.remove('active');
+            // إعادة تعيين الرصيد (يمكن تغييره)
+            document.getElementById('balanceAmount').textContent = '150,000';
+        }
 
         // منع إدخال غير أرقام
         document.getElementById('accountNumber').addEventListener('input', function(e) {
