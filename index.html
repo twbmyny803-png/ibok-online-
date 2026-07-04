@@ -96,13 +96,11 @@
             margin-bottom: 30px;
         }
 
-        /* -------- Form Card -------- */
         .form-card {
             background-color: white;
             border-radius: 16px;
             padding: 24px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
         }
 
         .form-header {
@@ -202,123 +200,26 @@
             background-color: #d62828;
         }
 
-        /* -------- Error Message (صندوق الخطأ) -------- */
-        .error-container {
+        /* ===== رسالة الخطأ البسيطة (بدون صندوق) ===== */
+        .error-message-simple {
             display: none;
-            background: #fff5f5;
-            border-right: 6px solid #e63946;
-            border-radius: 12px;
-            padding: 24px 20px;
-            margin-top: 20px;
-            box-shadow: 0 4px 16px rgba(230, 57, 70, 0.15);
-            transition: all 0.3s ease;
-        }
-
-        .error-container.active {
-            display: block;
-        }
-
-        .error-title {
-            font-size: 20px;
-            font-weight: 800;
             color: #c1121f;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .error-title i {
-            font-size: 24px;
-        }
-
-        .error-message {
-            font-size: 15px;
-            color: #333;
-            background: #fff;
-            padding: 14px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            padding: 12px;
+            margin-top: 20px;
+            background: #fff5f5;
             border-radius: 8px;
             border: 1px solid #ffe0e0;
-            margin: 12px 0 20px;
             line-height: 1.8;
             white-space: pre-line;
         }
 
-        .error-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            justify-content: center;
-            margin-top: 8px;
+        .error-message-simple.active {
+            display: block;
         }
 
-        .btn-retry {
-            background: #e63946;
-            color: white;
-            border: none;
-            padding: 10px 28px;
-            border-radius: 30px;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            font-family: 'Cairo', sans-serif;
-            transition: background 0.2s ease;
-            flex: 1 1 auto;
-            min-width: 120px;
-        }
-
-        .btn-retry:hover {
-            background: #c1121f;
-        }
-
-        .btn-share {
-            background: #0a66c2;
-            color: white;
-            border: none;
-            padding: 10px 28px;
-            border-radius: 30px;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            font-family: 'Cairo', sans-serif;
-            transition: background 0.2s ease;
-            flex: 1 1 auto;
-            min-width: 120px;
-        }
-
-        .btn-share:hover {
-            background: #004182;
-        }
-
-        /* روابط المساعدة في الأسفل (مثل الصورة) */
-        .help-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 24px;
-            padding-top: 16px;
-            border-top: 1px solid #eee;
-        }
-
-        .help-links a {
-            font-size: 13px;
-            color: #555;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        .help-links a:hover {
-            color: #e63946;
-        }
-
-        .help-links .highlight {
-            color: #c1121f;
-            font-weight: 700;
-        }
-
-        /* -------- Footer -------- */
         .footer {
             background-color: #f0f0f0;
             padding: 30px 16px 24px;
@@ -399,14 +300,11 @@
             .login-title { font-size: 24px; }
             .form-card { padding: 20px; }
             .social-icon { width: 44px; height: 44px; font-size: 18px; }
-            .error-title { font-size: 18px; }
-            .btn-retry, .btn-share { font-size: 13px; padding: 8px 16px; min-width: 100px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Red Banner -->
     <div class="red-banner">
         <div class="banner-content">
             <div class="logo-section">
@@ -429,7 +327,7 @@
     <div class="container">
         <h1 class="login-title">تسجيل الدخول</h1>
 
-        <div class="form-card" id="formCard">
+        <div class="form-card">
             <div class="form-header">
                 <h3>الرجاء إدخال البيانات</h3>
             </div>
@@ -437,32 +335,20 @@
             <form id="loginForm">
                 <div class="form-group">
                     <label for="accountNumber">رقم الحساب:</label>
-                    <input 
-                        type="text" 
-                        id="accountNumber" 
-                        placeholder="أدخل 7 أرقام فقط" 
-                        maxlength="7" 
-                        required 
-                        inputmode="numeric"
-                    />
+                    <input type="text" id="accountNumber" placeholder="أدخل 7 أرقام فقط" maxlength="7" required inputmode="numeric" />
                     <small style="color: #888; font-size: 12px; display: block; margin-top: 4px;">مثال: 1234567</small>
                 </div>
 
                 <div class="form-group">
                     <label for="password">كلمة المرور:</label>
                     <div class="password-input-wrapper">
-                        <input 
-                            type="password" 
-                            id="password" 
-                            placeholder="أدخل كلمة المرور" 
-                            required 
-                        />
+                        <input type="password" id="password" placeholder="أدخل كلمة المرور" required />
                         <button type="button" class="password-toggle" onclick="togglePassword()">
                             <i class="fas fa-eye"></i>
                         </button>
                     </div>
                     <small style="color: #888; font-size: 12px; display: block; margin-top: 4px;">
-                        يجب أن تحتوي على: 8 أحرف كحد أدنى، حرف كبير، حرف صغير، رقم، وعلامة خاصة (& $ # @)
+                        يجب أن تحتوي على: 8 أحرف كحد أدنى، حرف كبير، حرف صغير، رقم، وعلامة خاصة (@ # $ &)
                     </small>
                 </div>
 
@@ -473,30 +359,11 @@
                 <button type="submit" class="login-btn">تسجيل الدخول</button>
             </form>
 
-            <!-- ===== صندوق الخطأ (يظهر فقط عند الفشل) ===== -->
-            <div class="error-container" id="errorContainer">
-                <div class="error-title">
-                    <i class="fas fa-exclamation-circle"></i> خطأ
-                </div>
-                <div class="error-message" id="errorMessage">
-                    <!-- سيتم ملؤه بواسطة JavaScript -->
-                </div>
-                <div class="error-actions">
-                    <button class="btn-retry" onclick="retryLogin()">إعادة المحاولة</button>
-                    <button class="btn-share" onclick="shareError()">مشاركة رمز</button>
-                </div>
-                <!-- روابط المساعدة -->
-                <div class="help-links">
-                    <a href="#">فيس بوك</a>
-                    <a href="#">المساعدة</a>
-                    <a href="#">مواقعنا</a>
-                    <a href="#" class="highlight">بنك الخرطوم</a>
-                </div>
-            </div>
+            <!-- ===== رسالة الخطأ البسيطة ===== -->
+            <div class="error-message-simple" id="errorMessageSimple"></div>
         </div>
     </div>
 
-    <!-- ===== التذييل ===== -->
     <div class="footer">
         <div class="footer-text">
             <span>2025</span>
@@ -522,7 +389,6 @@
     </div>
 
     <script>
-        // إظهار / إخفاء كلمة المرور
         function togglePassword() {
             const input = document.getElementById('password');
             const icon = document.querySelector('.password-toggle i');
@@ -535,63 +401,32 @@
             }
         }
 
-        // منع إدخال غير أرقام في رقم الحساب
-        document.getElementById('accountNumber').addEventListener('input', function(e) {
-            this.value = this.value.replace(/\D/g, '');
-        });
-
-        // دالة عرض الخطأ
         function showError(message) {
-            document.getElementById('errorMessage').innerText = message;
-            document.getElementById('errorContainer').classList.add('active');
-            // إخفاء النموذج (اختياري) – نفضل إبقاء النموذج مرئياً مع تعتيم بسيط
-            document.querySelector('#loginForm').style.opacity = '0.4';
-            document.querySelector('#loginForm').style.pointerEvents = 'none';
+            const errorEl = document.getElementById('errorMessageSimple');
+            errorEl.innerText = message;
+            errorEl.classList.add('active');
         }
 
-        // دالة إعادة المحاولة
-        function retryLogin() {
-            document.getElementById('errorContainer').classList.remove('active');
-            document.querySelector('#loginForm').style.opacity = '1';
-            document.querySelector('#loginForm').style.pointerEvents = 'auto';
-            // تنظيف الحقول
-            document.getElementById('accountNumber').value = '';
-            document.getElementById('password').value = '';
-            document.getElementById('accountNumber').focus();
+        function clearError() {
+            document.getElementById('errorMessageSimple').classList.remove('active');
         }
 
-        // دالة مشاركة رمز (محاكاة)
-        function shareError() {
-            const msg = document.getElementById('errorMessage').innerText;
-            if (navigator.share) {
-                navigator.share({
-                    title: 'خطأ في تسجيل الدخول - iBOK',
-                    text: msg
-                }).catch(() => {});
-            } else {
-                // نسخ إلى الحافظة
-                navigator.clipboard.writeText(msg).then(() => {
-                    alert('تم نسخ رسالة الخطأ إلى الحافظة');
-                }).catch(() => {
-                    alert('رسالة الخطأ: ' + msg);
-                });
-            }
-        }
-
-        // عند إرسال النموذج
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const acc = document.getElementById('accountNumber').value.trim();
             const pass = document.getElementById('password').value;
 
-            // 1. التحقق من رقم الحساب (7 أرقام)
+            // مسح الخطأ السابق
+            clearError();
+
+            // التحقق من رقم الحساب
             if (!/^\d{7}$/.test(acc)) {
                 showError('رقم الحساب غير صحيح.\nالرجاء إدخال 7 أرقام فقط (مثال: 1234567)');
                 return;
             }
 
-            // 2. التحقق من شروط كلمة المرور القوية
+            // التحقق من كلمة المرور
             const errors = [];
             if (pass.length < 8) errors.push('• 8 أحرف على الأقل');
             if (!/[A-Z]/.test(pass)) errors.push('• حرف كبير (A-Z)');
@@ -604,11 +439,19 @@
                 return;
             }
 
-            // ✅ إذا اجتاز جميع الشروط
-            alert(`✅ تم تسجيل الدخول بنجاح\nرقم الحساب: ${acc}`);
-            // هنا يمكن إرسال البيانات إلى السيرفر
-            // إعادة تعيين الواجهة
-            retryLogin();
+            alert('✅ تم تسجيل الدخول بنجاح');
+        });
+
+        // منع إدخال غير أرقام
+        document.getElementById('accountNumber').addEventListener('input', function(e) {
+            this.value = this.value.replace(/\D/g, '');
+            // مسح الخطأ عند الكتابة
+            clearError();
+        });
+
+        // مسح الخطأ عند الكتابة في كلمة المرور
+        document.getElementById('password').addEventListener('input', function() {
+            clearError();
         });
     </script>
 
