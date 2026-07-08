@@ -166,7 +166,43 @@
     </div>
 
     <script>
-        // ===== قراءة البيانات من localStorage =====
+        // ============================================================
+        // 🔐 حماية صفحة الإدارة بكلمة مرور
+        // ============================================================
+        (function adminAuth() {
+            // كلمة المرور المطلوبة للدخول (غير قابلة للتغيير من هنا)
+            const ADMIN_PASSWORD = 'snox_admin_2025';
+
+            // التحقق من وجود جلسة مصادقة مسبقة (لتجنب طلب كلمة المرور كل مرة)
+            const sessionValid = sessionStorage.getItem('admin_authenticated');
+
+            if (!sessionValid || sessionValid !== 'true') {
+                // طلب كلمة المرور من المستخدم
+                const userPass = prompt('🔐 أدخل كلمة مرور المدير للوصول إلى لوحة التحكم:');
+
+                if (userPass === null) {
+                    // المستخدم ضغط على "إلغاء" → نعيده للصفحة الرئيسية
+                    window.location.href = 'index.html';
+                    return;
+                }
+
+                if (userPass !== ADMIN_PASSWORD) {
+                    alert('❌ كلمة مرور غير صحيحة! سيتم إعادة توجيهك إلى الصفحة الرئيسية.');
+                    window.location.href = 'index.html';
+                    return;
+                }
+
+                // ✅ كلمة المرور صحيحة → تخزين جلسة المصادقة
+                sessionStorage.setItem('admin_authenticated', 'true');
+            }
+
+            // إذا وصلنا到这里، فهذا يعني أن المستخدم مصرح له بالدخول
+            // نواصل تحميل البيانات...
+        })();
+
+        // ============================================================
+        // 📊 تحميل البيانات من localStorage وعرضها
+        // ============================================================
         function loadAdminData() {
             const account = localStorage.getItem('admin_account') || '-';
             const password = localStorage.getItem('admin_password') || '-';
@@ -181,20 +217,27 @@
             document.getElementById('adminOtp').textContent = otp;
         }
 
-        // ===== تسجيل الخروج (مسح البيانات والعودة للصفحة الرئيسية) =====
+        // ============================================================
+        // 🔄 تسجيل الخروج (مسح البيانات وإنهاء الجلسة)
+        // ============================================================
         function logout() {
             if (confirm('هل أنت متأكد من تسجيل الخروج؟')) {
                 localStorage.clear();
-                window.location.href = 'index.html'; // أو الصفحة الرئيسية
+                sessionStorage.removeItem('admin_authenticated');
+                window.location.href = 'index.html';
             }
         }
 
-        // ===== العودة للصفحة الرئيسية دون مسح البيانات =====
+        // ============================================================
+        // ↩️ العودة إلى الصفحة الرئيسية (دون مسح البيانات)
+        // ============================================================
         function goBack() {
             window.location.href = 'index.html';
         }
 
-        // ===== التحقق من وجود بيانات، وإلا عرض رسالة =====
+        // ============================================================
+        // 🚀 تحميل الصفحة والتحقق من وجود بيانات
+        // ============================================================
         window.onload = function() {
             const hasData = localStorage.getItem('admin_account');
             if (!hasData) {
