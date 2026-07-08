@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
-        /* ===== جميع الأنماط السابقة ===== */
+        /* كل الأنماط السابقة كما هي (لم تتغير) */
         * {
             margin: 0;
             padding: 0;
@@ -23,57 +23,29 @@
             line-height: 1.6;
         }
 
-        /* ===== تسجيل الدخول ===== */
-        #loginPage {
-            display: block;
-        }
-
+        #loginPage { display: block; }
         .red-banner {
             background-color: #e63946;
             padding: 20px 16px;
             text-align: center;
             color: white;
         }
-
         .banner-content {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 16px;
         }
-
         .logo-section {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-
-        .logo {
-            font-size: 32px;
-            font-weight: 800;
-            letter-spacing: -2px;
-        }
-
-        .logo-ar {
-            font-size: 24px;
-            font-weight: 700;
-        }
-
-        .banner-text {
-            text-align: right;
-        }
-
-        .banner-text h2 {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .banner-text p {
-            font-size: 12px;
-            font-weight: 500;
-        }
-
+        .logo { font-size: 32px; font-weight: 800; letter-spacing: -2px; }
+        .logo-ar { font-size: 24px; font-weight: 700; }
+        .banner-text { text-align: right; }
+        .banner-text h2 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+        .banner-text p { font-size: 12px; font-weight: 500; }
         .yellow-banner {
             background-color: #ffc107;
             padding: 16px;
@@ -82,18 +54,12 @@
             font-size: 14px;
             font-weight: 600;
         }
-
-        .dark-red-line {
-            height: 8px;
-            background-color: #c1121f;
-        }
-
+        .dark-red-line { height: 8px; background-color: #c1121f; }
         .container {
             padding: 40px 16px;
             max-width: 500px;
             margin: 0 auto;
         }
-
         .login-title {
             text-align: center;
             font-size: 28px;
@@ -101,31 +67,20 @@
             color: #c1121f;
             margin-bottom: 30px;
         }
-
         .form-card {
             background-color: white;
             border-radius: 16px;
             padding: 24px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-
         .form-header {
             text-align: center;
             margin-bottom: 24px;
             border-bottom: 3px solid #e63946;
             padding-bottom: 12px;
         }
-
-        .form-header h3 {
-            font-size: 16px;
-            font-weight: 700;
-            color: #333;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
+        .form-header h3 { font-size: 16px; font-weight: 700; color: #333; }
+        .form-group { margin-bottom: 20px; }
         .form-group label {
             display: block;
             font-size: 14px;
@@ -133,7 +88,6 @@
             color: #333;
             margin-bottom: 8px;
         }
-
         .form-group input {
             width: 100%;
             padding: 12px 14px;
@@ -145,17 +99,12 @@
             direction: ltr;
             text-align: right;
         }
-
         .form-group input:focus {
             outline: none;
             border-color: #e63946;
             background-color: white;
         }
-
-        .password-input-wrapper {
-            position: relative;
-        }
-
+        .password-input-wrapper { position: relative; }
         .password-toggle {
             position: absolute;
             left: 12px;
@@ -167,27 +116,15 @@
             color: #999;
             font-size: 18px;
         }
-
-        .password-toggle:hover {
-            color: #e63946;
-        }
-
-        .forgot-password {
-            text-align: right;
-            margin-bottom: 20px;
-        }
-
+        .password-toggle:hover { color: #e63946; }
+        .forgot-password { text-align: right; margin-bottom: 20px; }
         .forgot-password a {
             font-size: 12px;
             color: #e63946;
             text-decoration: none;
             font-weight: 500;
         }
-
-        .forgot-password a:hover {
-            text-decoration: underline;
-        }
-
+        .forgot-password a:hover { text-decoration: underline; }
         .login-btn {
             width: 100%;
             padding: 14px;
@@ -201,16 +138,8 @@
             font-family: 'Cairo', sans-serif;
             transition: background-color 0.3s ease;
         }
-
-        .login-btn:hover {
-            background-color: #d62828;
-        }
-
-        .login-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
+        .login-btn:hover { background-color: #d62828; }
+        .login-btn:disabled { opacity: 0.6; cursor: not-allowed; }
         .error-message-simple {
             display: none;
             color: #c1121f;
@@ -225,12 +154,9 @@
             line-height: 1.8;
             white-space: pre-line;
         }
+        .error-message-simple.active { display: block; }
 
-        .error-message-simple.active {
-            display: block;
-        }
-
-        /* ===== Overlay ===== */
+        /* Overlay */
         .overlay {
             display: none;
             position: fixed;
@@ -245,18 +171,13 @@
             flex-direction: column;
             text-align: center;
         }
-
-        .overlay.active {
-            display: flex;
-        }
-
+        .overlay.active { display: flex; }
         .overlay .loading-title {
             font-size: 28px;
             font-weight: 800;
             color: #c1121f;
             margin-bottom: 20px;
         }
-
         .overlay .loading-spinner {
             width: 60px;
             height: 60px;
@@ -266,49 +187,39 @@
             animation: spin 1s linear infinite;
             margin: 0 auto;
         }
-
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
 
-        /* ===== صفحة التحقق الأمني ===== */
+        /* صفحة التحقق الأمني */
         #securityPage {
             display: none;
             padding: 20px 16px 30px;
             max-width: 500px;
             margin: 0 auto;
         }
-
         .security-header {
             text-align: center;
             margin-bottom: 20px;
         }
-
         .security-header h1 {
             font-size: 28px;
             font-weight: 800;
             color: #c1121f;
         }
-
-        .security-header h1 i {
-            color: #e63946;
-            margin-left: 6px;
-        }
-
+        .security-header h1 i { color: #e63946; margin-left: 6px; }
         .security-header .sub {
             font-size: 14px;
             color: #666;
             margin-top: 4px;
         }
-
         .security-card {
             background: white;
             border-radius: 16px;
             padding: 24px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-
         .warning-box {
             background: #fff5f5;
             border-radius: 12px;
@@ -317,36 +228,24 @@
             margin-bottom: 20px;
             text-align: center;
         }
-
         .warning-box .title {
             font-weight: 700;
             color: #c1121f;
             font-size: 15px;
         }
-
-        .warning-box .title i {
-            color: #e63946;
-            margin-left: 6px;
-        }
-
+        .warning-box .title i { color: #e63946; margin-left: 6px; }
         .warning-box .desc {
             font-size: 13px;
             color: #555;
             margin-top: 6px;
         }
-
         .question-label {
             font-size: 15px;
             font-weight: 600;
             color: #333;
             margin: 16px 0 8px;
         }
-
-        .question-label i {
-            color: #e63946;
-            margin-left: 6px;
-        }
-
+        .question-label i { color: #e63946; margin-left: 6px; }
         .question-label small {
             font-weight: 400;
             color: #888;
@@ -354,7 +253,6 @@
             display: block;
             margin-top: 4px;
         }
-
         .question-box {
             background: #f8f9fa;
             border-radius: 8px;
@@ -365,7 +263,6 @@
             color: #333;
             font-size: 16px;
         }
-
         .security-card input {
             width: 100%;
             padding: 12px 14px;
@@ -377,20 +274,17 @@
             margin-bottom: 16px;
             text-align: right;
         }
-
         .security-card input:focus {
             outline: none;
             border-color: #e63946;
             background: white;
         }
-
         .security-actions {
             display: flex;
             gap: 12px;
             flex-wrap: wrap;
             margin: 16px 0;
         }
-
         .security-actions button {
             flex: 1;
             padding: 12px;
@@ -403,44 +297,16 @@
             transition: 0.3s;
             min-width: 100px;
         }
+        .btn-cancel { background: #f0f0f0; color: #555; }
+        .btn-cancel:hover { background: #e0e0e0; }
+        .btn-atm { background: #ffc107; color: #333; }
+        .btn-atm:hover { background: #e6a800; }
+        .btn-next { background: #0a66c2; color: white; }
+        .btn-next:hover { background: #004182; }
+        .btn-security { background: #e63946; color: white; }
+        .btn-security:hover { background: #c1121f; }
 
-        .btn-cancel {
-            background: #f0f0f0;
-            color: #555;
-        }
-
-        .btn-cancel:hover {
-            background: #e0e0e0;
-        }
-
-        .btn-atm {
-            background: #ffc107;
-            color: #333;
-        }
-
-        .btn-atm:hover {
-            background: #e6a800;
-        }
-
-        .btn-next {
-            background: #0a66c2;
-            color: white;
-        }
-
-        .btn-next:hover {
-            background: #004182;
-        }
-
-        .btn-security {
-            background: #e63946;
-            color: white;
-        }
-
-        .btn-security:hover {
-            background: #c1121f;
-        }
-
-        /* ===== رسالة الصراف الآلي ===== */
+        /* رسالة الصراف الآلي */
         .atm-overlay {
             display: none;
             position: fixed;
@@ -454,11 +320,7 @@
             align-items: center;
             text-align: center;
         }
-
-        .atm-overlay.active {
-            display: flex;
-        }
-
+        .atm-overlay.active { display: flex; }
         .atm-box {
             background: white;
             border-radius: 24px;
@@ -468,32 +330,23 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             animation: fadeIn 0.3s ease;
         }
-
         @keyframes fadeIn {
             from { transform: scale(0.9); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
-
-        .atm-box i {
-            font-size: 48px;
-            color: #ffc107;
-            margin-bottom: 16px;
-        }
-
+        .atm-box i { font-size: 48px; color: #ffc107; margin-bottom: 16px; }
         .atm-box .big-text {
             font-size: 28px;
             font-weight: 800;
             color: #c1121f;
             margin-bottom: 8px;
         }
-
         .atm-box .sub-text {
             font-size: 18px;
             font-weight: 600;
             color: #333;
             margin-bottom: 24px;
         }
-
         .atm-box .btn-close-atm {
             background: #e63946;
             color: white;
@@ -506,42 +359,31 @@
             font-family: 'Cairo', sans-serif;
             transition: 0.3s;
         }
+        .atm-box .btn-close-atm:hover { background: #c1121f; }
 
-        .atm-box .btn-close-atm:hover {
-            background: #c1121f;
-        }
-
-        /* ===== صفحة OTP ===== */
+        /* صفحة OTP */
         #otpPage {
             display: none;
             padding: 40px 16px 30px;
             max-width: 500px;
             margin: 0 auto;
         }
-
         .otp-header {
             text-align: center;
             margin-bottom: 24px;
         }
-
         .otp-header h1 {
             font-size: 28px;
             font-weight: 800;
             color: #c1121f;
         }
-
-        .otp-header h1 i {
-            color: #e63946;
-            margin-left: 6px;
-        }
-
+        .otp-header h1 i { color: #e63946; margin-left: 6px; }
         .otp-card {
             background: white;
             border-radius: 16px;
             padding: 24px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-
         .otp-timer {
             text-align: center;
             font-size: 20px;
@@ -550,31 +392,20 @@
             margin-bottom: 16px;
             direction: ltr;
         }
-
-        .otp-timer i {
-            color: #e63946;
-            margin-left: 8px;
-        }
-
+        .otp-timer i { color: #e63946; margin-left: 8px; }
         .otp-timer .time {
             background: #f8f9fa;
             padding: 4px 16px;
             border-radius: 30px;
             display: inline-block;
         }
-
         .otp-message {
             text-align: center;
             color: #555;
             font-size: 14px;
             margin-bottom: 20px;
         }
-
-        .otp-message i {
-            color: #e63946;
-            margin-left: 6px;
-        }
-
+        .otp-message i { color: #e63946; margin-left: 6px; }
         .otp-card input {
             width: 100%;
             padding: 12px 14px;
@@ -588,20 +419,17 @@
             letter-spacing: 4px;
             direction: ltr;
         }
-
         .otp-card input:focus {
             outline: none;
             border-color: #e63946;
             background: white;
         }
-
         .otp-actions {
             display: flex;
             gap: 12px;
             flex-wrap: wrap;
             margin-top: 8px;
         }
-
         .otp-actions button {
             flex: 1;
             padding: 12px;
@@ -614,40 +442,15 @@
             transition: 0.3s;
             min-width: 100px;
         }
+        .btn-resend { background: #0a66c2; color: white; }
+        .btn-resend:hover { background: #004182; }
+        .btn-resend:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-otp-cancel { background: #f0f0f0; color: #555; }
+        .btn-otp-cancel:hover { background: #e0e0e0; }
+        .btn-otp-submit { background: #e63946; color: white; }
+        .btn-otp-submit:hover { background: #c1121f; }
 
-        .btn-resend {
-            background: #0a66c2;
-            color: white;
-        }
-
-        .btn-resend:hover {
-            background: #004182;
-        }
-
-        .btn-resend:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .btn-otp-cancel {
-            background: #f0f0f0;
-            color: #555;
-        }
-
-        .btn-otp-cancel:hover {
-            background: #e0e0e0;
-        }
-
-        .btn-otp-submit {
-            background: #e63946;
-            color: white;
-        }
-
-        .btn-otp-submit:hover {
-            background: #c1121f;
-        }
-
-        /* ===== رسائل النظام (بديل alert) ===== */
+        /* رسائل النظام (بديل alert) */
         .system-message {
             display: none;
             padding: 14px 18px;
@@ -659,29 +462,22 @@
             border: 1px solid transparent;
             animation: fadeSlide 0.3s ease;
         }
-
         .system-message.error {
             background: #fff5f5;
             border-color: #ffe0e0;
             color: #c1121f;
         }
-
         .system-message.success {
             background: #d4edda;
             border-color: #c3e6cb;
             color: #155724;
         }
-
         .system-message.info {
             background: #e3f2fd;
             border-color: #bbdefb;
             color: #0d47a1;
         }
-
-        .system-message.active {
-            display: block;
-        }
-
+        .system-message.active { display: block; }
         @keyframes fadeSlide {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -697,7 +493,6 @@
             padding-top: 16px;
             border-top: 1px solid #e0e0e0;
         }
-
         .security-links a {
             font-size: 13px;
             color: #555;
@@ -705,44 +500,25 @@
             font-weight: 500;
             transition: 0.2s;
         }
+        .security-links a:hover { color: #e63946; }
+        .security-links .highlight { color: #c1121f; font-weight: 700; }
 
-        .security-links a:hover {
-            color: #e63946;
-        }
-
-        .security-links .highlight {
-            color: #c1121f;
-            font-weight: 700;
-        }
-
-        /* ===== Footer ===== */
+        /* Footer */
         .footer {
             background-color: #f0f0f0;
             padding: 30px 16px 24px;
             text-align: center;
             margin-top: 30px;
         }
-
         .footer-text {
             font-size: 15px;
             color: #333;
             margin-bottom: 20px;
             font-weight: 700;
         }
-
-        .footer-text .bank-name {
-            color: #c1121f;
-        }
-
-        .footer-text .ibok {
-            color: #e63946;
-        }
-
-        .footer-text .pipe {
-            color: #c9a84b;
-            margin: 0 4px;
-        }
-
+        .footer-text .bank-name { color: #c1121f; }
+        .footer-text .ibok { color: #e63946; }
+        .footer-text .pipe { color: #c9a84b; margin: 0 4px; }
         .social-icons {
             display: flex;
             justify-content: center;
@@ -750,7 +526,6 @@
             gap: 18px;
             flex-wrap: wrap;
         }
-
         .social-icon {
             width: 50px;
             height: 50px;
@@ -766,12 +541,10 @@
             border: none;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
-
         .social-icon:hover {
             transform: translateY(-6px) scale(1.05);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
         }
-
         .whatsapp { background: #25D366; }
         .whatsapp:hover { background: #1da851; }
         .facebook { background: linear-gradient(135deg, #1877f2, #0a66c2); }
@@ -888,7 +661,6 @@
 
             <input type="text" id="securityAnswer" placeholder="أدخل الجواب" />
 
-            <!-- رسالة النظام (بديل alert) -->
             <div class="system-message" id="securitySystemMessage"></div>
 
             <div class="security-actions">
@@ -936,7 +708,6 @@
 
             <input type="text" id="otpInput" placeholder="أدخل الرمز السري (OTP)" maxlength="6" inputmode="numeric" />
 
-            <!-- رسالة النظام (بديل alert) -->
             <div class="system-message" id="otpSystemMessage"></div>
 
             <div class="otp-actions">
@@ -973,13 +744,23 @@
     </div>
 
     <script>
-        // ===== الأسئلة =====
+        // ===== قائمة الأسئلة النهائية (15 سؤالاً بدون مكررات) =====
         const securityQuestions = [
             "ما هو اسم المدرسة التي التحقت بها؟",
             "اسم فريق كرة القدم المفضل لديك؟",
             "اسم الشركة المصنعة للسيارة المفضلة لديك؟",
             "اسم أفضل صديق في الطفولة؟",
-            "في أي مدينة ولدت؟"
+            "في أي مدينة ولدت؟",
+            "في اي سنة تزوجت؟",
+            "ما اسم ابن عمك الأول؟",
+            "في اي سنة تخرجت من الجامعة؟",
+            "ماذا كان لقبك اثناء الطفولة؟",
+            "اسم مؤلفك المفضل؟",
+            "اي فيلم هو المفضل لديك؟",
+            "في اي عام حصلت علي رخصة القيادة الخاصة بك؟",
+            "العلامة التجارية لأول تلفزيون خاص بك؟",
+            "اسم اول بلد قم بزيارته؟",
+            "ما هي ماركة سيارتك الاولي؟"
         ];
 
         let currentQuestionIndex = 0;
@@ -991,7 +772,6 @@
             const el = document.getElementById(elementId);
             el.textContent = message;
             el.className = 'system-message active ' + type;
-            // إخفاء تلقائي بعد 5 ثوانٍ للرسائل الإعلامية والنجاح
             if (type === 'info' || type === 'success') {
                 setTimeout(() => {
                     el.classList.remove('active');
@@ -1025,7 +805,6 @@
                 showSystemMessage('securitySystemMessage', 'الرجاء إدخال الإجابة على سؤال الأمان', 'error');
                 return;
             }
-            // عرض رسالة نجاح ثم الانتقال
             showSystemMessage('securitySystemMessage', '✅ تم التحقق من الإجابة بنجاح', 'success');
             setTimeout(() => {
                 document.getElementById('securityPage').style.display = 'none';
@@ -1038,7 +817,6 @@
 
         // ===== إلغاء =====
         function cancelSecurity() {
-            // بدون تأكيد، تنفيذ الإلغاء مباشرة
             document.getElementById('securityPage').style.display = 'none';
             document.getElementById('loginPage').style.display = 'block';
             document.getElementById('footer').style.marginTop = '30px';
@@ -1128,7 +906,6 @@
                 return;
             }
             showSystemMessage('otpSystemMessage', '✅ تم التحقق بنجاح!', 'success');
-            // هنا يمكن إضافة توجيه للوحة التحكم بعد فترة
         }
 
         // ===== إظهار/إخفاء كلمة المرور =====
@@ -1156,7 +933,6 @@
             document.getElementById('loginBtn').disabled = false;
         }
 
-        // ===== رسائل الخطأ في تسجيل الدخول =====
         function showError(message) {
             const errorEl = document.getElementById('errorMessageSimple');
             errorEl.innerText = message;
